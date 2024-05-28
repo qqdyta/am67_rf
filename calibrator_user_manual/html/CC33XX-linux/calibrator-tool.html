@@ -1,0 +1,1205 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Calibrator Tool Guide &mdash; CC33XX™ Linux User&#39;s Guide 01.00.00.03 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Driver Debug Guide" href="driver-debug-guide.html" />
+    <link rel="prev" title="CC33Conf Tool Guide" href="CC33conf-tool.html" />
+    <script language="JavaScript">
+        var tiPageName;
+        tiPageName = "sug CC33XX-linux calibrator-tool";
+
+        if (location.protocol == "file:"){
+            var ci_analytics_poc_load = true;
+        }
+    </script>
+
+    <script src="http://www.ti.com/assets/js/headerfooter/analytics.js" type="text/javascript" charset="utf-8"></script>
+
+
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for TI beyond RTD Sphinx Theme --->
+<div class="DocSite-globalNav tiNav">
+    <ul>
+    </ul>
+</div>
+
+<a class="DocSite-nav" href="https://www.ti.com" style="padding-bottom: 85px;">
+  <img class="DocSiteNav-logo"
+    src="../_static/img/ti_logo.png"
+    alt="TI Logo">
+  <div class="DocSiteNav-title"></div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index-linux.html" class="icon icon-home" alt="Documentation Home"> CC33XX™ Linux User's Guide
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                01.00.00.03
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro-linux.html">Introduction to the CC33xx Linux Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html#beaglebone-black-and-bp-cc3301">Beaglebone Black and BP-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html#sk-am62b-p1-and-m2-cc3301">SK-AM62B-P1 and M2-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html#i-mx-8m-plus-evaluation-kit-and-m2-cc3301">i.MX 8M Plus Evaluation Kit and M2-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sw-examples/software-examples.html">Software Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration-guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CC33conf-tool.html">CC33Conf Tool Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Calibrator Tool Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enable-plt-mode">Enable PLT Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tune-channel">Tune Channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-calibration">Manual Calibration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transmit-chain-parameters">Transmit Chain Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tx-parameters">TX Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tx-trigger-based-parameters">TX Trigger-Based Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tx-tone-start-and-stop">TX Tone Start and Stop</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#receive-chain-parameters">Receive Chain Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#enable-start-rx-statistics-test">Enable/Start RX Statistics Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disable-stop-rx-statistics-test">Disable/Stop RX Statistics Test</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#debug-commands">Debug Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#acronyms">Acronyms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="driver-debug-guide.html">Driver Debug Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CC33XX/Coexistence.html">CC33xx Coexistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CC33XX/BP-CC3301_HW_UserGuide.html">CC3301 BoosterPack Hardware User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+            
+          
+          <!-- extra nav elements for TI beyond RTD Sphinx Theme --->
+<div id="sideBanner">
+    <br/>
+    <br/><br/><br/>
+</div>
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-linux.html">CC33XX™ Linux User's Guide</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index-linux.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Calibrator Tool Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="calibrator-tool-guide">
+<h1>Calibrator Tool Guide<a class="headerlink" href="#calibrator-tool-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The CC33xx Linux driver provides the calibrator tool to configure the CC33xx device for various transmit
+and receive operations enabling measurement of RF performance of the device-under-test. The calibrator tool
+also provides an easy way to select the desired channel and power level. This enables the RF verification both in
+the lab and at certification test houses to perform the regulatory conformance tests and measure spectrum mask
+on the final product that is running the CC33xx driver on a Linux platform. The Calibrator tool can also be used
+for production line testing.</p>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">In order for the calibrator tool to operate, kernel and modules must be compiled with <code class="docutils literal notranslate"><span class="pre">CONFIG_NL80211_TESTMODE=y</span></code>.
+This can be verified using the below command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@am335x-evm:/usr/share/cc33xx# zcat /proc/config.gz <span class="p">|</span> grep NL80211_TESTMODE
+</pre></div>
+</div>
+<p>The command output should be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONFIG_NL80211_TESTMODE</span><span class="o">=</span>y
+</pre></div>
+</div>
+<p>If the configuration is not enabled in the driver, the kernel and kernel modules need to be recompiled and
+installed to the device. For more information on how to enable this flag and integrate the changes, see the
+<a class="reference internal" href="getting-started/getting-started-linux.html#linux-getting-started"><span class="std std-ref">Getting Started Guide</span></a> in the CC33xx Linux Software Package.</p>
+</li>
+<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> interface must be shut down. If the interface is already running then run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig wlan0 down
+</pre></div>
+</div>
+<p>to disable the <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> interface. Verify the <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> interface is disabled by running the <code class="docutils literal notranslate"><span class="pre">ifconfig</span></code> command again.
+The <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> interface should no longer be part of the output.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="enable-plt-mode">
+<h3>Enable PLT Mode<a class="headerlink" href="#enable-plt-mode" title="Permalink to this headline">¶</a></h3>
+<p>Before running any of the commands, the device and the driver needs to be configured in Production Line Test
+(PLT) mode. Use the following commands to configure the device to PLT mode:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 plt power_mode on
+</pre></div>
+</div>
+</div></blockquote>
+<p>To exit PLT Mode use the below command:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 plt power_mode off
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="tune-channel">
+<h3>Tune Channel<a class="headerlink" href="#tune-channel" title="Permalink to this headline">¶</a></h3>
+<p>The purpose of the <code class="docutils literal notranslate"><span class="pre">tune_channel</span></code> command is to configure the CC33xx device to operate in a specific Wi-Fi
+band and channel. The <code class="docutils literal notranslate"><span class="pre">tune_channel</span></code> command can be called using the following format:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt tune_channel &lt;CHAN&gt; &lt;BAND&gt; &lt;BANDWIDTH&gt;
+</pre></div>
+</div>
+<p>Where each argument is defined as the following:</p>
+<span id="tune-table"></span><table border="1" class="docutils align-center" id="table-1">
+<caption><span class="caption-number">Table 2 </span><span class="caption-text">Parameters for <strong>tune_channel</strong> Command</span><a class="headerlink" href="#table-1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="22%" />
+<col width="16%" />
+<col width="61%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Parameter</td>
+<td>Option</td>
+<td>Description</td>
+</tr>
+<tr class="row-even"><td rowspan="2">TX</td>
+<td>0</td>
+<td>Don’t Trigger TX Calibration</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>Trigger TX Calibration</td>
+</tr>
+<tr class="row-even"><td rowspan="2">RX</td>
+<td>0</td>
+<td>Don’t Trigger RX Calibration</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>Trigger RX Calibration</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Channel tune must be executed before any other calibrator activities. There is are no default channel tune parameters, thus they must be set before executing anything else.</p>
+</div>
+<p><strong>Example</strong></p>
+<p>The following <code class="docutils literal notranslate"><span class="pre">tune_channel</span></code> command configures the chip to operate in the 2.4 GHz band on channel 6:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt tune_channel <span class="m">6</span> <span class="m">0</span> <span class="m">0</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="manual-calibration">
+<h3>Manual Calibration<a class="headerlink" href="#manual-calibration" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">set_manual_calib</span></code> command triggers the calibration process to optimize PHY performance and should be run after the <code class="docutils literal notranslate"><span class="pre">tune_channel</span></code> command. This should be rerun any time the <code class="docutils literal notranslate"><span class="pre">tune_channel</span></code> command
+is rerun and prior to running the commands that set parameters.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt set_manual_calib -tx &lt;TX&gt; -rx &lt;RX&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<span id="set-manual-calib-table"></span><table border="1" class="docutils align-center" id="table-2">
+<caption><span class="caption-number">Table 3 </span><span class="caption-text">Parameters for <strong>set_manual_calib</strong> Command</span><a class="headerlink" href="#table-2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="24%" />
+<col width="22%" />
+<col width="53%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Parameter</td>
+<td>Option</td>
+<td>Description</td>
+</tr>
+<tr class="row-even"><td rowspan="2">CHAN</td>
+<td>1 - 14</td>
+<td>2.4 GHz Wi-Fi Channels</td>
+</tr>
+<tr class="row-odd"><td>34 - 180</td>
+<td>5 GHz Wi-Fi Channels</td>
+</tr>
+<tr class="row-even"><td rowspan="2">BAND</td>
+<td>0</td>
+<td>2.4 GHz Wi-Fi Band</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>5 GHz Wi-Fi Band</td>
+</tr>
+<tr class="row-even"><td>BANDWIDTH</td>
+<td>0</td>
+<td>Bandwidth Allocation</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="transmit-chain-parameters">
+<h3>Transmit Chain Parameters<a class="headerlink" href="#transmit-chain-parameters" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="tx-parameters">
+<h4>TX Parameters<a class="headerlink" href="#tx-parameters" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">set_tx</span></code> command can control the entire TX datapath and front-end on the CC33xx device. This command is
+able to set preamble types, phy datarates, output power, control the number of data packets to transmit and the
+data value within the packets, and many other functions.</p>
+<p>Default TX settings are described in <a class="reference internal" href="#default-set-tx-table"><span class="std std-numref">Table 5</span></a> and can be enabled with the command:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt set_tx -default <span class="m">0</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The full command format is provided below. Please note that it is not necessary
+to include every argument in the <code class="docutils literal notranslate"><span class="pre">set_tx</span></code> command.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt set_tx
+    -preamble_type &lt;PREAMBLE_TYPE&gt;
+    -phy_rate &lt;PHY_RATE&gt;
+    -tx_power &lt;TX_POWER&gt;
+    -gi_ltf_type &lt;GI_LTF_TYPE&gt;
+    -dcm &lt;DCM&gt;
+    -length &lt;LENGTH&gt;
+    -delay &lt;DELAY&gt;
+    -pkt_mode &lt;PACKET_MODE&gt;
+    -num_pkts &lt;NUM_PACKETS&gt;
+    -data_mode &lt;DATA_MODE&gt;
+    -data_const_val &lt;DATA_VALUE&gt;
+    -cca &lt;CCA&gt;
+    -bss_color &lt;BSS_COLOR&gt;
+    -su_er_bw &lt;SU_ER_BW&gt;
+    -partial_aid &lt;PARTIAL_AID&gt;
+    -src_addr &lt;SRC_ADDR&gt;
+    -dst_addr &lt;DST_ADDR&gt;
+    -nominal_pkt_ext &lt;PKT_EXT&gt;
+    -feed_status &lt;FEED_STATUS&gt;
+    -aid &lt;AID&gt;
+    -group_id &lt;G_ID&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>The arguments are defined in the table below:</p>
+<span id="params-set-tx-table"></span><table border="1" class="docutils align-center" id="table-3">
+<caption><span class="caption-number">Table 4 </span><span class="caption-text">Parameters for <strong>set_tx</strong> Command</span><a class="headerlink" href="#table-3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="29%" />
+<col width="16%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Parameter</strong></th>
+<th class="head">Options</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="11">PREAMBLE_TYPE</td>
+<td>0</td>
+<td>11b short preamble</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>11b long preamble</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>11a/g legacy OFDM</td>
+</tr>
+<tr class="row-odd"><td>3</td>
+<td>11n mixed mode</td>
+</tr>
+<tr class="row-even"><td>4</td>
+<td>11n GF (not supported)</td>
+</tr>
+<tr class="row-odd"><td>5</td>
+<td>11ax SU</td>
+</tr>
+<tr class="row-even"><td>6</td>
+<td>11ax MU (not supported)</td>
+</tr>
+<tr class="row-odd"><td>7</td>
+<td>11ax SU ER</td>
+</tr>
+<tr class="row-even"><td>8</td>
+<td>11ax TB</td>
+</tr>
+<tr class="row-odd"><td>9</td>
+<td>11ax TB NDP FB</td>
+</tr>
+<tr class="row-even"><td>10</td>
+<td>11ac VHT (5 GHz Only)</td>
+</tr>
+<tr class="row-odd"><td rowspan="20">PHY_RATE</td>
+<td>1</td>
+<td>1 Mbps</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>2 Mbps</td>
+</tr>
+<tr class="row-odd"><td>3</td>
+<td>5.5 Mbps</td>
+</tr>
+<tr class="row-even"><td>4</td>
+<td>11 Mbps</td>
+</tr>
+<tr class="row-odd"><td>5</td>
+<td>6 Mbps</td>
+</tr>
+<tr class="row-even"><td>6</td>
+<td>9 Mbps</td>
+</tr>
+<tr class="row-odd"><td>7</td>
+<td>12 Mbps</td>
+</tr>
+<tr class="row-even"><td>8</td>
+<td>18 Mbps</td>
+</tr>
+<tr class="row-odd"><td>9</td>
+<td>24 Mbps</td>
+</tr>
+<tr class="row-even"><td>10</td>
+<td>36 Mbps</td>
+</tr>
+<tr class="row-odd"><td>11</td>
+<td>48 Mbps</td>
+</tr>
+<tr class="row-even"><td>12</td>
+<td>54 Mbps</td>
+</tr>
+<tr class="row-odd"><td>13</td>
+<td>MCS0</td>
+</tr>
+<tr class="row-even"><td>14</td>
+<td>MCS1</td>
+</tr>
+<tr class="row-odd"><td>15</td>
+<td>MCS2</td>
+</tr>
+<tr class="row-even"><td>16</td>
+<td>MCS3</td>
+</tr>
+<tr class="row-odd"><td>17</td>
+<td>MCS4</td>
+</tr>
+<tr class="row-even"><td>18</td>
+<td>MCS5</td>
+</tr>
+<tr class="row-odd"><td>19</td>
+<td>MCS6</td>
+</tr>
+<tr class="row-even"><td>20</td>
+<td>MCS7</td>
+</tr>
+<tr class="row-odd"><td>TX_POWER</td>
+<td>0-30</td>
+<td>Integer value with a range of -10 dBm to 20 dBm with 1 dB steps</td>
+</tr>
+<tr class="row-even"><td rowspan="6">GI_LTF_TYPE</td>
+<td>0</td>
+<td>1xLTF + 1.6 µs GI</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>2xLTF + 1.6 µs GI</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>4xLTF + 3.2 µs GI</td>
+</tr>
+<tr class="row-odd"><td>3</td>
+<td>2xLTF + 0.8 µs GI</td>
+</tr>
+<tr class="row-even"><td>4</td>
+<td>1xLTF + 0.8 µs GI</td>
+</tr>
+<tr class="row-odd"><td>5</td>
+<td>4xLTF + 0.8µs GI</td>
+</tr>
+<tr class="row-even"><td rowspan="2">DCM</td>
+<td>0</td>
+<td>Disable DCM</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>Enable DCM</td>
+</tr>
+<tr class="row-even"><td>LENGTH: range &lt;start_length&gt; &lt;end_length&gt;</td>
+<td>100-3500</td>
+<td>Number of data bytes excluding MAC 802.11 header.
+“Range” string in LENGTH requires arguments of &lt;start_length&gt; and &lt;end_length&gt;.
+This is only supported in Continuous Mode or PACKET_MODE &lt;0&gt;.
+-length range 0 100</td>
+</tr>
+<tr class="row-odd"><td>LENGTH: const packet &lt;length&gt;</td>
+<td>Non MCS rate: 0 - 3500
+MCS rate: 0 - 16000</td>
+<td>Number of data bytes excluding MAC 802.11 header. The “const packet” string in
+LENGTH requires argument of &lt;length&gt;
+-length const packet 2000</td>
+</tr>
+<tr class="row-even"><td>DELAY</td>
+<td>50 - 1000000</td>
+<td>Delay between packets (µs)</td>
+</tr>
+<tr class="row-odd"><td rowspan="3">PACKET_MODE</td>
+<td>0</td>
+<td>Continuous mode - transmits packets continuously until TX_STOP command is sent</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>Transmits a single packet</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>&lt;NUM_PKTS&gt; is required if using this packet mode
+Transmits &lt;NUM_PKTS&gt; packets</td>
+</tr>
+<tr class="row-even"><td>NUM_PACKETS</td>
+<td>1 - 10000</td>
+<td>Used when &lt;PKT_MODE&gt; = 2
+Specifies number of packets to send</td>
+</tr>
+<tr class="row-odd"><td rowspan="3">DATA_MODE</td>
+<td>0</td>
+<td>&lt;DATA_VAL&gt; is required if using this data mode
+Constant value</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>Increment value</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>Random value</td>
+</tr>
+<tr class="row-even"><td>DATA_VALUE</td>
+<td>0 - 255</td>
+<td>Required if &lt;DATA_MODE&gt; is 0
+Data value used in all packets</td>
+</tr>
+<tr class="row-odd"><td rowspan="2">CCA</td>
+<td>0</td>
+<td>Disable CCA</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>Enable CCA</td>
+</tr>
+<tr class="row-odd"><td>BSS_COLOR</td>
+<td>0 - 63</td>
+<td>This field is relevant for HE_SU and HE_SU_ER</td>
+</tr>
+<tr class="row-even"><td rowspan="2">SU_ER_BW</td>
+<td>0</td>
+<td>242-tone RU</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>106-tone RU</td>
+</tr>
+<tr class="row-even"><td>PARTIAL_AID</td>
+<td>0 - 1023</td>
+<td>This relevant for VHT transmission</td>
+</tr>
+<tr class="row-odd"><td>SRC_ADDR</td>
+<td>xx:xx:xx:xx:xx:xx</td>
+<td>Source MAC Address</td>
+</tr>
+<tr class="row-even"><td>DEST_ADDR</td>
+<td>xx:xx:xx:xx:xx:xx</td>
+<td>Destination MAC Address</td>
+</tr>
+<tr class="row-odd"><td rowspan="3">PKT_EXT</td>
+<td>0</td>
+<td>0 µs</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>8 µs</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>16 µs</td>
+</tr>
+<tr class="row-even"><td>FEED_STATUS</td>
+<td>0 / 1</td>
+<td>Indicates the value of the one bit used to modulate the tones in each tone set.
+This field is relevant for HE TB NDP FB transmissions only.</td>
+</tr>
+<tr class="row-odd"><td>AID</td>
+<td>0 - 16383</td>
+<td>AID of station can be up to 16383 (14 bits)</td>
+</tr>
+<tr class="row-even"><td>G_ID</td>
+<td>0</td>
+<td>(not supported)</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="set-tx-default-parameters">
+<h5>Set_TX Default Parameters<a class="headerlink" href="#set-tx-default-parameters" title="Permalink to this headline">¶</a></h5>
+<span id="default-set-tx-table"></span><table border="1" class="docutils align-center" id="table-4">
+<caption><span class="caption-number">Table 5 </span><span class="caption-text">Default Settings for <strong>set_tx</strong> Command</span><a class="headerlink" href="#table-4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="21%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PREAMBLE_TYPE</td>
+<td>2</td>
+<td>11a/g legacy OFDM</td>
+</tr>
+<tr class="row-odd"><td>PHY_RATE</td>
+<td>5</td>
+<td>6 Mbps</td>
+</tr>
+<tr class="row-even"><td>TX_POWER</td>
+<td>0</td>
+<td>-10 dBm</td>
+</tr>
+<tr class="row-odd"><td>GI_LTF_TYPE</td>
+<td>2</td>
+<td>4xLTF + 3.2 µs GI</td>
+</tr>
+<tr class="row-even"><td>DCM</td>
+<td>0</td>
+<td>Disable DCM</td>
+</tr>
+<tr class="row-odd"><td>LENGTH</td>
+<td>100</td>
+<td>100 data bytes</td>
+</tr>
+<tr class="row-even"><td>DELAY</td>
+<td>3000</td>
+<td>3000 µs delay between packets</td>
+</tr>
+<tr class="row-odd"><td>PACKET_MODE</td>
+<td>0</td>
+<td>Continuous mode</td>
+</tr>
+<tr class="row-even"><td>NUM_PACKETS</td>
+<td>300</td>
+<td>N/A when PACKET_MODE = 0 (Continuous Mode)</td>
+</tr>
+<tr class="row-odd"><td>DATA_MODE</td>
+<td>2</td>
+<td>Random Value</td>
+</tr>
+<tr class="row-even"><td>DATA_VALUE</td>
+<td>0x55</td>
+<td>N/A when DATA_MODE = 2 (Random Value)</td>
+</tr>
+<tr class="row-odd"><td>CCA</td>
+<td>1</td>
+<td>Enable CCA</td>
+</tr>
+<tr class="row-even"><td>BSS_COLOR</td>
+<td>13</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SU_ER_BW</td>
+<td>0</td>
+<td>242-tone RU</td>
+</tr>
+<tr class="row-even"><td>P_AID</td>
+<td>15</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SRC_ADDR</td>
+<td>0x665544332222</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>DEST_ADDR</td>
+<td>0x060504030202</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>PACKET_EXT</td>
+<td>1</td>
+<td>8 µs</td>
+</tr>
+<tr class="row-even"><td>FEED_STATUS</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>AID</td>
+<td>11</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>G_ID</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="tx-trigger-based-parameters">
+<h4>TX Trigger-Based Parameters<a class="headerlink" href="#tx-trigger-based-parameters" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">set_tb_tx</span></code> command is used to set the trigger based transmission parameters in the CC33xx device.
+The <code class="docutils literal notranslate"><span class="pre">set_tb_tx</span></code> command is formatted as such:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt set_tb_tx
+-mimo_ltf_mode &lt;MIMO_MODE&gt;
+-he_ltf_num &lt;NUM_HE_LTF&gt;
+-disamb &lt;DISAMB&gt;
+-pre_fec_padding_factor &lt;PRE_FACTOR&gt;
+-common_info_len &lt;COMMON_LEN&gt;
+-ru_alloc &lt;RU_ALLOC&gt;
+-ul_bw &lt;UL_BW&gt;
+-starts_sts_num &lt;STS_NUM&gt;
+-tb_auto &lt;TB_AUTO&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>The arguments are defined below:</p>
+<span id="params-set-tb-tx-table"></span><table border="1" class="docutils align-center" id="table-5">
+<caption><span class="caption-number">Table 6 </span><span class="caption-text">Parameters for <strong>set_tb_tx</strong> Command</span><a class="headerlink" href="#table-5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="26%" />
+<col width="17%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="2">MIMO_MODE</td>
+<td>0</td>
+<td>Single stream mode</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>Masked mode</td>
+</tr>
+<tr class="row-even"><td rowspan="5">NUM_HE_LTF</td>
+<td>0</td>
+<td>1 HE LTF</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>2 HE LTF</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>4 HE LTF</td>
+</tr>
+<tr class="row-odd"><td>3</td>
+<td>6 HE LTF</td>
+</tr>
+<tr class="row-even"><td>4</td>
+<td>8 HE LTF</td>
+</tr>
+<tr class="row-odd"><td rowspan="2">DISAMB</td>
+<td>0</td>
+<td>No disambiguity</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>With disambiguity</td>
+</tr>
+<tr class="row-odd"><td>PRE_FACTOR</td>
+<td>0 - 7</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>COMMON_LEN</td>
+<td>&#160;</td>
+<td>PSDU Length</td>
+</tr>
+<tr class="row-odd"><td>RU_ALLOC</td>
+<td>0 - 60</td>
+<td>Resource Unit Allocation</td>
+</tr>
+<tr class="row-even"><td rowspan="3">UL_BW</td>
+<td>0</td>
+<td>20 MHz</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>40 MHz</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>80 MHz</td>
+</tr>
+<tr class="row-odd"><td>STS_NUM</td>
+<td>0 - 3</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td rowspan="2">TB_AUTO</td>
+<td>0</td>
+<td>Disabled</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>Enabled</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tx-tone-start-and-stop">
+<h4>TX Tone Start and Stop<a class="headerlink" href="#tx-tone-start-and-stop" title="Permalink to this headline">¶</a></h4>
+<p>The purpose of the <code class="docutils literal notranslate"><span class="pre">tx_start_tone</span></code> command is to create and transmit a carrier wave that can be modulated
+with a fixed tone. The <code class="docutils literal notranslate"><span class="pre">tx_tone_stop</span></code> command can be used to stop the continuous wave transmission.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">tx_start_tone</span></code> command is formatted as such:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt tx_start_tone &lt;MODE&gt; &lt;OFFSET&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<span id="params-tx-start-tone-table"></span><table border="1" class="docutils align-center" id="table-6">
+<caption><span class="caption-number">Table 7 </span><span class="caption-text">Parameters for <strong>tx_start_tone</strong> Command</span><a class="headerlink" href="#table-6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="12%" />
+<col width="11%" />
+<col width="77%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Parameter</td>
+<td>Option</td>
+<td>Description</td>
+</tr>
+<tr class="row-even"><td>MODE</td>
+<td>2</td>
+<td>Single tone: TX chain is on and a sinusoidal signal is outputted</td>
+</tr>
+<tr class="row-odd"><td>OFFSET</td>
+<td>-40 - 40</td>
+<td>Integer value with range of -10 MHz to +10 MHz with steps of 0.25 MHz</td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal notranslate"><span class="pre">tx_tone_stop</span></code> command is formatted as such:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt tx_tone_stop
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Examples</strong></p>
+<p>The below section provides examples of using the commands for different modes of transmission and TX
+channel occupancy</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 plt power_mode on
+calibrator wlan0 cc33xx_plt tune_channel <span class="m">6</span> <span class="m">0</span> <span class="m">0</span>
+calibrator wlan0 cc33xx_plt set_tx -default <span class="m">0</span>
+calibrator wlan0 cc33xx_plt set_tx -preamble_type <span class="m">3</span> -phy_rate <span class="m">20</span> -num_pkts <span class="m">1000</span> -pkt_mode <span class="m">2</span>
+-src_addr <span class="m">04</span>:05:05:05:05:04 -dst_addr <span class="m">06</span>:07:07:07:07:06
+calibrator wlan0 cc33xx_plt start_tx
+calibrator wlan0 cc33xx_plt stop_tx
+calibrator wlan0 cc33xx_plt set_tx -length const packet <span class="m">500</span>
+calibrator wlan0 cc33xx_plt start_tx
+calibrator wlan0 cc33xx_plt stop_tx
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="receive-chain-parameters">
+<h3>Receive Chain Parameters<a class="headerlink" href="#receive-chain-parameters" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="enable-start-rx-statistics-test">
+<h4>Enable/Start RX Statistics Test<a class="headerlink" href="#enable-start-rx-statistics-test" title="Permalink to this headline">¶</a></h4>
+<p>Similar to TX commands there are RX commands that can be used to receive the packets and obtain statistics
+on the same. The CC33xx device’s firmware is able to capture packets from the air and report RF statistics.
+This feature can be used to ensure the calibration, antennas, and radio on the device are working properly. This
+section shows how to use the RX statistics command for receiver (RX) testing.</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">start_rx</span></code> command to start the receive RF chain:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt start_rx -source_mac &lt;SRC_ADDR&gt; -ack_enable &lt;ACK_ENABLE&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>To print out the received statistics, use the <code class="docutils literal notranslate"><span class="pre">get_rx_stats</span></code> command:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt get_rx_stats
+</pre></div>
+</div>
+</div></blockquote>
+<p>After receiving packets, this command will print statistics of the received packets to the command in a format
+similar to the following:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Total Received Packets: <span class="m">0</span>
+FCS Errors: <span class="m">0</span>
+MAC Mismatch: <span class="m">0</span>
+Good Packets: <span class="m">0</span>
+Average RSSI <span class="o">(</span>SOC<span class="o">)</span>: <span class="m">45</span>
+Average RSSI <span class="o">(</span>ANT<span class="o">)</span>: <span class="m">0</span>
+status: <span class="m">19</span>
+PER: N/A <span class="c1"># PER = Total Bad / Total Received</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The following is an example sequence of how to start collecting packets with the receiver:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 plt power_mode on
+calibrator wlan0 cc33xx_plt tune_channel <span class="m">6</span> <span class="m">0</span> <span class="m">0</span>
+calibrator wlan0 cc33xx_plt start_rx -source_mac <span class="m">04</span>:05:05:05:05:04 -ack_enable <span class="m">1</span>
+calibrator wlan0 cc33xx_plt get_rx_stats
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="disable-stop-rx-statistics-test">
+<h4>Disable/Stop RX Statistics Test<a class="headerlink" href="#disable-stop-rx-statistics-test" title="Permalink to this headline">¶</a></h4>
+<p>The following command will stop the RX statistics test. <strong>It is crucial to finish the test with this command:</strong></p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 cc33xx_plt stop_rx
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="debug-commands">
+<h3>Debug Commands<a class="headerlink" href="#debug-commands" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">rts_th_cfg</span></code> command allows the user to manually set the RTS packet size threshold. When the device is getting ready to transmit a packet beyond
+a certain threshold, then an RTS packet will be transmitted first to make sure the air is clear. This command allows the user to manually set the packet size
+threshold that will require an RTS packet to be sent. The command will be formatted as such:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 CC33xx_debug rts_th_cfg &lt;RTS_THRESHOLD&gt; &lt;ROLE_ID&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<span id="params-rts"></span><table border="1" class="docutils align-center" id="table-7">
+<caption><span class="caption-number">Table 8 </span><span class="caption-text">Parameters for <strong>rts_th_cfg</strong> Command</span><a class="headerlink" href="#table-7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="14%" />
+<col width="8%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Parameter</td>
+<td>Option</td>
+<td>Description</td>
+</tr>
+<tr class="row-even"><td>RTS_THRESHOLD</td>
+<td>0-2347</td>
+<td>Packet size (bytes) threshold for when RTS packet will be sent</td>
+</tr>
+<tr class="row-odd"><td rowspan="2">ROLE_ID</td>
+<td>1</td>
+<td>STA-STA Mode</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>STA-AP Mode</td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal notranslate"><span class="pre">beacon_rssi</span></code> command displays the RSSI of the last beacon received. The command will be formatted as such:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 CC33xx_debug beacon_rssi
+</pre></div>
+</div>
+</div></blockquote>
+<p>The <code class="docutils literal notranslate"><span class="pre">psm</span></code> command is used to configure the powersave mode. The format and parameters are provided below:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 CC33xx_debug psm &lt;INDEX&gt; &lt;VALUE&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<span id="params-psm"></span><table border="1" class="docutils align-center" id="table-8">
+<caption><span class="caption-number">Table 9 </span><span class="caption-text">Parameters for <strong>psm</strong> Command</span><a class="headerlink" href="#table-8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="14%" />
+<col width="10%" />
+<col width="23%" />
+<col width="15%" />
+<col width="11%" />
+<col width="27%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Parameter</td>
+<td>Option</td>
+<td>Description</td>
+<td>Parameter</td>
+<td>Option</td>
+<td>Description</td>
+</tr>
+<tr class="row-even"><td rowspan="4">INDEX</td>
+<td>0</td>
+<td>ACTIVE_MODE_RX_TH</td>
+<td rowspan="4">VALUE</td>
+<td>0 - 255</td>
+<td>RX Threshold value</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>ACTIVE_MODE_TX_TH</td>
+<td>0 - 255</td>
+<td>TX Threshold value</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>ACTIVE_MODE_RX_TO</td>
+<td>&#160;</td>
+<td>TX Timeout Value</td>
+</tr>
+<tr class="row-odd"><td>3</td>
+<td>FORCE_POWER_MODE</td>
+<td>0, 1, 2</td>
+<td>0 - No Force
+1 - Force Active
+2 - Force Power Save</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the index and value on the same row should be used in conjuction. For example if using ACTIVE_MODE_RX_TH
+then a RX Threshold value must be selected. An example of how this command would be formatted is below:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 CC33xx_debug psm <span class="m">0</span> <span class="m">200</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The <code class="docutils literal notranslate"><span class="pre">ba_session</span></code> command is used to enable/disable the RX and TX Block Acknowledgments. A <code class="docutils literal notranslate"><span class="pre">1</span></code> inputted for a parameter
+will enable the RX or TX Block Acknowledgements respectively. A <code class="docutils literal notranslate"><span class="pre">0</span></code> will disable them. The command will be formatted as such:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 CC33xx_debug ba_session &lt;BLOCK_ACK_RX&gt; &lt;BLOCK_ACK_TX&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>The <code class="docutils literal notranslate"><span class="pre">tb_only</span></code> command is used to enable/disable trigger based only transmission. This is a Wi-Fi 6 features and could
+be used to evaluate Wi-Fi 6 only performance as other Wi-Fi versions would be disabled. The command will be formatted as such:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>calibrator wlan0 CC33xx_debug tb_only &lt;ENABLE&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="acronyms">
+<h2>Acronyms<a class="headerlink" href="#acronyms" title="Permalink to this headline">¶</a></h2>
+<span id="acronyms-table"></span><table border="1" class="docutils align-center" id="table-9">
+<caption><span class="caption-number">Table 10 </span><span class="caption-text">Relevant Acronyms Used</span><a class="headerlink" href="#table-9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Acronym</th>
+<th class="head">Definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PLT</td>
+<td>Production Line Testing</td>
+</tr>
+<tr class="row-odd"><td>MAC</td>
+<td>Medium Access Layer</td>
+</tr>
+<tr class="row-even"><td>WLAN</td>
+<td>Wireless LAN</td>
+</tr>
+<tr class="row-odd"><td>LAN</td>
+<td>Local Area Network</td>
+</tr>
+<tr class="row-even"><td>TX</td>
+<td>Transmit</td>
+</tr>
+<tr class="row-odd"><td>RX</td>
+<td>Receive</td>
+</tr>
+<tr class="row-even"><td>MIMO</td>
+<td>Multiple Input Multiple Output</td>
+</tr>
+<tr class="row-odd"><td>PER</td>
+<td>Packet Error Rate</td>
+</tr>
+<tr class="row-even"><td>OFDM</td>
+<td>Orthogonal Frequency-Division Multiplexing</td>
+</tr>
+<tr class="row-odd"><td>LTF</td>
+<td>Long Training Field</td>
+</tr>
+<tr class="row-even"><td>GI</td>
+<td>Guard Interval</td>
+</tr>
+<tr class="row-odd"><td>DCM</td>
+<td>Dual Carrier Modulation</td>
+</tr>
+<tr class="row-even"><td>CCA</td>
+<td>Clear Channel Assessment</td>
+</tr>
+<tr class="row-odd"><td>SU ER BW</td>
+<td>Single User Extended Range Bandwidth</td>
+</tr>
+<tr class="row-even"><td>VHT</td>
+<td>Very High Throughput</td>
+</tr>
+<tr class="row-odd"><td>AID</td>
+<td>Association ID</td>
+</tr>
+<tr class="row-even"><td>HE TB NDP FB</td>
+<td>High Efficiency Trigger Based Null Data Packet Feedback</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="driver-debug-guide.html" class="btn btn-neutral float-right" title="Driver Debug Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="CC33conf-tool.html" class="btn btn-neutral float-left" title="CC33Conf Tool Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        <a href="https://www.ti.com/corp/docs/legal/copyright.shtml">2023, Texas Instruments</a>, Texas Instruments Incorporated. All rights reserved. <br>
+        <a href="https://www.ti.com/corp/docs/legal/trademark/trademrk.htm">Trademarks</a> | <a href="https://www.ti.com/corp/docs/legal/privacy.shtml">Privacy policy</a> | <a href="https://www.ti.com/corp/docs/legal/termsofuse.shtml">Terms of use</a> | <a href="https://www.ti.com/lsds/ti/legal/termsofsale.page">Terms of sale</a>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

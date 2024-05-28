@@ -1,0 +1,109 @@
+#########################
+SK-AM62B-P1 and M2-CC3301
+#########################
+
+.. _am62bp1_Hardware : 
+
+Evaluation Hardware
+===================
+
+Prerequisites
+-------------
+
+* `SK-AM62B-P1 <https://www.ti.com/tool/SK-AM62B-P1>`_
+* `M2-CC3301 <https://www.ti.com/tool/M2-CC3301>`_
+* USB-C Power Supply 
+* microUSB Cable 
+* 32GB microSD Card
+
+SK-AM62B-P1 Setup
+------------------
+
+A slight hardware modification might be necessary for the M2-CC3301 to operate correctly 
+with the AM62 Starter Kit. A 10kOhm resistor in footprint R6 must be added to pull up the WL_IRQ line. 
+Some boards may have this resistor already installed. R6 is placed on the back of 
+the board behind the M.2 connector. See the location of the resistor here:
+
+.. figure:: ../resources/am62b_r6.jpeg
+    :align: center
+    :scale: 70
+    :name: am62_r6
+
+    SK-AM62B R6 resistor location
+
+After checking the existence of R6, plug in the M2-CC3301 into the M.2 Key E 
+connector. 
+
+.. warning::
+
+    Do not continue until R6 is placed. 
+
+Evaluation Software
+===================
+
+The following steps describe how to prepare a micro SD card with the CC33XX driver. 
+
+#.  Flash the microSD card with the prebuilt am62x WIC image from TI: https://dr-download.ti.com/software-development/software-development-kit-sdk/MD-PvdSyIiioq/09.01.00.08/tisdk-default-image-am62xx-evm.wic.xz
+
+#.  On a Linux-based host PC, install the AM62 Processor SDK: https://dr-download.ti.com/software-development/software-development-kit-sdk/MD-PvdSyIiioq/09.01.00.08/ti-processor-sdk-linux-am62xx-evm-09.01.00.08-Linux-x86-Install.bin
+
+#.  Navigate to the ti linux kernel source directory. 
+
+    .. code-block:: bash
+
+        $ cd ~/ti-processor-sdk-linux-am62xx-evm-09.01.00.08/board-support/ti-linux-kernel-6.1.46-.../
+
+#.  Patch the TI linux kernel with the CC33XX patches:
+
+    .. code-block:: bash
+
+        $ patch -p0 < <path_to_cc33xx_folder>/patches/cc33xx_kernel.patch
+        $ patch -p0 < <path_to_cc33xx_folder>/patches/cc33xx_am625-sk_dts.patch
+        $ patch -p0 < <path_to_cc33xx_folder>/patches/cc33xx_ti_config.patch
+
+#.  Add the SDK's toolchain to the PATH environment variable and clean the kernel sources:
+
+    .. code-block:: bash
+
+        $ export PATH=<sdk path>/linux-devkit/sysroots/x86_64-arago-linux/usr/bin/aarch64-oe-linux:$PATH
+        $ make ARCH=arm64 CROSS_COMPILE=aarch64-oe-linux- distclean
+
+
+#.  Build the kernel, modules, and devicetree:
+
+    .. code-block:: bash
+
+        $ make ARCH=arm64 CROSS_COMPILE=aarch64-oe-linux- defconfig ti_arm64_prune.config
+        $ make ARCH=arm64 CROSS_COMPILE=aarch64-oe-linux- Image modules dtbs -j8
+
+#.  Install the kernel, modules, and DTBs:
+
+    .. code-block:: bash
+
+        $ sudo cp arch/arm64/boot/Image /media/<user>/root/boot/ 
+        $ sudo make ARCH=arm64 modules_install INSTALL_MOD_PATH=/media/<user>/root
+        $ sudo cp arch/arm64/boot/dts/ti/k3-am625-sk.dtb /media/<user>/root/boot/dtb/ti/
+
+#.  Install the CC33XX firmware and example scripts by copying the contents under 
+    "cc33xx_rootfs" into the SD card's root directory.
+
+    .. code-block:: bash
+
+        $ cd <path_to_cc33xx_folder>/cc33xx_rootfs
+        $ sudo cp -r * /media/<user>/root/
+        $ sync
+
+#.  Eject the SD card from the host PC and plug it into the SK-AM62B-P1. Apply the 
+    USB-C power supply and open a serial terminal with baudrate 115200. The CC33XX 
+    driver and Wi-Fi should now be available and the ``wlan0`` interface should 
+    be shown in the output of ``ifconfig``. For example scripts, refer to :ref:`linux-sw-examples`.
+
+    .. code-block:: bash
+
+        $ ifconfig wlan0
+        wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+                ether a4:34:f1:b1:62:92  txqueuelen 1000  (Ethernet)
+                RX packets 0  bytes 0 (0.0 B)
+                RX errors 0  dropped 0  overruns 0  frame 0
+                TX packets 0  bytes 0 (0.0 B)
+                TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0

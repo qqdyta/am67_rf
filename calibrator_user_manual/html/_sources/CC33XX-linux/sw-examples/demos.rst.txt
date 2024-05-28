@@ -1,0 +1,7 @@
+*****
+Demos
+*****
+
+In this section you can find Demos with common use cases for ease of development
+
+.. include:: wifi-provisioning.rst

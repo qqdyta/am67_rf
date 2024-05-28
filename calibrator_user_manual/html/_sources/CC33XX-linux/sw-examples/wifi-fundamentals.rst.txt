@@ -1,0 +1,689 @@
+*****************
+WiFi Fundamentals
+*****************
+
+.. note::
+
+	Optional : Prior to testing WLAN functionality, execute *ifconfig* command on the console to list available interfaces.
+	If *wlan0* interface is listed, it will confirm CC3xx drivers were loaded properly.
+
+The following sections describe the steps that can be used to verify the build for both STA and AP roles. Before proceeding
+further, make sure that you have a valid image on an SD card by following the build procedures mentioned in the :ref:`CC33xx_SW`
+section. The scripts are located at ``/usr/share/cc33xx``. Note that the configuration files needed for the wpa_supplicant and
+hostapd are also included in this folder. These files may need to be modified to enable WPA2, channel selection, mode of
+operation, and so forth.
+
+**STA Mode**
+------------
+
+This section explains how to configure CC33xx device to be in STA role, connect it to an Access Point and verify the
+connectivity between the CC33xx device and the AP. The general procedure of using the pre-built scripts for Station Mode
+is as follows:
+
+	1. Navigate to the directory which contains the out-of-box scripts as root
+
+		.. code-block:: bash
+	
+			cd /usr/share/cc33xx/ 
+
+	2. Start the device in station mode
+
+		.. code-block:: bash
+	
+			./sta_start.sh
+
+	3. Connect to an Access Point
+
+		
+		.. code-block:: bash
+
+			./sta_connect.sh -n <SSID> -s <SEC TYPE> -p <PASSCODE> -f <PMF> -u <Unicast scan> -i <interface name>
+
+			For all options call: ./sta_connect.sh -h
+
+			root@am335x-evm:/usr/share/cc33xx# ./sta_connect.sh -h
+			Usage: ./sta_connect.sh [OPTIONS]
+			Options:
+			  -h,   --help       Display this help
+			  -n,   --network    Network name (aka SSID) of the AP (required)
+			  -s,   --sec        Security Type: NONE, WPA-PSK, SAE, WPA-EAP, WPA-EAP-SHA256
+			  -p,   --password   Security Key passphrase
+			  -f,   --pmf        PMF: 0 - disabled, 1 - optional, 2 - required
+			  -u,   --unicast    Scan unicast or broadcast: 0 - broadcast (default), 1 - unicast
+			  -i,   --intf       Interface name: wlan0 (default), wlan2
+			  -------------------------------------------------------------
+			  Following options for enterprise only (WPA-EAP/WPA-EAP-SHA256)
+			  -------------------------------------------------------------
+			  -c    Path to client certificate file
+			  -K    Path to private key cert file
+			  -I    Identity
+			  -P    Private key password
+		
+		Un-secured Access Point
+
+		.. code-block:: bash
+	
+			./sta_connect.sh -n <SSID>  -s NONE
+			or
+			./sta_connect.sh -n <SSID> 
+
+		Secured Access Point with WPA2 security
+	
+		.. code-block:: bash 
+		
+			./sta_connect.sh -n <SSID> -s WPA-PSK -p <password>
+
+
+		Secured Access Point with WPA2 PMF security
+	
+		.. code-block:: bash 
+		
+			./sta_connect.sh -n <SSID>  -s WPA-PSK -f 1 -p <password>
+
+		Secured Access Point with WPA3 security
+	
+		.. code-block:: bash 
+		
+			./sta_connect.sh -n <SSID>  -s SAE -p <password>
+
+
+	4. Request an IP address from the Access Point
+
+		.. code-block:: bash
+
+			udhcpc -i wlan0
+
+	5. Ping the Access Point to verify the connection
+
+		.. code-block:: bash
+
+			ping 192.168.1.1
+
+An output similar to the following can now be seen: 
+
+	.. code-block:: bash
+
+		PING 192.168.1.1 (192.168.1.1): 56 data bytes
+		64 bytes from 192.168.1.1: seq=0 ttl=64 time=2.369 ms
+		64 bytes from 192.168.1.1: seq=1 ttl=64 time=2.526 ms
+
+The following command will display the AP settings and verify the connection:	
+
+	.. code-block:: bash
+
+		iw wlan0 link
+
+**AP Mode**
+-----------
+
+This section explains how to configure CC33xx in the AP role, connect another Wi-Fi device to it and verify the
+connectivity between the connected device and the CC33xx AP.
+
+**AP Mode Procedure**
+
+The device can be configured as an AP by editing the hostapd.conf file, located at ``/usr/share/cc33xx/hostapd.conf``.
+In this file, there are options to change the SSID, security and select other advanced Wi-Fi features. The key
+parameters to consider are listed below:
+
+    .. code-block:: bash
+
+        # SSID to be used in IEEE 802.11 management frames
+        ssid=CC33xxAP
+        # Channel number (IEEE 802.11)
+        channel=6
+        # ieee80211n: Whether IEEE 802.11n (HT) is enabled
+        # 0 = disabled (default)
+        # 1 = enabled
+        # Note: You will also need to enable WMM for full HT functionality.
+        ieee80211n=1
+        # ht_capab: HT capabilities (list of flags)
+        ht_capab=[SHORT-GI-20][GF][HT]
+        ##### WPA/IEEE 802.11i configuration ##########################################
+        wpa=2
+        wpa_passphrase=yourpassword
+        # Set of accepted key management algorithms (WPA-PSK, WPA-EAP, or both). The
+        # entries are separated with a space. WPA-PSK-SHA256 and WPA-EAP-SHA256 can be
+        # added to enable SHA256-based stronger algorithms.
+        # (dot11RSNAConfigAuthenticationSuitesTable)
+        wpa_key_mgmt=WPA-PSK
+        # Operation mode (a = IEEE 802.11a, b = IEEE 802.11b, g = IEEE 802.11g,
+        # Default: IEEE 802.11b
+        hw_mode=g
+        # Pairwise cipher for WPA (v1) (default: TKIP)
+        wpa_pairwise=TKIP CCMP
+        # Pairwise cipher for RSN/WPA2 (default: use wpa_pairwise value)
+        rsn_pairwise=CCMP
+
+**Starting the AP**
+
+Run the  ap_start script as root:
+
+	.. code-block:: bash
+
+		cd /usr/share/cc33xx
+		./ap_start.sh
+
+Sample output:
+
+	.. code-block:: bash
+
+		adding wlan1 interface
+		Configuration file: /usr/share/cc33xx/hostapd.conf
+		IPv6: ADDRCONF(NETDEV_UP): wlan1: link is not ready
+		wlan1: interface state UNINITIALIZED->COUNTRY_UPDATE
+		Using interface wlan1 with hwaddr 0c:1c:57:bb:60:5f and ssid "CC33xxAP"
+		IPv6: ADDRCONF(NETDEV_CHANGE): wlan1: link becomes ready
+		cryptd: max_cpu_qlen set to 1000
+		wlan1: interface state COUNTRY_UPDATE->ENABLED
+		wlan1: AP-ENABLED
+
+To verify that the CC33xx AP was successfully enabled, use a device such as a smart phone or laptop and connect it
+to CC33xx AP. A prompt (AP_STA_CONNECTED) will be visible when the station successfully connects to the CC33xx AP.
+
+.. warning:: 
+
+	CC33xx devices do not have the capabilities to detect radar systems such as 
+	those used by weather, military, and airport radars. Therefore, the user must 
+	be careful to not set the channel in hostapd.conf to one of the 5GHz DFS channels. 
+
+**Dual STA-STA Mode**
+----------------------
+
+The CC33xx device supports simultaneous dual STA-STA role. In other words, it is possible to have 2 station roles on CC33xx and connect to 2 seperate APs at the same time.
+
+The primary station is by default on wireless interface 'wlan0'. For more details on primary station, please consult STA_Mode section above. The secondary station is by default on wireless interface 'wlan2'
+
+Add secondary station by executing this script:
+
+	.. code-block:: bash
+
+		./sta_add.sh
+
+Connect secondary station to an Access Point
+
+	.. code-block:: bash
+
+		Run the script "./sta_connect.sh" ( same as primary station ) to connect secondary station to an Access Point. 
+		
+		Add "-i wlan2" to the list of arguments in order to specify the secondary station interface
+		
+		example: Connect secondary station to an Un-secured AP
+		
+		./sta_connect.sh -n SSID -i wlan2
+
+For more connect options, please consult step 3 of STA_Mode section above
+
+	.. note::
+		IEEE 802.11ax is disabled on secondary STA
+
+Disable secondary station
+
+	.. code-block:: bash
+
+		ifconfig wlan2 down
+
+Remove secondary station
+
+	.. code-block:: bash
+
+		./sta_remove.sh
+		
+
+**LSI (Long Sleep Interval)**
+-----------------------------
+
+In between receiving DTIM beacons (delivery traffic indication message) from an 
+Access Point, the device is able to go into low-power modes without the risk of 
+missing data. The transmission time of the DTIM beacon is known in advance, so the 
+device is able to wake up in time to receive traffic. The CC33xx device 
+incorporates an LSI mode where the device will only wake up for a single broadcast 
+period within the time interval specified by the application. Therefore, the device 
+is able to reduce power consumption with the tradeoff of possibly missing broadcast 
+data on the network. 
+
+In order to configure Long Sleep Interval for the device in STA role, use 
+the following command where NUM is an integer value between and including 1 to 10. 
+NUM is the number of DTIM beacons that the device will wake on. For example,
+if NUM is 3, then the STA will wake on every 3rd beacon. If NUM is 1, then the 
+STA wakes on every DTIM, and disables the LSI feature:
+
+	.. code-block:: bash
+
+		echo NUM > /sys/kernel/debug/ieee80211/phy0/cc33xx/dtim_interval
+
+**Antenna Select Control**
+--------------------------
+
+The antenna select pin (ANT_SEL) can be manually controlled from the linux host 
+in order to toggle the state of the pin. By default, the ANT_SEL pin will be LOW 
+on powerup. Issue one of the following commands to set the pin HIGH (1) or LOW (0).
+
+	.. code-block:: bash
+
+		# sets the ANT_SEL pin HIGH
+		echo 1 > /sys/kernel/debug/ieee80211/phy0/cc33xx/antenna_select
+		# sets the ANT_SEL pin LOW
+		echo 0 > /sys/kernel/debug/ieee80211/phy0/cc33xx/antenna_select
+
+
+**Override Default MAC Address**
+--------------------------------
+
+The Linux driver provides the ability to override the default MAC address. Though 
+there is no ability to permanently change the MAC address, developers can create 
+a file in the linux filesystem which the cc33xx linux driver would read and send 
+to the device on firmware download. This file must be placed into the ``/lib/firmware/ti-connectivity``
+directory and named ``cc33xx-nvs.bin``. The contents of the ``cc33xx-nvs.bin`` must only 
+contain the binary input of the MAC address. 
+
+Creation of the cc33xx-nvs.bin file is done with the following command with the 
+example MAC "AA:BB:CC:DD:EE:FF":
+
+.. code-block:: bash
+
+	echo -n -e '\xAA\xBB\xCC\xDD\xEE\xFF' > /lib/firmware/ti-connectivity/cc33xx-nvs.bin
+
+If the NVS file is not present, then the default MAC address from TI will be used. 
+An address in the NVS file with value "00:00:00:00:00:00" is reserved and the default 
+address will also be used. A value with "00:00:00:00:00:01" is reserved and will 
+generate a random MAC address each time the driver is initialized. 
+
+**Recovery Mechanism**
+----------------------
+
+Should the communication between the host and the CC33XX device have a fault in 
+communication, the  CC33xx linux driver will automatically attempt to reboot the device. 
+This means that the driver will toggle the RESET pin and then re-download firmware 
+to the CC33XX. The wpa_supplicant or hostapd will then try to re-establish any 
+connection made previously removing the need for the user to intervene. However, 
+applications using BLE may have to manually re-connect since the device has been reset. 
+
+**Wake on WLAN (WoWLAN) Feature**
+----------------------------------
+
+Wake-on-Wireless (WoW) is a feature that allows the linux host to go into a low-power state while the CC33xx
+remains active and maintains connection. On pre-determined wireless triggers, the wireless device can send an interrupt to 
+the host resuming the active state. WoWLAN can only be used for a single station role on the CC33xx. 
+
+There are three kinds of triggers which can all be configured using the 'iw' networking tool: 
+
+* Any event
+* Up to 8 user-defined patterns 
+* Magic Packet
+
+In case of special packets (eapoll, disconnect, etc.) the CC33xx will also wake the host in order to re-establish the connection. 
+
+**Enable WoWLAN Mode**
+
+The following steps show the procedure for enabling WoWLAN:
+
+1. Connect CC33xx's station role to an AP
+2. Use 'iw' to enable WoWLAN in the linux system:
+
+.. code-block:: bash
+
+	$ iw phy0 wowlan enable any
+
+3. Put linux host into suspend mode. 
+
+.. code-block:: bash
+
+	$ echo mem > /sys/power/state
+
+4. Send ping to the device. This ping will cause the linux host to wake from suspend. 
+
+.. note::
+
+	In AM335x Processor SDK 9.1, the host suspend/resume feature is not functional. Thus,
+	it is recommended to experiment with the AM62x SDK 9.1 or later. 
+
+**Pattern Configuration**
+
+Once enabled, WoWLAN patterns are searched by the chip firmware in every incoming data packet. Once a
+pattern is detected the chip wakes up the host. The patterns begin with an 802.3 (Ethernet) header with the 
+correct source/destination MACs (it is NOT the actual 802.11 header which is transmitted in the air).
+
+.. list-table:: 802.3 MAC Header Pattern
+	:align: center
+
+	* - Parameter 
+	  - Number of Bytes
+	* - Destination MAC Address 
+	  - 6
+	* - Source MAC Address 
+	  - 6
+	* - Ethernet Protocol Type
+	  - 2
+	* - Payload
+	  - 46-1500
+	* - CRC
+	  - 2
+
+Payload could be any upper layer protocol. For filtering purposes only IP header will be shown. This is because
+when filtering other protocols there is no need to parse the MAC payload. When configuring a filter for
+ARP or EAPOL there is no need to configure pattern in the ARP/EAPOL header as all should be passed.
+The following is the pattern/template for IP Filter enabling packet.
+
+.. code-block:: text
+
+	AA:AA:AA:AA:AA:AA:BB:BB:BB:BB:BB:BB:CC:CC:DD:-:-:-:-:-:-:-:-:EE:-:-:FF:FF:FF:FF:GG:GG:GG:GG:HH:HH:II:II
+
+* **A** Ethernet destination address
+* **B** Ethernet source address
+* **C** Ethernet protocol type
+* **D** IP header VER+Hlen, use: 0x45 ( 4 is for ver 4, 5 is for len 20)
+* **E** IP protocol
+* **F** IP source address (eg. 192.168.0.4: C0:A8:00:04 )
+* **G** IP destination address (eg. 192.168.0.4: C0:A8:00:04 )
+* **H** Source port (1024: 04:00)
+* **I** Destination port (1024: 04:00)
+
+.. note:: 
+
+	* 8 patterns can be active at a time with each pattern divided into 7 fields
+	* Max size is 81 bytes
+
+**Pattern Examples**
+
+Table below shows a few use case scenarios and how to set the corresponding packet filter:
+
+.. list-table:: 
+	:align: center
+
+	* - Use Case 
+	  - iw Command
+	* - Wakeup on any packet send to MAC 00:44:44:44:44:44
+	  - iw phy0 wowlan enable patterns 00:44:44:44:44:44
+	* - Wake up on any TCP packet sent to MAC 00:44:44:44:44:44 IP 192.168.1.4 from TCP port 5001
+	  - iw phy0 wowlan enable patterns 00:44:44:44:44:44:-:-:-:-:-:-:08:00:45:-:-:-:-:-:-:-:-:06:-:-:-:-:-:-:c0:a8:01:04:13:89
+	* - Wake up on any EAPOL traffic directed at MAC 00:44:44:44:44:44
+	  - iw phy0 wowlan enable patterns 00:44:44:44:44:44:-:-:-:-:-:-:88:8e
+	* - Wakeup on any unicast, broadcast and multicast 
+	  - iw phy0 wowlan enable patterns 00:44:44:44:44:44 ff:ff:ff:ff:ff:ff 01:00:5e
+	* - To set up multiple patterns 
+	  - iw phy0 wowlan enable patterns PATTERN1 PATTERN2 PATTERN3 
+	* - To view the configured patterns
+	  - iw phy0 wowlan show
+
+iw documentation can be found at https://wireless.wiki.kernel.org/en/users/documentation/iw.
+
+.. note:: 
+	
+	* The ":-:" indicates a wild card byte which isn't matched. 
+	* phy0 identifies the physical device. Best practice would be to verify what phy value is being used by issuing the following: 
+
+	.. code-block:: bash
+
+		iw list | grep wiphy
+
+**Magic Packet** 
+
+The magic packet is a broadcast frame containing anywhere within its payload 6 bytes of 0xFF 
+followed by 16 repetitions of the target computer's 6 byte MAC address for a total of 102 bytes.
+
+Since the magic packet is only scanned for the string above, and not actually parsed by a full protocol stack, it
+may be sent as any network and transport-layer protocol, although it is typically sent as a UDP datagram to port
+7 or 9, or directly over Ethernet as EtherType 0x0842.
+
+The CC33xx firmware does not support scanning of the entire Ethernet frame for the magic packet. Besides, as
+mentioned before, the max size of a pattern is 81 bytes.
+
+However, it is possible to define patterns that can dissect an actual implementation of the magic packet by
+comparing a subset of the actual magic packet. An example is shown below:
+
+.. code-block:: bash
+
+	# Wakeup on magic packet with EtherType = 0x0842 or UDP port no: 9
+	iw phy0 wowlan enable patterns
+	01:02:03:04:05:06:-:-:-:-:-:-:08:00:45:-:-:-:-:-:-:-:-:11:-:-:-:-:-:-:C0:A8:01:04:-:-:00:09:-:-:-:-:ff:ff:ff:ff:ff:ff:01:02:03:04:05:06:01:02:03:04:05:06
+	01:02:03:04:05:06:-:-:-:-:-:-:08:42:ff:ff:ff:ff:ff:ff:01:02:03:04:05:06:01:02:03:04:05:06
+
+Where "01:02:03:04:05:06" is the destination MAC address and "C0:A8:01:04" is the IP address corresponding to 192.168.1.4. 
+
+**Target Wake Time Setup**
+--------------------------------
+
+Target Wake Time (TWT) is a new energy saving mechanism that allows the CC33xx device
+to be in a low power state until the Access Point (AP) sends a command to wake up the CC33xx after some time duration. 
+
+Overall, TWT consists of 3 stages:
+
+* TWT Setup: A negotiation between STA and AP on TWT parameters, resulting in a TWT agreement
+* Service Period: Time period in which a STA is allowed to wake and communicate data
+* TWT Teardown: Termination of the existing TWT agreement
+
+A script is provided in the `/usr/share/cc33xx` directory to manage the TWT negotiation between the CC33xx and the AP. 
+TWT is a feature only supported in IEEE 802.11ax, so it is assumed that the CC33xx is a station and already connected to an 
+AP that supports this 11ax feature. The script arguments are as follows:
+
+* Request to join a TWT agreement with no specified parameters:
+
+.. code-block:: bash
+
+	./cc33xx_twt.sh 1
+
+* Request to join a TWT agreement with specific parameters:
+
+.. code-block:: bash
+
+	./cc33xx_twt.sh 1 min_wake_duration_usec min_wake_interval_mantissa min_wake_interval_exponent [max_wake_interval_mantissa max_wake_interval_exponent]
+	
+	min_wake_duration_usec 
+		The minimum wake duration for the station to be awake in order to complete the frame exchanges for the TWT wake interval period. 
+	min_wake_interval_mantissa
+		The minimum TWT wake interval mantissa.
+	min_wake_interval_exponent
+		The minimum TWT Wake interval exponent. 
+	max_wake_interval_mantissa
+		Optional parameter
+		The maximum wake interval mantissa. 
+	max_wake_interval_exponent
+		Optional parameter
+		The maximum wake interval exponent.
+
+* Suspend the existing TWT agreement:
+
+.. code-block:: bash
+
+	./cc33xx_twt.sh 2
+
+* Resume the suspend TWT agreement:
+
+.. code-block:: bash
+
+	./cc33xx_twt.sh 3
+
+* Delete the existing TWT agreement:
+
+.. code-block:: bash
+
+	./cc33xx_twt.sh 4
+
+
+**Throughput Testing Guide**
+--------------------------------
+**Throughput Overview**
+
+Throughput in WiFi refers to the amount of data transmitted from a source to destination within a specified 
+period of time, usually measured in megabits per second (Mb/s). There are numerous factors that can affect 
+throughput including the number of devices on the network, the protocol used (UDP vs TCP), and the host being 
+used with the CC33xx. For example, using a Beaglebone Black (AM335) as a host will result in a lower throughput 
+when compared to the AM62 being used as a host due. This discrepancy in rates is due to the difference in how 
+much data each device is capable of receiving. In order to get an accurate idea of the CC33xx throughput it is
+recommended that the test is conducted in a clean environment at first without interference, at least initially
+for an accurate estimate of the device's throughput capabilities with the desired host.
+
+The main tool recommended to test the throughput of the CC33xx is known as iPerf and is an open source command 
+line tool designed for testing network throughput. In order to use iPerf, at least one device must act as a server 
+and another as a client. These devices should both be connected to the same AP and data will be transmitted between 
+them with the AP acting as a bridge. 
+
+**iPerf Overview**
+
+In order for devices to be connected via iPerf, one needs to be configured as a server that is listening on the same 
+port that the client will be configured to transmit to. The commands listed below can be used for various adjustments to 
+this configuration. For example, to open a basic server configured for TCP broadcasts on the default port (5900) the 
+following command would be used: 
+
+	.. code-block:: bash
+
+		iperf -s
+
+To open a basic client to transmit on the same port, also using TCP, the following command can be used:
+
+	.. code-block:: bash
+
+		iperf -c <IP Address of Server> 
+
+To adjust the port, change the protocol to UDP, or other configurations the commands below can be used. This is not the 
+full list, which can be displayed using iperf -h or iperf --help, but these are the commands most relevant to the throughput 
+testing covered in this guide. 
+
+	.. code-block:: bash
+		
+		Client/Server:
+		-i, --interval		#	seconds between periodic bandwidth reports
+		-p, --port			#	server port to listen on/connect to
+		-u, --udp			#	use UDP rather than TCP
+		-w, --window		#	[KM]    TCP window size (socket buffer size)
+		
+		Server specific:
+		-s, --server		#	run in server mode
+		-U, --single_udp	#	run in single threaded UDP mode
+		
+		Client specific:
+		-b, --bandwidth 	#	[KM] for UDP, bandwidth to send at in bits/sec (default 1 Mbit/sec, implies -u)					
+		-c, --client    	#	<host>   run in client mode, connecting to <host>
+		-n, --num       	#	[KM] number of bytes to transmit (instead of -t)
+		-t, --time     		#	time in seconds to transmit for (default 10 secs)
+		
+		Miscellaneous:
+		-h, --help			#	print this message and quit
+		
+		[KM] Indicates options that support a K or M suffix for kilo- or mega-
+
+**iPerf Throughput Example**
+
+Configuring the CC33xx as a client and the computer as a server.
+
+.. _figure_1:
+
+.. figure:: ../resources/throughputExample.PNG
+    :align: center
+    :scale: 60
+
+    CC33xx acting as client interacting with Computer acting as server, both connected to the same AP.
+
+The above configuration allows for the testing of the CC33xx’s throughput as a station transmitting data. In this configuration, 
+the CC33xx is in station mode and connected to the AP via WiFi. Additionally, the computer behind the AP is connected through ethernet. 
+A connection over ethernet, rather than WiFi, is recommended so that the computer behind the AP does not take up bandwidth and compete 
+with the CC33xx over the air. The CC33xx is then configured using iPerf to be a client, while the computer is configured as a server. The 
+data from the CC33xx is being transmitted from the CC33xx to the AP then to the computer. The steps to start this setup are as follows:
+
+	1.	Refer to section STA Mode in WiFi Fundamentals to setup the CC33xx as a station and connect it to the desired AP.
+
+	2.	Connect a computer or laptop (from here on out referred to as Computer 1) to the same AP via ethernet.
+
+		Run either ipconfig (Windows) or ifconfig (Linux) to find out the IP Address of the assigned to the computer. This is the 
+		IP address that the CC33xx will connect to with iPerf when configured as a client.
+
+		.. code-block:: bash
+
+			C:\Users\Administrator>ipconfig
+
+			Windows IP Configuration
+
+			Ethernet adapter AP:
+
+				Connection-specific DNS Suffix  . : dhcp.ti.com
+				Link-local IPv6 Address . . . . . : fe80::686b:36c3:ae90:e8de%29
+				IPv4 Address. . . . . . . . . . . : 192.168.50.119
+				Subnet Mask . . . . . . . . . . . : 255.255.255.0
+				Default Gateway . . . . . . . . . : 192.168.50.1
+		
+		The IPv4 Address is the IP address assigned to the laptop by the AP while the 'Default Gateway' is the IP Address of the AP 
+		itself.
+
+	3. To ensure that both Computer 1 and the CC33xx are properly connected it's a good idea to ping Computer 1 from the CC33xx using 
+	the command below and it should produce a result similar to what is shown below if they are connected. 
+
+		.. code-block:: bash
+
+			root@am335x-evm:/usr/share/cc33xx# ping 192.168.50.119
+			PING 192.168.50.119 (192.168.50.119): 56 data bytes
+			64 bytes from 192.168.50.119: seq=0 ttl=128 time=901.689 ms
+			64 bytes from 192.168.50.119: seq=1 ttl=128 time=105.525 ms
+			64 bytes from 192.168.50.119: seq=2 ttl=128 time=436.115 ms
+			64 bytes from 192.168.50.119: seq=3 ttl=128 time=561.868 ms
+
+	4. Open a server on Computer 1 with the following command:
+
+		.. code-block:: bash
+
+			iperf -s -p 5901 -i1
+
+		* -s specifies that a server is being started
+		* -p 5901 opens the server on port 5901 
+		* -i1 ensures that the data that is received by the server will be broadcasted on the screen
+		* For more information, such as using UDP or adjusting the TCP window, reference the 
+			full list with the command iperf -h
+
+		Expected output on Computer 1:
+
+		.. code-block:: bash
+
+			C:\Users\Administrator>iperf -s -p 5901 -i1
+			------------------------------------------------------------
+			Server listening on TCP port 5901
+			TCP window size: 64.0 KByte (default)
+			------------------------------------------------------------
+
+	5. Connect to the server and transmit data from the CC33xx host using the following command:
+
+		.. code-block:: bash
+
+			iperf -c 192.168.50.119 -p 5901 -i1 -t5
+
+		* -c specifies that a client is being started and will connect to the following IP address
+		* -p specifies the same port that was opened on the server side
+		* -i1 broadcasts the data which can be seen below on both the server and client sides
+		* -t5 configures the device to transmit data for 5 sec
+		
+		Expected output on CC33xx host:
+
+		.. code-block:: bash	
+
+			root@am335x-evm:/usr/share/cc33xx# iperf -c 192.168.50.119 -p 5901 -i1 -t5
+			------------------------------------------------------------
+			Client connecting to 192.168.50.119, TCP port 5901
+			TCP window size: 83.8 KByte (default)
+			------------------------------------------------------------
+			[  3] local 192.168.50.143 port 35430 connected with 192.168.50.119 port 5901
+			[ ID] Interval       Transfer      Bandwidth
+			[  3]  0.0- 1.0 sec   XXX KBytes   Y.YY Mbits/sec
+			[  3]  1.0- 2.0 sec   XXX KBytes   Y.YY Mbits/sec
+			[  3]  2.0- 3.0 sec   XXX KBytes   Y.YY Mbits/sec
+			[  3]  3.0- 4.0 sec   XXX KBytes   Y.YY Mbits/sec
+			[  3]  4.0- 5.0 sec   XXX KBytes   Y.YY Mbits/sec
+
+		Expected output on Computer 1:
+
+		.. code-block:: bash
+			
+			C:\Users\Administrator>iperf -s -p 5901
+			------------------------------------------------------------
+			Server listening on TCP port 5901
+			TCP window size: 64.0 KByte (default)
+			------------------------------------------------------------
+			[428] local 192.168.50.119 port 5901 connected with 192.168.50.119 port 5901
+			[ ID] Interval        Transfer      Bandwidth
+			[428]  0.0- 1.0 sec   X.XX MBytes   Y.YY Mbits/sec
+			[428]  1.0- 2.0 sec   X.XX MBytes   Y.YY Mbits/sec
+			[428]  2.0- 3.0 sec   X.XX MBytes   Y.YY Mbits/sec
+			[428]  3.0- 4.0 sec   X.XX MBytes   Y.YY Mbits/sec
+			[428]  4.0- 5.0 sec   X.XX MBytes   Y.YY Mbits/sec
+
+	.. note::
+		The above example can be adjusted based on the desired test in a number of ways. The configuration could be switched 
+		where the CC33xx host acted as the server and Computer 1 was the client by simply switching the same commands on the respective devices. 
+

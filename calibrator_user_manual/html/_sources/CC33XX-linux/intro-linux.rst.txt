@@ -1,0 +1,93 @@
+Introduction to the CC33xx Linux Driver
+***************************************
+
+Overview
+========
+
+The TI CC33xx Wi-Fi 6 and BLE 5.4 Transceiver supports IEEE 802.11 standards and proprietary enhancements. This document
+is intended to serve as a user's guide for integrating the CC33xx Wi-Fi driver release and associated software components
+into a host Linux based platform.  The document details the Linux driver architecture, core components,
+configuration files, and build procedures. It also serves as a user's guide for verifying the basic Wi-Fi functionality
+and presents a step-by-step guide for how to run the initial Wi-Fi Provisioning over BLE demo.
+
+Supported Features
+------------------
+
+The current release of CC33xx Linux driver supports the following features:
+
+**Wi-Fi Features**
+
+* Linux Kernel 6.1 Wi-Fi driver
+
+* Supports Wi-Fi 6 (IEEE 802.11ax) in STA mode
+
+* Supports IEEE 802.11 a, b, g, n
+* Supported Wi-Fi Roles: 
+   * Station (STA) 
+   * Access Point (AP) supporting up to 16 connected stations
+   * Multi Role Multi Channel: 
+      * STA-STA
+      * STA-AP
+
+* STA security: 
+   * Personal
+      * WPA3
+      * WPA2 
+      * WPA/WPA2 Mixed Mode
+   * WPA2/WPA3 Enterprise
+      * TLS
+      * TTLS
+      * TTLS-MSCHAP
+      * PEAPv0-MSCHAP 
+      * PEAPv1-TLS
+   * WPA3 GCMP Long Keys
+
+* AP security: 
+   * WPA2/WPA3 personal 
+
+* Wake-on-Wireless LAN (WoWLAN)
+* Target Wake Time (TWT)
+* Antenna Diversity
+* Channel Switch Announcement in Station role only
+* SDIO inband interrupt
+* Multicast Filtering
+* Configuration by INI File
+* Long Sleep Interval (LSI) 
+* Wi-Fi & BLE Coexistence 
+* Coexistence with external 2.4GHz radios
+* Regulatory Domain compliant
+* Automatic PHY calibration
+
+**BLE Features**
+
+* Supports BLE 5.4
+* Supported BLE Roles: Broadcaster, Peripheral, Observer, Central
+* BLE Multirole enables simultaneous operation of 2 BLE roles 
+* Legacy & Extended Advertisement
+* Legacy & Extended Scan
+* Up to 16 BLE Connections
+* GATT Read/Write
+* Supported PHYs: 1M, 2M, Coded
+* Support for BLE communication over SDIO or UART
+* TX power control
+* Secured connection
+
+CC33xx Linux Driver Architecture
+================================
+
+The CC33xx Linux driver uses Linux open source components along with an interface driver for the device to enable Wi-Fi functionality.
+The following figure shows the high-level driver partitioning and the overall software architecture:
+
+.. figure:: resources/1_architecture.png
+   :align: center
+   :scale: 30 %
+
+   The CC33xx Linux Driver Architecture.
+
+A description of the different components shown in the figure can be found below:
+
+* **Hostap package:** Contains open-source user-space package. Provides upper-management layers for all WLAN roles (STA, AP). Generates 2 daemons: wpa_supplicant (STA), and hostapd (AP)
+* **nl80211:** Implements a net-link interface between the user-space and kernel space components of the Linux Wireless solution
+* **cfg80211:** The Linux wireless configuration API. This is the lowest layer that is common for both soft-MAC and hard-MAC
+* **mac80211:** The Linux kernel module implementing MAC-layer functions for the Wi-Fi soft-MAC solution
+* **CC33xx Driver:** An abstraction layer to the TI CC33xx Wi-Fi 6 Transceiver hardware and firmware. The driver implements low level operations required to support the MAC driver

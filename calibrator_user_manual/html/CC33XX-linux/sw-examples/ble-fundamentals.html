@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>BLE Fundamentals &mdash; CC33XX™ Linux User&#39;s Guide 01.00.00.03 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <script language="JavaScript">
+        var tiPageName;
+        tiPageName = "sug CC33XX-linux sw-examples ble-fundamentals";
+
+        if (location.protocol == "file:"){
+            var ci_analytics_poc_load = true;
+        }
+    </script>
+
+    <script src="http://www.ti.com/assets/js/headerfooter/analytics.js" type="text/javascript" charset="utf-8"></script>
+
+
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for TI beyond RTD Sphinx Theme --->
+<div class="DocSite-globalNav tiNav">
+    <ul>
+    </ul>
+</div>
+
+<a class="DocSite-nav" href="https://www.ti.com" style="padding-bottom: 85px;">
+  <img class="DocSiteNav-logo"
+    src="../../_static/img/ti_logo.png"
+    alt="TI Logo">
+  <div class="DocSiteNav-title"></div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-linux.html" class="icon icon-home" alt="Documentation Home"> CC33XX™ Linux User's Guide
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                01.00.00.03
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro-linux.html">Introduction to the CC33xx Linux Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started-linux.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started-linux.html#beaglebone-black-and-bp-cc3301">Beaglebone Black and BP-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started-linux.html#sk-am62b-p1-and-m2-cc3301">SK-AM62B-P1 and M2-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started-linux.html#i-mx-8m-plus-evaluation-kit-and-m2-cc3301">i.MX 8M Plus Evaluation Kit and M2-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software-examples.html">Software Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration-guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CC33conf-tool.html">CC33Conf Tool Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calibrator-tool.html">Calibrator Tool Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../driver-debug-guide.html">Driver Debug Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CC33XX/Coexistence.html">CC33xx Coexistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CC33XX/BP-CC3301_HW_UserGuide.html">CC3301 BoosterPack Hardware User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+            
+          
+          <!-- extra nav elements for TI beyond RTD Sphinx Theme --->
+<div id="sideBanner">
+    <br/>
+    <br/><br/><br/>
+</div>
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-linux.html">CC33XX™ Linux User's Guide</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-linux.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>BLE Fundamentals</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ble-fundamentals">
+<h1>BLE Fundamentals<a class="headerlink" href="#ble-fundamentals" title="Permalink to this headline">¶</a></h1>
+<p>The following sections will describe how to enable basic Bluetooth Low Energy use cases using the Linux BlueZ Bluetooth Stack.</p>
+<p>The first step needed to take to either advertise or scan will be to enable BLE on the device</p>
+<p>Open a terminal and go to the following directory.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /usr/share/cc33xx
+</pre></div>
+</div>
+</div></blockquote>
+<p>Next run the following script to enable BLE</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./ble_enable.sh
+</pre></div>
+</div>
+</div></blockquote>
+<p>BLE should now be enabled on the Device
+The next step is to get the hci0 interface is ready by running the following command.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hciconfig hci0 up
+</pre></div>
+</div>
+</div></blockquote>
+<p>To make sure the interface is indeed up, call</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hciconfig -a
+</pre></div>
+</div>
+</div></blockquote>
+<p>The interface should state UP RUNNING</p>
+<div class="section" id="advertising">
+<h2><strong>Advertising</strong><a class="headerlink" href="#advertising" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There are multiple Command Line utilities available to run BlueZ commands the common ones are hcitool, btmgmt, and bluetoothctl. They each have their own command sets
+and can be used interchangebly to control the stack.</p>
+</div>
+<p>Before configuring the device to advertise we must first turn it off</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>btmgmt -i hci0 power off
+</pre></div>
+</div>
+</div></blockquote>
+<p>Next run the following commands to configure the device to begin advertising</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>btmgmt -i hci0 le on
+
+btmgmt -i hci0 connectable on
+
+btmgmt -i hci0 bondable off
+
+btmgmt -i hci0 pairable off
+
+btmgmt -i hci0 privacy off
+
+btmgmt -i hci0 name cc33xxble
+
+btmgmt -i hci0 advertising on
+</pre></div>
+</div>
+</div></blockquote>
+<p>This will set the device to start advertising with the local name set to “cc33xxble”.
+It also sets it to be connectable with low security.
+Now we need to power the device once configured properly</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>btmgmt -i hci0 power on
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="scanning">
+<h2><strong>Scanning</strong><a class="headerlink" href="#scanning" title="Permalink to this headline">¶</a></h2>
+<p>Make sure the device BLE is up and running,</p>
+<p>Open a terminal and run the following command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bluetoothctl
+</pre></div>
+</div>
+</div></blockquote>
+<p>The utility will open with the menu. To start scanning run the following command.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scan on
+</pre></div>
+</div>
+</div></blockquote>
+<p>The device will begin to scan. To turn off scanning, call</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scan off
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>To set scan parameters (ex. duplicate filter) open the scan submenu by calling</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>menu scan
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="connecting-and-pairing">
+<h2><strong>Connecting and Pairing</strong><a class="headerlink" href="#connecting-and-pairing" title="Permalink to this headline">¶</a></h2>
+<p>In order to connect and pair to a BLE Device you must register a pairing agent and know the Bluetooth Address (bdaddr) associated with the device you want to connect with.
+This can be found by scanning for devices (as explained above).</p>
+<p>You can register a pairing agent through the bluetoothctl utility
+the mode selected will determine what authentication procedure.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DisplayOnly or DisplayYesNo : authentication by PIN/passkey code
+KeyboardOnly or KeyboardDisplay : yes/no choice to the pairing attempt
+NoInputNoOutput : no user confirmation
+</pre></div>
+</div>
+</div></blockquote>
+<p>Open a terminal and run the following command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bluetoothctl
+</pre></div>
+</div>
+</div></blockquote>
+<p>The utility will open with the menu. To choose the agent, run the following command.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>agent <span class="o">{</span>mode<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Once you have the bdaddr (from scanning) you can issue the following command to connect</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pair <span class="o">{</span>bdaddress<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An example of a valid bdaddr is C4:C1:A5:FB:6D:46</p>
+</div>
+<p>If the connection is successful a connection handle will be returned.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        <a href="https://www.ti.com/corp/docs/legal/copyright.shtml">2023, Texas Instruments</a>, Texas Instruments Incorporated. All rights reserved. <br>
+        <a href="https://www.ti.com/corp/docs/legal/trademark/trademrk.htm">Trademarks</a> | <a href="https://www.ti.com/corp/docs/legal/privacy.shtml">Privacy policy</a> | <a href="https://www.ti.com/corp/docs/legal/termsofuse.shtml">Terms of use</a> | <a href="https://www.ti.com/lsds/ti/legal/termsofsale.page">Terms of sale</a>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

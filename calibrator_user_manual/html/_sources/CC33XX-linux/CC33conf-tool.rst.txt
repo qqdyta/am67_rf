@@ -1,0 +1,62 @@
+###################
+CC33Conf Tool Guide
+###################
+
+**Overview**
+
+The cc33conf tool is primarily used to convert the ini file used to set PHY system parameters enacted on bring up the device. 
+This allows for the configuration of the CC33xx device with specific behavior arguments. Once the ini file has been edited as 
+desired the cc33conf tool can be used to convert it to a bin file. Additional uses of the tool are described in the help section 
+of tool that can be referenced in the CLI and is included below.
+
+**Converting INI to Bin**
+
+Go to conf tool directory
+
+    .. code-block:: bash
+
+        cd  /usr/sbin/cc33conf
+
+Use a Unix text editor such Vi or Gedit to edit cc33xx-conf.ini as desired
+
+    .. code-block:: bash
+
+        vi cc33xx-conf.ini #open ini file in Vi editor to edit
+
+Run the command to convert the ini file to a bin file
+
+    .. code-block:: bash
+
+        ./cc33xxconf -I ini_file_name.ini -o cc33x-conf.bin #generate cc33xx-conf binary file
+
+Copy bin file to /lib/firmware/ti-connectivity
+
+    .. code-block:: bash
+
+        cp cc33xx-conf.bin /lib/firmware/ti-connectivity
+
+Additional Commands
+
+    .. code-block:: bash
+
+        ./cc33xxconf [OPTIONS] [COMMANDS]
+
+        OPTIONS
+        -S, --source-struct     use the structure specified in a C header file
+        -b, --binary-struct     specify the binary file where the structure is defined
+        -i, --input-config      location of the input binary configuration file
+        -o, --output-config     location of the input binary configuration file
+        -X, --ignore-checksum   ignore file checksum error detection
+
+        COMMANDS
+        -D, --create-default    create default configuration bin file (cc33xx-conf-default.bin)
+        -g, --get               get the value of the specified element (element[.element...]) or
+                                print the entire tree if no element is specified
+        -s, --set               set the value of the specified element (element[.element...])
+        -G, --generate-struct   generate the binary structure file from
+                                the specified source file
+        -C, --parse-text-conf   parse the specified text config and set the values accordingly
+        -I, --parse-ini         parse the specified INI file and set the values accordingly
+                                in the output binary configuration file
+        -p, --print-struct      print out the structure
+        -h, --help              print this help

@@ -1,0 +1,141 @@
+****************
+BLE Fundamentals
+****************
+
+The following sections will describe how to enable basic Bluetooth Low Energy use cases using the Linux BlueZ Bluetooth Stack.
+
+The first step needed to take to either advertise or scan will be to enable BLE on the device 
+
+Open a terminal and go to the following directory.
+
+	.. code-block:: bash
+
+		cd /usr/share/cc33xx
+
+Next run the following script to enable BLE 
+
+	.. code-block:: bash
+
+		./ble_enable.sh
+
+BLE should now be enabled on the Device
+The next step is to get the hci0 interface is ready by running the following command.
+	
+	.. code-block:: bash
+
+			hciconfig hci0 up
+
+
+To make sure the interface is indeed up, call 
+
+	.. code-block:: bash
+
+			hciconfig -a
+
+The interface should state UP RUNNING
+
+**Advertising**
+---------------
+
+.. note::
+	There are multiple Command Line utilities available to run BlueZ commands the common ones are hcitool, btmgmt, and bluetoothctl. They each have their own command sets 
+	and can be used interchangebly to control the stack.
+
+Before configuring the device to advertise we must first turn it off
+
+	.. code-block:: bash
+
+		btmgmt -i hci0 power off
+
+Next run the following commands to configure the device to begin advertising
+
+	.. code-block:: bash
+
+		btmgmt -i hci0 le on
+
+		btmgmt -i hci0 connectable on
+
+		btmgmt -i hci0 bondable off
+
+		btmgmt -i hci0 pairable off
+
+		btmgmt -i hci0 privacy off
+
+		btmgmt -i hci0 name cc33xxble
+
+		btmgmt -i hci0 advertising on
+
+This will set the device to start advertising with the local name set to "cc33xxble".
+It also sets it to be connectable with low security.
+Now we need to power the device once configured properly
+
+	.. code-block:: bash
+		
+		btmgmt -i hci0 power on
+
+
+**Scanning**
+------------
+Make sure the device BLE is up and running,
+
+Open a terminal and run the following command
+
+	.. code-block:: bash
+
+		bluetoothctl
+
+The utility will open with the menu. To start scanning run the following command.
+
+	.. code-block:: bash
+
+		scan on
+
+The device will begin to scan. To turn off scanning, call
+
+	.. code-block:: bash
+
+		scan off
+
+.. note::
+	To set scan parameters (ex. duplicate filter) open the scan submenu by calling
+
+	.. code-block:: bash
+
+		menu scan
+
+**Connecting and Pairing**
+--------------------------
+In order to connect and pair to a BLE Device you must register a pairing agent and know the Bluetooth Address (bdaddr) associated with the device you want to connect with.
+This can be found by scanning for devices (as explained above).
+
+You can register a pairing agent through the bluetoothctl utility
+the mode selected will determine what authentication procedure.
+	
+	.. code-block:: bash
+
+		DisplayOnly or DisplayYesNo : authentication by PIN/passkey code
+		KeyboardOnly or KeyboardDisplay : yes/no choice to the pairing attempt
+		NoInputNoOutput : no user confirmation
+
+Open a terminal and run the following command
+
+	.. code-block:: bash
+
+		bluetoothctl
+
+The utility will open with the menu. To choose the agent, run the following command.
+
+	.. code-block:: bash
+
+		agent {mode}
+
+Once you have the bdaddr (from scanning) you can issue the following command to connect
+
+	.. code-block:: bash
+
+		pair {bdaddress}
+
+.. note::
+	An example of a valid bdaddr is C4:C1:A5:FB:6D:46
+
+If the connection is successful a connection handle will be returned.

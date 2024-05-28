@@ -1,0 +1,132 @@
+******************
+Driver Debug Guide
+******************
+
+Enable Driver Kernel Messages
+=============================
+
+CC33xx Linux module provides options to enable additional debugging from the default prints that are available as part
+of the status to a specific Wi-Fi operation (staring a STA, AP and so forth or disabling the same). It may however
+be needed to have additional debug logs while debugging certain operation of the driver. These logs can be
+dynamically enabled while running the driver. The following section specifies the available dynamic debug
+groups and the method to enable them. The example section shows how a collection of these dynamic debugs
+can be enabled using a single command.
+
+Debug Parameter Options
+-----------------------
+
+The cc33xx driver supports configurable and very detailed debug information. The log system of WL18xx driver
+only prints that log output that has an appropriate debug mode. All other debug logs are not printed. In this way,
+it is possible to control only necessary debug information. All available debug modes are defined in the
+:literal:`drivers/net/wireless/ti/cc33xx/debug.h` file. The options are listed below for reference. It is recommended to
+refer to the above mentioned header file for accurate debug groups available for a specific version of the driver
+used in the build.
+
+.. list-table:: Debug Parameters
+    :header-rows: 1
+    :align: center
+
+    * - Parameter 
+      - Value 
+    * - DEBUG_NONE
+      - 0
+    * - DEBUG_IRQ
+      - 1
+    * - DEBUG_SPI
+      - 2 
+    * - DEBUG_BOOT
+      - 4 
+    * - DEBUG_CORE_STATUS
+      - 8
+    * - DEBUG_TESTMODE
+      - 16
+    * - DEBUG_EVENT
+      - 32
+    * - DEBUG_TX
+      - 64
+    * - DEBUG_RX
+      - 128
+    * - DEBUG_SCAN
+      - 256
+    * - DEBUG_CRYPT
+      - 512
+    * - DEBUG_SPM
+      - 1024
+    * - DEBUG_MAC80211
+      - 2048
+    * - DEBUG_CMD
+      - 4096
+    * - DEBUG_ACX
+      - 8192
+    * - DEBUG_SDIO
+      - 16384
+    * - DEBUG_FILTERS
+      - 32768
+    * - DEBUG_ADHOC
+      - 65536
+    * - DEBUG_AP
+      - 131072
+    * - DEBUG_PROBE
+      - 262144
+    * - DEBUG_IO
+      - 524288
+    * - DEBUG_MASTER
+      - 65536 | 131072
+    * - DEBUG_CC33xx
+      - 393216
+    * - DEBUG_ALL
+      - ~0
+    * - DEBUG_NO_DATAPATH
+      - ~0 & ~1 & ~8 & ~64 & ~128 
+
+Activation of Debug Printout
+----------------------------
+
+The following sections detail the method to enable dynamic debug message groups within the driver. The
+following command is used for instructing the kernel to send log messages to the console:
+
+.. code-block:: bash
+
+    $ echo 8 > /proc/sys/kernel/printk
+
+To configure debug mode of the driver, write one of the above debug category number 
+to :literal:`/sys/module/cc33xx/parameters/debug_level` file. 
+For example, following command will configures driver to print debug messages 
+related to scanning operation - DEBUG_SCAN.
+
+.. code-block:: bash
+
+    $ echo 256 > /sys/module/cc33xx/parameters/debug_level
+
+Alternatively, you may enter hex number instead of decimal.
+
+.. code-block:: bash
+
+    $ echo 0x100 > /sys/module/cc33xx/parameters/debug_level
+
+Below is the output when the scan command is executed after starting the STA:
+
+.. code-block:: bash
+
+    $ iw wlan0 scan
+    [73380.957283] wlcore: n_pactive_ch = 1
+    [73380.961154] wlcore: freq 2467, ch. 12, flags 0x80112, power 20, min/max_dwell 25/50, NO-IR
+    [73380.970996] wlcore: n_pactive_ch = 2
+    [73380.974739] wlcore: freq 2472, ch. 13, flags 0x80112, power 20, min/max_dwell 25/50, NO-IR
+    [73380.984727] wlcore: n_pactive_ch = 3
+    [73380.988433] wlcore: freq 2484, ch. 14, flags 0x801f2, power 20, min/max_dwell 25/50, NO-IR
+    [73380.998049] wlcore: freq 2412, ch. 1, flags 0x801a0, power 20, min/max_dwell 25/50
+    [73381.007185] wlcore: freq 2417, ch. 2, flags 0x801a0, power 20, min/max_dwell 25/50
+    [73381.015771] wlcore: freq 2422, ch. 3, flags 0x801a0, power 20, min/max_dwell 25/50
+    [73381.024178] wlcore: freq 2427, ch. 4, flags 0x801a0, power 20, min/max_dwell 25/50
+    [73381.032425] wlcore: freq 2432, ch. 5, flags 0x80180, power 20, min/max_dwell 25/50
+    [73381.040626] wlcore: freq 2437, ch. 6, flags 0x80180, power 20, min/max_dwell 25/50
+    [73381.048324] wlcore: freq 2442, ch. 7, flags 0x80180, power 20, min/max_dwell 25/50
+    [73381.056868] wlcore: freq 2447, ch. 8, flags 0x80180, power 20, min/max_dwell 25/50
+    [73381.065176] wlcore: freq 2452, ch. 9, flags 0x80180, power 20, min/max_dwell 25/50
+    [73381.073211] wlcore: freq 2457, ch. 10, flags 0x80190, power 20, min/max_dwell 25/50
+    [73381.081256] wlcore: freq 2462, ch. 11, flags 0x80190, power 20, min/max_dwell 25/50
+    [73381.089283] wlcore:     2.4GHz: active 11 passive 3
+    [73381.094190] wlcore:     5GHz: active 0 passive 0
+    [73381.099353] wlcore:     DFS: 0
+    [73381.102434] wlcore: build probe request scan_type 2

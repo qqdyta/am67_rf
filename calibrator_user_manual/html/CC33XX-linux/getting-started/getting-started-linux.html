@@ -1,0 +1,679 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started Guide &mdash; CC33XX™ Linux User&#39;s Guide 01.00.00.03 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Software Examples" href="../sw-examples/software-examples.html" />
+    <link rel="prev" title="Introduction to the CC33xx Linux Driver" href="../intro-linux.html" />
+    <script language="JavaScript">
+        var tiPageName;
+        tiPageName = "sug CC33XX-linux getting-started getting-started-linux";
+
+        if (location.protocol == "file:"){
+            var ci_analytics_poc_load = true;
+        }
+    </script>
+
+    <script src="http://www.ti.com/assets/js/headerfooter/analytics.js" type="text/javascript" charset="utf-8"></script>
+
+
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for TI beyond RTD Sphinx Theme --->
+<div class="DocSite-globalNav tiNav">
+    <ul>
+    </ul>
+</div>
+
+<a class="DocSite-nav" href="https://www.ti.com" style="padding-bottom: 85px;">
+  <img class="DocSiteNav-logo"
+    src="../../_static/img/ti_logo.png"
+    alt="TI Logo">
+  <div class="DocSiteNav-title"></div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-linux.html" class="icon icon-home" alt="Documentation Home"> CC33XX™ Linux User's Guide
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                01.00.00.03
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro-linux.html">Introduction to the CC33xx Linux Driver</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#beaglebone-black-and-bp-cc3301">Beaglebone Black and BP-CC3301</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cc33xx-evaluation-hardware">CC33xx Evaluation Hardware</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#beaglebone-black-setup">BeagleBone Black Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cc33xx-software-download-and-installation">CC33xx Software Download and Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#option-1-flash-pre-built-cc33xx-image"><strong>Option 1: Flash Pre-Built CC33xx Image</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#option-2-build-and-install-cc33xx-binaries"><strong>Option 2: Build and Install CC33xx Binaries</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#sk-am62b-p1-and-m2-cc3301">SK-AM62B-P1 and M2-CC3301</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation-hardware">Evaluation Hardware</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites-1">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sk-am62b-p1-setup">SK-AM62B-P1 Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation-software">Evaluation Software</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#i-mx-8m-plus-evaluation-kit-and-m2-cc3301">i.MX 8M Plus Evaluation Kit and M2-CC3301</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation-hardware-1">Evaluation Hardware</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites-2">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#i-mx-8m-plus-setup">i.MX 8M Plus Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation-software-1">Evaluation Software</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sw-examples/software-examples.html">Software Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration-guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CC33conf-tool.html">CC33Conf Tool Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calibrator-tool.html">Calibrator Tool Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../driver-debug-guide.html">Driver Debug Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CC33XX/Coexistence.html">CC33xx Coexistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CC33XX/BP-CC3301_HW_UserGuide.html">CC3301 BoosterPack Hardware User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+            
+          
+          <!-- extra nav elements for TI beyond RTD Sphinx Theme --->
+<div id="sideBanner">
+    <br/>
+    <br/><br/><br/>
+</div>
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-linux.html">CC33XX™ Linux User's Guide</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-linux.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Getting Started Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started-guide">
+<span id="linux-getting-started"></span><h1>Getting Started Guide<a class="headerlink" href="#getting-started-guide" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="beaglebone-black-and-bp-cc3301">
+<h1>Beaglebone Black and BP-CC3301<a class="headerlink" href="#beaglebone-black-and-bp-cc3301" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cc33xx-evaluation-hardware">
+<span id="cc33xx-hardware"></span><h2>CC33xx Evaluation Hardware<a class="headerlink" href="#cc33xx-evaluation-hardware" title="Permalink to this headline">¶</a></h2>
+<p>The CC3301 BoosterPack (BP-CC3301) can be used to evaluate TI’s Wi-Fi 6 and Bluetooth Low Energy transceiver in embedded linux context. This guide describes how to bring up and begin evaluating the CC3301 with a Beaglebone Black.</p>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Host Platform:</strong> BeagleBone Black (see <a class="reference internal" href="#figure-2"><span class="std std-numref">Figure 2</span></a>)</li>
+<li>CC3301 BoosterPack</li>
+<li><a class="reference external" href="https://www.ti.com/lit/spau022">BP-CC33xx to BBB Adapter board</a></li>
+<li>5V 3A power supply for BeagleBone Black</li>
+<li>Micro-SD card (16GB or larger)</li>
+<li>FTDI TTL-232R-3V3USB to Serial Converter Cable for BeagleBone Black console logs</li>
+<li>Ethernet cable</li>
+</ul>
+</div>
+<div class="section" id="beaglebone-black-setup">
+<span id="beaglebone-black"></span><h3>BeagleBone Black Setup<a class="headerlink" href="#beaglebone-black-setup" title="Permalink to this headline">¶</a></h3>
+<p>To evaluate the CC33xx, the user will need a host platform capable of running Linux OS. The BeagleBone Black (BBB) is a low-cost, community-supported development
+platform: <a class="reference external" href="https://www.ti.com/tool/BEAGL-BONE-BLACK">https://www.ti.com/tool/BEAGL-BONE-BLACK</a></p>
+<div class="figure align-center" id="figure-1">
+<span id="figure-2"></span><a class="reference internal image-reference" href="../../_images/2_BeagleBoneBlack.jpg"><img alt="../../_images/2_BeagleBoneBlack.jpg" src="../../_images/2_BeagleBoneBlack.jpg" style="width: 379.2px; height: 252.6px;" /></a>
+<p class="caption"><span class="caption-number">Figure 2 </span><span class="caption-text">BeagleBone Black Board.</span></p>
+</div>
+<p>In order to interface with the BP-CC3301 with the BeagleBone Black the <a class="reference external" href="https://www.ti.com/lit/spau022">BP-CC33xx to BBB Adapter board</a> is required.</p>
+<div class="figure align-center" id="figure-3">
+<span id="top-view-of-bp-cc3301-bbb-with-adapter-board"></span><a class="reference internal image-reference" href="../../_images/BP+BBB_top.png"><img alt="../../_images/BP+BBB_top.png" src="../../_images/BP+BBB_top.png" style="width: 259.2px; height: 183.6px;" /></a>
+<p class="caption"><span class="caption-number">Figure 3 </span><span class="caption-text">Top view of BP-CC3301 + BBB with adapter board</span></p>
+</div>
+<div class="figure align-center" id="figure-4">
+<span id="side-view-of-bp-cc3301-and-bbb-with-adapter-board-inbetween"></span><a class="reference internal image-reference" href="../../_images/BP+BBB_side.png"><img alt="../../_images/BP+BBB_side.png" src="../../_images/BP+BBB_side.png" style="width: 369.0px; height: 223.79999999999998px;" /></a>
+<p class="caption"><span class="caption-number">Figure 4 </span><span class="caption-text">Side view of BP-CC3301 and BBB with adapter board inbetween</span></p>
+</div>
+<div class="figure align-center" id="figure-5">
+<span id="adapter-board-for-the-bbb"></span><a class="reference internal image-reference" href="../../_images/BBB+adapt.png"><img alt="../../_images/BBB+adapt.png" src="../../_images/BBB+adapt.png" style="width: 364.8px; height: 222.6px;" /></a>
+<p class="caption"><span class="caption-number">Figure 5 </span><span class="caption-text">Adapter Board for the BBB</span></p>
+</div>
+<p>To make sure the BeagleBone Black boots up from the SD card it is recommended to add a 100k Ohm resistor for R93 on the top of the BBB, and remove the R68 resistor seen on the bottom of the BBB. Alternatively, the S2 button must be pressed on the BeagleBone board during power up if the hardware modifications were not made. (see figures below)
+Lastly it is optional to add a right angle header on the bottom of the BBB to easily connect the FTDI cable. When the adapter board is attached to the BBB the FTDI cable may get pinched between the BBB and adapter board, which could cause communication problems. (see figure below)</p>
+<div class="figure align-center" id="figure-6">
+<span id="figure4"></span><a class="reference internal image-reference" href="../../_images/BBB_top_ECO.png"><img alt="TopView of modified BBB" src="../../_images/BBB_top_ECO.png" style="width: 319.5px; height: 229.0px;" /></a>
+<p class="caption"><span class="caption-number">Figure 6 </span><span class="caption-text">TopView of modified BBB</span></p>
+</div>
+<div class="figure align-center" id="figure-7">
+<span id="figure5"></span><a class="reference internal image-reference" href="../../_images/BBB_bottom_ECO.png"><img alt="BottomView of modified BeagleBone Black" src="../../_images/BBB_bottom_ECO.png" style="width: 366.5px; height: 303.0px;" /></a>
+<p class="caption"><span class="caption-number">Figure 7 </span><span class="caption-text">BottomView of modified BBB</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="cc33xx-software-download-and-installation">
+<span id="cc33xx-sw"></span><h2>CC33xx Software Download and Installation<a class="headerlink" href="#cc33xx-software-download-and-installation" title="Permalink to this headline">¶</a></h2>
+<p>There are 2 options to evaluate the CC33xx Linux software:</p>
+<ol class="arabic simple">
+<li>Flash pre-built CC33xx image</li>
+<li>Build and Download CC33xx binaries</li>
+</ol>
+<div class="section" id="option-1-flash-pre-built-cc33xx-image">
+<h3><strong>Option 1: Flash Pre-Built CC33xx Image</strong><a class="headerlink" href="#option-1-flash-pre-built-cc33xx-image" title="Permalink to this headline">¶</a></h3>
+<p>This is the easiest way to evaluate the CC33xx Linux driver and test its Wi-Fi functionality.
+TI provides pre-built image for the <a class="reference internal" href="#cc33xx-hardware"><span class="std std-ref">CC33xx Evaluation Hardware</span></a>, which can simply be flashed to a micro SD card and used
+to run the software.</p>
+<p>The steps to flash and run the pre-built CC33xx image on the evaluation hardware are as follows:</p>
+<ol class="arabic">
+<li><p class="first">Download and run the CC33xx Linux Installer:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./cc33xx-R&lt;version&gt;-linux-x64-installer.run
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Download the CC33xx prebuilt image for AM335x from the <a class="reference external" href="https://www.ti.com/tool/CC33XX-software">CC33xx software page</a>:</p>
+</li>
+<li><p class="first">Download and install the <a class="reference external" href="https://www.balena.io/etcher/">balenaEtcher</a> tool. Then, flash the uncompressed
+image <code class="docutils literal notranslate"><span class="pre">tisdk-default-image-cc33xx-am335x-evm.wic.xz</span></code> onto the SD card.</p>
+<blockquote>
+<div><div class="figure align-center" id="figure-8">
+<a class="reference internal image-reference" href="../../_images/14_balenaEtcherFlashing.png"><img alt="../../_images/14_balenaEtcherFlashing.png" src="../../_images/14_balenaEtcherFlashing.png" style="width: 320.8px; height: 207.60000000000002px;" /></a>
+<p class="caption"><span class="caption-number">Figure 8 </span><span class="caption-text">Balena Etcher Flashing Process.</span></p>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Plug SD card into the BeagleBone Black and power on the BeagleBone Black. A <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> interface should be created.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@am335x-evm:~# ifconfig wlan0
+wlan0: <span class="nv">flags</span><span class="o">=</span><span class="m">4099</span>&lt;UP,BROADCAST,MULTICAST&gt;  mtu <span class="m">1500</span>  metric <span class="m">1</span>
+                ether a4:34:f1:b1:52:de  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+                RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+                RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+                TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+                TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="option-2-build-and-install-cc33xx-binaries">
+<h3><strong>Option 2: Build and Install CC33xx Binaries</strong><a class="headerlink" href="#option-2-build-and-install-cc33xx-binaries" title="Permalink to this headline">¶</a></h3>
+<p>TI provides a Linux Installer allowing a user to build and install the CC33xx Linux drivers, firmware
+and related binaries. This installer is used in conjunction with TI AM335 Processor SDK.</p>
+<p>The steps to build and install the CC33xx Linux driver are as follows:</p>
+<ol class="arabic">
+<li><p class="first">Install the <code class="docutils literal notranslate"><span class="pre">ti-processor-sdk-linux-am335x-evm-08.02.00.24-Linux-x86-Install.bin</span></code> from the <a class="reference external" href="https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-AM335X/08.02.00.24">AM335x Downloads page</a>.</p>
+</li>
+<li><p class="first">Flash the SD card with <code class="docutils literal notranslate"><span class="pre">tisdk-default-image-am335x-evm.wic.xz</span></code>. Instructions to flash the SD card can be found in the <a class="reference external" href="https://software-dl.ti.com/processor-sdk-linux/esd/AM335X/08_02_00_24/exports/docs/linux/Overview/Processor_SDK_Linux_create_SD_card.html">AM335x Getting Started Guide</a>.</p>
+</li>
+<li><p class="first">Download and run the CC33xx Linux Installer from the <a class="reference external" href="https://www.ti.com/tool/CC33XX-software">CC33xx software page</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ chmod +x cc33xx-linux-package-0.4.2.0-linux-x64-installer.run
+$ ./cc33xx-linux-package-0.4.2.0-linux-x64-installer.run
+</pre></div>
+</div>
+</li>
+<li><p class="first">Install the contents at the processor SDK root folder (i.e. where the Processor SDK is installed):</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;PATH&gt;/ti-processor-sdk-linux-am335x-evm-&lt;version&gt;</span></code></p>
+</li>
+<li><p class="first">Change directory to the cc33xx folder in the am335x SDK:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;PATH&gt;/ti-processor-sdk-linux-am335x-evm-&lt;version&gt;/cc33xx
+</pre></div>
+</div>
+</li>
+<li><p class="first">The cc33xx package includes a script to assist in applying patches and building the kernel:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./build_cc33xx.sh --help
+</pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/6_help.png"><img alt="../../_images/6_help.png" src="../../_images/6_help.png" style="width: 624.5px; height: 106.5px;" /></a>
+</div>
+</li>
+<li><p class="first">Apply the kernel patches:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./build_cc33xx.sh  patch_kernel
+</pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/7_patch.png"><img alt="../../_images/7_patch.png" src="../../_images/7_patch.png" style="width: 555.5px; height: 258.5px;" /></a>
+</div>
+</li>
+<li><p class="first">Build the kernel:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./build_cc33xx.sh  build_kernel
+</pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/8_build.png"><img alt="../../_images/8_build.png" src="../../_images/8_build.png" style="width: 684.0px; height: 251.5px;" /></a>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Install the binaries by running following commands:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./build_cc33xx.sh  install_kernel
+</pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/9_install.png"><img alt="../../_images/9_install.png" src="../../_images/9_install.png" style="width: 683.0px; height: 186.0px;" /></a>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Mount <code class="docutils literal notranslate"><span class="pre">rootfs/</span></code> partition of the SD card, then copy <code class="docutils literal notranslate"><span class="pre">cc33xx/cc33xx_rootfs</span></code> binaries and paste into <code class="docutils literal notranslate"><span class="pre">rootfs/</span></code>
+partition. The copy should be done from shell via the following commands:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo cp -r cc33xx_rootfs/* /media/&lt;SD mount point&gt;/
+$ sync
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This should be done very carefully to preserve the file ownership of root. Just copying files via the file
+browser will throw an error and fail.</p>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Un-plug the SD card from host machine, and plug it into the BeagleBone Black. After powering on the board, the CC33xx drivers should load and a <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> interface is created.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@am335x-evm:~# ifconfig wlan0
+wlan0: <span class="nv">flags</span><span class="o">=</span><span class="m">4099</span>&lt;UP,BROADCAST,MULTICAST&gt;  mtu <span class="m">1500</span>  metric <span class="m">1</span>
+                ether a4:34:f1:b1:52:de  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+                RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+                RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+                TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+                TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
+
+root@am335x-evm:~# lsmod <span class="p">|</span> grep cc33
+cc33xx                <span class="m">253952</span>  <span class="m">0</span>
+mac80211              <span class="m">622592</span>  <span class="m">1</span> cc33xx
+cfg80211              <span class="m">335872</span>  <span class="m">2</span> mac80211,cc33xx
+cc33xx_sdio            <span class="m">16384</span>  <span class="m">0</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="sk-am62b-p1-and-m2-cc3301">
+<h1>SK-AM62B-P1 and M2-CC3301<a class="headerlink" href="#sk-am62b-p1-and-m2-cc3301" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="evaluation-hardware">
+<span id="am62bp1-hardware"></span><h2>Evaluation Hardware<a class="headerlink" href="#evaluation-hardware" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prerequisites-1">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites-1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://www.ti.com/tool/SK-AM62B-P1">SK-AM62B-P1</a></li>
+<li><a class="reference external" href="https://www.ti.com/tool/M2-CC3301">M2-CC3301</a></li>
+<li>USB-C Power Supply</li>
+<li>microUSB Cable</li>
+<li>32GB microSD Card</li>
+</ul>
+</div>
+<div class="section" id="sk-am62b-p1-setup">
+<h3>SK-AM62B-P1 Setup<a class="headerlink" href="#sk-am62b-p1-setup" title="Permalink to this headline">¶</a></h3>
+<p>A slight hardware modification might be necessary for the M2-CC3301 to operate correctly
+with the AM62 Starter Kit. A 10kOhm resistor in footprint R6 must be added to pull up the WL_IRQ line.
+Some boards may have this resistor already installed. R6 is placed on the back of
+the board behind the M.2 connector. See the location of the resistor here:</p>
+<div class="figure align-center" id="am62-r6">
+<a class="reference internal image-reference" href="../../_images/am62b_r6.jpeg"><img alt="../../_images/am62b_r6.jpeg" src="../../_images/am62b_r6.jpeg" style="width: 234.49999999999997px; height: 303.79999999999995px;" /></a>
+<p class="caption"><span class="caption-number">Figure 9 </span><span class="caption-text">SK-AM62B R6 resistor location</span></p>
+</div>
+<p>After checking the existence of R6, plug in the M2-CC3301 into the M.2 Key E
+connector.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Do not continue until R6 is placed.</p>
+</div>
+</div>
+</div>
+<div class="section" id="evaluation-software">
+<h2>Evaluation Software<a class="headerlink" href="#evaluation-software" title="Permalink to this headline">¶</a></h2>
+<p>The following steps describe how to prepare a micro SD card with the CC33XX driver.</p>
+<ol class="arabic">
+<li><p class="first">Flash the microSD card with the prebuilt am62x WIC image from TI: <a class="reference external" href="https://dr-download.ti.com/software-development/software-development-kit-sdk/MD-PvdSyIiioq/09.01.00.08/tisdk-default-image-am62xx-evm.wic.xz">https://dr-download.ti.com/software-development/software-development-kit-sdk/MD-PvdSyIiioq/09.01.00.08/tisdk-default-image-am62xx-evm.wic.xz</a></p>
+</li>
+<li><p class="first">On a Linux-based host PC, install the AM62 Processor SDK: <a class="reference external" href="https://dr-download.ti.com/software-development/software-development-kit-sdk/MD-PvdSyIiioq/09.01.00.08/ti-processor-sdk-linux-am62xx-evm-09.01.00.08-Linux-x86-Install.bin">https://dr-download.ti.com/software-development/software-development-kit-sdk/MD-PvdSyIiioq/09.01.00.08/ti-processor-sdk-linux-am62xx-evm-09.01.00.08-Linux-x86-Install.bin</a></p>
+</li>
+<li><p class="first">Navigate to the ti linux kernel source directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/ti-processor-sdk-linux-am62xx-evm-09.01.00.08/board-support/ti-linux-kernel-6.1.46-.../
+</pre></div>
+</div>
+</li>
+<li><p class="first">Patch the TI linux kernel with the CC33XX patches:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ patch -p0 &lt; &lt;path_to_cc33xx_folder&gt;/patches/cc33xx_kernel.patch
+$ patch -p0 &lt; &lt;path_to_cc33xx_folder&gt;/patches/cc33xx_am625-sk_dts.patch
+$ patch -p0 &lt; &lt;path_to_cc33xx_folder&gt;/patches/cc33xx_ti_config.patch
+</pre></div>
+</div>
+</li>
+<li><p class="first">Add the SDK’s toolchain to the PATH environment variable and clean the kernel sources:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>&lt;sdk path&gt;/linux-devkit/sysroots/x86_64-arago-linux/usr/bin/aarch64-oe-linux:<span class="nv">$PATH</span>
+$ make <span class="nv">ARCH</span><span class="o">=</span>arm64 <span class="nv">CROSS_COMPILE</span><span class="o">=</span>aarch64-oe-linux- distclean
+</pre></div>
+</div>
+</li>
+<li><p class="first">Build the kernel, modules, and devicetree:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ make <span class="nv">ARCH</span><span class="o">=</span>arm64 <span class="nv">CROSS_COMPILE</span><span class="o">=</span>aarch64-oe-linux- defconfig ti_arm64_prune.config
+$ make <span class="nv">ARCH</span><span class="o">=</span>arm64 <span class="nv">CROSS_COMPILE</span><span class="o">=</span>aarch64-oe-linux- Image modules dtbs -j8
+</pre></div>
+</div>
+</li>
+<li><p class="first">Install the kernel, modules, and DTBs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo cp arch/arm64/boot/Image /media/&lt;user&gt;/root/boot/
+$ sudo make <span class="nv">ARCH</span><span class="o">=</span>arm64 modules_install <span class="nv">INSTALL_MOD_PATH</span><span class="o">=</span>/media/&lt;user&gt;/root
+$ sudo cp arch/arm64/boot/dts/ti/k3-am625-sk.dtb /media/&lt;user&gt;/root/boot/dtb/ti/
+</pre></div>
+</div>
+</li>
+<li><p class="first">Install the CC33XX firmware and example scripts by copying the contents under
+“cc33xx_rootfs” into the SD card’s root directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;path_to_cc33xx_folder&gt;/cc33xx_rootfs
+$ sudo cp -r * /media/&lt;user&gt;/root/
+$ sync
+</pre></div>
+</div>
+</li>
+<li><p class="first">Eject the SD card from the host PC and plug it into the SK-AM62B-P1. Apply the
+USB-C power supply and open a serial terminal with baudrate 115200. The CC33XX
+driver and Wi-Fi should now be available and the <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> interface should
+be shown in the output of <code class="docutils literal notranslate"><span class="pre">ifconfig</span></code>. For example scripts, refer to <a class="reference internal" href="../sw-examples/software-examples.html#linux-sw-examples"><span class="std std-ref">WiFi Fundamentals</span></a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ifconfig wlan0
+wlan0: <span class="nv">flags</span><span class="o">=</span><span class="m">4099</span>&lt;UP,BROADCAST,MULTICAST&gt;  mtu <span class="m">1500</span>
+        ether a4:34:f1:b1:62:92  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="i-mx-8m-plus-evaluation-kit-and-m2-cc3301">
+<h1>i.MX 8M Plus Evaluation Kit and M2-CC3301<a class="headerlink" href="#i-mx-8m-plus-evaluation-kit-and-m2-cc3301" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="evaluation-hardware-1">
+<span id="imx8mp-hardware"></span><h2>Evaluation Hardware<a class="headerlink" href="#evaluation-hardware-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prerequisites-2">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites-2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://www.nxp.com/design/development-boards/i-mx-evaluation-and-development-boards/evaluation-kit-for-the-i-mx-8m-plus-applications-processor:8MPLUSLPD4-EVK">IMX8MPLUSLPD4-EVK</a></li>
+<li><a class="reference external" href="https://www.ti.com/tool/M2-CC3301">M2-CC3301</a></li>
+<li>USB-C Power Supply (included in i.MX8 Evaluation Kit)</li>
+<li>microUSB Cable (included in i.MX8 Evaluation Kit)</li>
+<li>32GB microSD Card</li>
+</ul>
+</div>
+<div class="section" id="i-mx-8m-plus-setup">
+<h3>i.MX 8M Plus Setup<a class="headerlink" href="#i-mx-8m-plus-setup" title="Permalink to this headline">¶</a></h3>
+<p>A slight hardware modification is necessary for the M2-CC3301 to operate correctly
+with the i.MX 8MP EVK. R33 on the i.MX EVK needs to be removed and R36 must be inserted.
+This change allows the 3.3V power supply on the M.2 connector to always be on.
+These two resistors are found on the back of the board next to the M.2 Key-E connector.
+See the schematic below.</p>
+<div class="figure align-center" id="imx8schem">
+<a class="reference internal image-reference" href="../../_images/9_imx8mp-sch-resistor.PNG"><img alt="../../_images/9_imx8mp-sch-resistor.PNG" src="../../_images/9_imx8mp-sch-resistor.PNG" style="width: 349.2px; height: 120.0px;" /></a>
+<p class="caption"><span class="caption-number">Figure 10 </span><span class="caption-text">i.MX8 MP Schematic Snippet</span></p>
+</div>
+<p>After this modification, plug in the M2-CC3301 into the M.2 Key E
+connector on the back of the board.</p>
+</div>
+</div>
+<div class="section" id="evaluation-software-1">
+<h2>Evaluation Software<a class="headerlink" href="#evaluation-software-1" title="Permalink to this headline">¶</a></h2>
+<p>The following steps describe how to prepare a micro SD card with the CC33XX driver.</p>
+<ol class="arabic">
+<li><p class="first">Flash the microSD card with the prebuilt imx8mp WIC image from NXP: <a class="reference external" href="https://www.nxp.com/webapp/Download?colCode=L6.1.36_2.1.0_MX8MP&amp;appType=license">https://www.nxp.com/webapp/Download?colCode=L6.1.36_2.1.0_MX8MP&amp;appType=license</a></p>
+<ul class="simple">
+<li>For more information on NXP’s prebuilt images, follow this guide: <a class="reference external" href="https://www.nxp.com/document/guide/getting-started-with-the-i-mx-8m-plus-evk:GS-iMX-8M-Plus-EVK?section=embedded-linux">https://www.nxp.com/document/guide/getting-started-with-the-i-mx-8m-plus-evk:GS-iMX-8M-Plus-EVK?section=embedded-linux</a></li>
+</ul>
+</li>
+<li><p class="first">On a Linux-based host PC, clone the i.MX Linux Kernel repository and checkout the <code class="docutils literal notranslate"><span class="pre">lf-6.1.y</span></code> branch:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone -b lf-6.1.y https://github.com/nxp-imx/linux-imx.git
+$ <span class="nb">cd</span> linux-imx/
+</pre></div>
+</div>
+</li>
+<li><p class="first">Patch the i.MX linux kernel with the CC33XX driver and DTS patches:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ patch -p0 &lt; &lt;path_to_cc33xx_folder&gt;/patches/cc33xx_kernel.patch
+$ patch -p0 &lt; &lt;path_to_cc33xx_folder&gt;/patches/cc33xx_imx8mp_dts.patch
+</pre></div>
+</div>
+</li>
+<li><p class="first">Build the kernel, modules, and devicetree:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ make <span class="nv">ARCH</span><span class="o">=</span>arm64 <span class="nv">CROSS_COMPILE</span><span class="o">=</span>aarch64-none-linux-gnu- imx_v8_defconfig
+$ make <span class="nv">ARCH</span><span class="o">=</span>arm64 <span class="nv">CROSS_COMPILE</span><span class="o">=</span>aarch64-none-linux-gnu- Image modules dtbs -j8
+</pre></div>
+</div>
+</li>
+<li><p class="first">Plug the SD card into the Ubuntu machine and install the kernel, modules, and DTBs on to the SD card:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo cp arch/arm64/boot/Image /media/&lt;user&gt;/root/boot/
+$ sudo cp arch/arm64/boot/Image /media/&lt;user&gt;/boot/
+$ sudo cp arch/arm64/boot/dts/freescale/imx8mp-evk-usdhc1-m2.dtb /media/&lt;user&gt;/root/boot/
+$ sudo cp arch/arm64/boot/dts/freescale/imx8mp-evk-usdhc1-m2.dtb /media/&lt;user&gt;/boot/
+<span class="c1"># Be sure to paste the Image and DTB into both locations, for safety</span>
+$ sudo make <span class="nv">ARCH</span><span class="o">=</span>arm64 modules_install <span class="nv">INSTALL_MOD_PATH</span><span class="o">=</span>/media/&lt;user&gt;/root
+</pre></div>
+</div>
+</li>
+<li><p class="first">Install the CC33XX firmware and example scripts by copying the contents under
+“cc33xx_rootfs” into the SD card’s root directory.</p>
+</li>
+<li><p class="first">Eject the SD card from the host PC and plug it into the i.MX8MP EVK. Apply the
+USB-C power supply and open a serial terminal with baudrate 115200.</p>
+</li>
+<li><p class="first">Enter the U-Boot command line by pressing any button on device bringup. The command line
+will then look at the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Hit any key to stop autoboot:  <span class="m">0</span>
+u-boot<span class="o">=</span>&gt;
+</pre></div>
+</div>
+</li>
+<li><p class="first">Enter the following U-Boot commands. The output of these commands is also shown:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>u-boot<span class="o">=</span>&gt; setenv fdtfile imx8mp-evk-usdhc1-m2.dtb
+u-boot<span class="o">=</span>&gt; saveenv
+Saving Environment to MMC... Writing to MMC<span class="o">(</span><span class="m">0</span><span class="o">)</span>... OK
+u-boot<span class="o">=</span>&gt; reset
+resetting ...
+</pre></div>
+</div>
+</li>
+<li><p class="first">After the linux kernel boots, the CC33XX driver should now be loaded and the <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> interface should
+be shown in the output of <code class="docutils literal notranslate"><span class="pre">ifconfig</span></code>. For example scripts, refer to <a class="reference internal" href="../sw-examples/software-examples.html#linux-sw-examples"><span class="std std-ref">WiFi Fundamentals</span></a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ifconfig wlan0
+wlan0: <span class="nv">flags</span><span class="o">=</span><span class="m">4099</span>&lt;UP,BROADCAST,MULTICAST&gt;  mtu <span class="m">1500</span>
+        ether a4:34:f1:b1:62:92  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../sw-examples/software-examples.html" class="btn btn-neutral float-right" title="Software Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../intro-linux.html" class="btn btn-neutral float-left" title="Introduction to the CC33xx Linux Driver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        <a href="https://www.ti.com/corp/docs/legal/copyright.shtml">2023, Texas Instruments</a>, Texas Instruments Incorporated. All rights reserved. <br>
+        <a href="https://www.ti.com/corp/docs/legal/trademark/trademrk.htm">Trademarks</a> | <a href="https://www.ti.com/corp/docs/legal/privacy.shtml">Privacy policy</a> | <a href="https://www.ti.com/corp/docs/legal/termsofuse.shtml">Terms of use</a> | <a href="https://www.ti.com/lsds/ti/legal/termsofsale.page">Terms of sale</a>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

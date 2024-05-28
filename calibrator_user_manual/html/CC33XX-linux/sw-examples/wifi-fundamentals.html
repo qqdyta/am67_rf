@@ -1,0 +1,917 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>WiFi Fundamentals &mdash; CC33XX™ Linux User&#39;s Guide 01.00.00.03 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <script language="JavaScript">
+        var tiPageName;
+        tiPageName = "sug CC33XX-linux sw-examples wifi-fundamentals";
+
+        if (location.protocol == "file:"){
+            var ci_analytics_poc_load = true;
+        }
+    </script>
+
+    <script src="http://www.ti.com/assets/js/headerfooter/analytics.js" type="text/javascript" charset="utf-8"></script>
+
+
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for TI beyond RTD Sphinx Theme --->
+<div class="DocSite-globalNav tiNav">
+    <ul>
+    </ul>
+</div>
+
+<a class="DocSite-nav" href="https://www.ti.com" style="padding-bottom: 85px;">
+  <img class="DocSiteNav-logo"
+    src="../../_static/img/ti_logo.png"
+    alt="TI Logo">
+  <div class="DocSiteNav-title"></div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-linux.html" class="icon icon-home" alt="Documentation Home"> CC33XX™ Linux User's Guide
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                01.00.00.03
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro-linux.html">Introduction to the CC33xx Linux Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started-linux.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started-linux.html#beaglebone-black-and-bp-cc3301">Beaglebone Black and BP-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started-linux.html#sk-am62b-p1-and-m2-cc3301">SK-AM62B-P1 and M2-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started-linux.html#i-mx-8m-plus-evaluation-kit-and-m2-cc3301">i.MX 8M Plus Evaluation Kit and M2-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software-examples.html">Software Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration-guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CC33conf-tool.html">CC33Conf Tool Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calibrator-tool.html">Calibrator Tool Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../driver-debug-guide.html">Driver Debug Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CC33XX/Coexistence.html">CC33xx Coexistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CC33XX/BP-CC3301_HW_UserGuide.html">CC3301 BoosterPack Hardware User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+            
+          
+          <!-- extra nav elements for TI beyond RTD Sphinx Theme --->
+<div id="sideBanner">
+    <br/>
+    <br/><br/><br/>
+</div>
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-linux.html">CC33XX™ Linux User's Guide</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-linux.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>WiFi Fundamentals</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="wifi-fundamentals">
+<h1>WiFi Fundamentals<a class="headerlink" href="#wifi-fundamentals" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Optional : Prior to testing WLAN functionality, execute <em>ifconfig</em> command on the console to list available interfaces.
+If <em>wlan0</em> interface is listed, it will confirm CC3xx drivers were loaded properly.</p>
+</div>
+<p>The following sections describe the steps that can be used to verify the build for both STA and AP roles. Before proceeding
+further, make sure that you have a valid image on an SD card by following the build procedures mentioned in the <a class="reference internal" href="../getting-started/getting-started-linux.html#cc33xx-sw"><span class="std std-ref">CC33xx Software Download and Installation</span></a>
+section. The scripts are located at <code class="docutils literal notranslate"><span class="pre">/usr/share/cc33xx</span></code>. Note that the configuration files needed for the wpa_supplicant and
+hostapd are also included in this folder. These files may need to be modified to enable WPA2, channel selection, mode of
+operation, and so forth.</p>
+<div class="section" id="sta-mode">
+<h2><strong>STA Mode</strong><a class="headerlink" href="#sta-mode" title="Permalink to this headline">¶</a></h2>
+<p>This section explains how to configure CC33xx device to be in STA role, connect it to an Access Point and verify the
+connectivity between the CC33xx device and the AP. The general procedure of using the pre-built scripts for Station Mode
+is as follows:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Navigate to the directory which contains the out-of-box scripts as root</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /usr/share/cc33xx/
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Start the device in station mode</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./sta_start.sh
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Connect to an Access Point</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./sta_connect.sh -n &lt;SSID&gt; -s &lt;SEC TYPE&gt; -p &lt;PASSCODE&gt; -f &lt;PMF&gt; -u &lt;Unicast scan&gt; -i &lt;interface name&gt;
+
+For all options call: ./sta_connect.sh -h
+
+root@am335x-evm:/usr/share/cc33xx# ./sta_connect.sh -h
+Usage: ./sta_connect.sh <span class="o">[</span>OPTIONS<span class="o">]</span>
+Options:
+  -h,   --help       Display this <span class="nb">help</span>
+  -n,   --network    Network name <span class="o">(</span>aka SSID<span class="o">)</span> of the AP <span class="o">(</span>required<span class="o">)</span>
+  -s,   --sec        Security Type: NONE, WPA-PSK, SAE, WPA-EAP, WPA-EAP-SHA256
+  -p,   --password   Security Key passphrase
+  -f,   --pmf        PMF: <span class="m">0</span> - disabled, <span class="m">1</span> - optional, <span class="m">2</span> - required
+  -u,   --unicast    Scan unicast or broadcast: <span class="m">0</span> - broadcast <span class="o">(</span>default<span class="o">)</span>, <span class="m">1</span> - unicast
+  -i,   --intf       Interface name: wlan0 <span class="o">(</span>default<span class="o">)</span>, wlan2
+  -------------------------------------------------------------
+  Following options <span class="k">for</span> enterprise only <span class="o">(</span>WPA-EAP/WPA-EAP-SHA256<span class="o">)</span>
+  -------------------------------------------------------------
+  -c    Path to client certificate file
+  -K    Path to private key cert file
+  -I    Identity
+  -P    Private key password
+</pre></div>
+</div>
+<p>Un-secured Access Point</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./sta_connect.sh -n &lt;SSID&gt;  -s NONE
+or
+./sta_connect.sh -n &lt;SSID&gt;
+</pre></div>
+</div>
+<p>Secured Access Point with WPA2 security</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./sta_connect.sh -n &lt;SSID&gt; -s WPA-PSK -p &lt;password&gt;
+</pre></div>
+</div>
+<p>Secured Access Point with WPA2 PMF security</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./sta_connect.sh -n &lt;SSID&gt;  -s WPA-PSK -f <span class="m">1</span> -p &lt;password&gt;
+</pre></div>
+</div>
+<p>Secured Access Point with WPA3 security</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./sta_connect.sh -n &lt;SSID&gt;  -s SAE -p &lt;password&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Request an IP address from the Access Point</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>udhcpc -i wlan0
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Ping the Access Point to verify the connection</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping <span class="m">192</span>.168.1.1
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<p>An output similar to the following can now be seen:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PING <span class="m">192</span>.168.1.1 <span class="o">(</span><span class="m">192</span>.168.1.1<span class="o">)</span>: <span class="m">56</span> data bytes
+<span class="m">64</span> bytes from <span class="m">192</span>.168.1.1: <span class="nv">seq</span><span class="o">=</span><span class="m">0</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span><span class="m">2</span>.369 ms
+<span class="m">64</span> bytes from <span class="m">192</span>.168.1.1: <span class="nv">seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span><span class="m">2</span>.526 ms
+</pre></div>
+</div>
+</div></blockquote>
+<p>The following command will display the AP settings and verify the connection:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iw wlan0 link
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ap-mode">
+<h2><strong>AP Mode</strong><a class="headerlink" href="#ap-mode" title="Permalink to this headline">¶</a></h2>
+<p>This section explains how to configure CC33xx in the AP role, connect another Wi-Fi device to it and verify the
+connectivity between the connected device and the CC33xx AP.</p>
+<p><strong>AP Mode Procedure</strong></p>
+<p>The device can be configured as an AP by editing the hostapd.conf file, located at <code class="docutils literal notranslate"><span class="pre">/usr/share/cc33xx/hostapd.conf</span></code>.
+In this file, there are options to change the SSID, security and select other advanced Wi-Fi features. The key
+parameters to consider are listed below:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># SSID to be used in IEEE 802.11 management frames</span>
+<span class="nv">ssid</span><span class="o">=</span>CC33xxAP
+<span class="c1"># Channel number (IEEE 802.11)</span>
+<span class="nv">channel</span><span class="o">=</span><span class="m">6</span>
+<span class="c1"># ieee80211n: Whether IEEE 802.11n (HT) is enabled</span>
+<span class="c1"># 0 = disabled (default)</span>
+<span class="c1"># 1 = enabled</span>
+<span class="c1"># Note: You will also need to enable WMM for full HT functionality.</span>
+<span class="nv">ieee80211n</span><span class="o">=</span><span class="m">1</span>
+<span class="c1"># ht_capab: HT capabilities (list of flags)</span>
+<span class="nv">ht_capab</span><span class="o">=[</span>SHORT-GI-20<span class="o">][</span>GF<span class="o">][</span>HT<span class="o">]</span>
+<span class="c1">##### WPA/IEEE 802.11i configuration ##########################################</span>
+<span class="nv">wpa</span><span class="o">=</span><span class="m">2</span>
+<span class="nv">wpa_passphrase</span><span class="o">=</span>yourpassword
+<span class="c1"># Set of accepted key management algorithms (WPA-PSK, WPA-EAP, or both). The</span>
+<span class="c1"># entries are separated with a space. WPA-PSK-SHA256 and WPA-EAP-SHA256 can be</span>
+<span class="c1"># added to enable SHA256-based stronger algorithms.</span>
+<span class="c1"># (dot11RSNAConfigAuthenticationSuitesTable)</span>
+<span class="nv">wpa_key_mgmt</span><span class="o">=</span>WPA-PSK
+<span class="c1"># Operation mode (a = IEEE 802.11a, b = IEEE 802.11b, g = IEEE 802.11g,</span>
+<span class="c1"># Default: IEEE 802.11b</span>
+<span class="nv">hw_mode</span><span class="o">=</span>g
+<span class="c1"># Pairwise cipher for WPA (v1) (default: TKIP)</span>
+<span class="nv">wpa_pairwise</span><span class="o">=</span>TKIP CCMP
+<span class="c1"># Pairwise cipher for RSN/WPA2 (default: use wpa_pairwise value)</span>
+<span class="nv">rsn_pairwise</span><span class="o">=</span>CCMP
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Starting the AP</strong></p>
+<p>Run the  ap_start script as root:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /usr/share/cc33xx
+./ap_start.sh
+</pre></div>
+</div>
+</div></blockquote>
+<p>Sample output:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>adding wlan1 interface
+Configuration file: /usr/share/cc33xx/hostapd.conf
+IPv6: ADDRCONF<span class="o">(</span>NETDEV_UP<span class="o">)</span>: wlan1: link is not ready
+wlan1: interface state UNINITIALIZED-&gt;COUNTRY_UPDATE
+Using interface wlan1 with hwaddr 0c:1c:57:bb:60:5f and ssid <span class="s2">&quot;CC33xxAP&quot;</span>
+IPv6: ADDRCONF<span class="o">(</span>NETDEV_CHANGE<span class="o">)</span>: wlan1: link becomes ready
+cryptd: max_cpu_qlen <span class="nb">set</span> to <span class="m">1000</span>
+wlan1: interface state COUNTRY_UPDATE-&gt;ENABLED
+wlan1: AP-ENABLED
+</pre></div>
+</div>
+</div></blockquote>
+<p>To verify that the CC33xx AP was successfully enabled, use a device such as a smart phone or laptop and connect it
+to CC33xx AP. A prompt (AP_STA_CONNECTED) will be visible when the station successfully connects to the CC33xx AP.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">CC33xx devices do not have the capabilities to detect radar systems such as
+those used by weather, military, and airport radars. Therefore, the user must
+be careful to not set the channel in hostapd.conf to one of the 5GHz DFS channels.</p>
+</div>
+</div>
+<div class="section" id="dual-sta-sta-mode">
+<h2><strong>Dual STA-STA Mode</strong><a class="headerlink" href="#dual-sta-sta-mode" title="Permalink to this headline">¶</a></h2>
+<p>The CC33xx device supports simultaneous dual STA-STA role. In other words, it is possible to have 2 station roles on CC33xx and connect to 2 seperate APs at the same time.</p>
+<p>The primary station is by default on wireless interface ‘wlan0’. For more details on primary station, please consult STA_Mode section above. The secondary station is by default on wireless interface ‘wlan2’</p>
+<p>Add secondary station by executing this script:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./sta_add.sh
+</pre></div>
+</div>
+</div></blockquote>
+<p>Connect secondary station to an Access Point</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Run the script <span class="s2">&quot;./sta_connect.sh&quot;</span> <span class="o">(</span> same as primary station <span class="o">)</span> to connect secondary station to an Access Point.
+
+Add <span class="s2">&quot;-i wlan2&quot;</span> to the list of arguments <span class="k">in</span> order to specify the secondary station interface
+
+example: Connect secondary station to an Un-secured AP
+
+./sta_connect.sh -n SSID -i wlan2
+</pre></div>
+</div>
+</div></blockquote>
+<p>For more connect options, please consult step 3 of STA_Mode section above</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">IEEE 802.11ax is disabled on secondary STA</p>
+</div>
+</div></blockquote>
+<p>Disable secondary station</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig wlan2 down
+</pre></div>
+</div>
+</div></blockquote>
+<p>Remove secondary station</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./sta_remove.sh
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="lsi-long-sleep-interval">
+<h2><strong>LSI (Long Sleep Interval)</strong><a class="headerlink" href="#lsi-long-sleep-interval" title="Permalink to this headline">¶</a></h2>
+<p>In between receiving DTIM beacons (delivery traffic indication message) from an
+Access Point, the device is able to go into low-power modes without the risk of
+missing data. The transmission time of the DTIM beacon is known in advance, so the
+device is able to wake up in time to receive traffic. The CC33xx device
+incorporates an LSI mode where the device will only wake up for a single broadcast
+period within the time interval specified by the application. Therefore, the device
+is able to reduce power consumption with the tradeoff of possibly missing broadcast
+data on the network.</p>
+<p>In order to configure Long Sleep Interval for the device in STA role, use
+the following command where NUM is an integer value between and including 1 to 10.
+NUM is the number of DTIM beacons that the device will wake on. For example,
+if NUM is 3, then the STA will wake on every 3rd beacon. If NUM is 1, then the
+STA wakes on every DTIM, and disables the LSI feature:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> NUM &gt; /sys/kernel/debug/ieee80211/phy0/cc33xx/dtim_interval
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="antenna-select-control">
+<h2><strong>Antenna Select Control</strong><a class="headerlink" href="#antenna-select-control" title="Permalink to this headline">¶</a></h2>
+<p>The antenna select pin (ANT_SEL) can be manually controlled from the linux host
+in order to toggle the state of the pin. By default, the ANT_SEL pin will be LOW
+on powerup. Issue one of the following commands to set the pin HIGH (1) or LOW (0).</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the ANT_SEL pin HIGH</span>
+<span class="nb">echo</span> <span class="m">1</span> &gt; /sys/kernel/debug/ieee80211/phy0/cc33xx/antenna_select
+<span class="c1"># sets the ANT_SEL pin LOW</span>
+<span class="nb">echo</span> <span class="m">0</span> &gt; /sys/kernel/debug/ieee80211/phy0/cc33xx/antenna_select
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="override-default-mac-address">
+<h2><strong>Override Default MAC Address</strong><a class="headerlink" href="#override-default-mac-address" title="Permalink to this headline">¶</a></h2>
+<p>The Linux driver provides the ability to override the default MAC address. Though
+there is no ability to permanently change the MAC address, developers can create
+a file in the linux filesystem which the cc33xx linux driver would read and send
+to the device on firmware download. This file must be placed into the <code class="docutils literal notranslate"><span class="pre">/lib/firmware/ti-connectivity</span></code>
+directory and named <code class="docutils literal notranslate"><span class="pre">cc33xx-nvs.bin</span></code>. The contents of the <code class="docutils literal notranslate"><span class="pre">cc33xx-nvs.bin</span></code> must only
+contain the binary input of the MAC address.</p>
+<p>Creation of the cc33xx-nvs.bin file is done with the following command with the
+example MAC “AA:BB:CC:DD:EE:FF”:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> -n -e <span class="s1">&#39;\xAA\xBB\xCC\xDD\xEE\xFF&#39;</span> &gt; /lib/firmware/ti-connectivity/cc33xx-nvs.bin
+</pre></div>
+</div>
+<p>If the NVS file is not present, then the default MAC address from TI will be used.
+An address in the NVS file with value “00:00:00:00:00:00” is reserved and the default
+address will also be used. A value with “00:00:00:00:00:01” is reserved and will
+generate a random MAC address each time the driver is initialized.</p>
+</div>
+<div class="section" id="recovery-mechanism">
+<h2><strong>Recovery Mechanism</strong><a class="headerlink" href="#recovery-mechanism" title="Permalink to this headline">¶</a></h2>
+<p>Should the communication between the host and the CC33XX device have a fault in
+communication, the  CC33xx linux driver will automatically attempt to reboot the device.
+This means that the driver will toggle the RESET pin and then re-download firmware
+to the CC33XX. The wpa_supplicant or hostapd will then try to re-establish any
+connection made previously removing the need for the user to intervene. However,
+applications using BLE may have to manually re-connect since the device has been reset.</p>
+</div>
+<div class="section" id="wake-on-wlan-wowlan-feature">
+<h2><strong>Wake on WLAN (WoWLAN) Feature</strong><a class="headerlink" href="#wake-on-wlan-wowlan-feature" title="Permalink to this headline">¶</a></h2>
+<p>Wake-on-Wireless (WoW) is a feature that allows the linux host to go into a low-power state while the CC33xx
+remains active and maintains connection. On pre-determined wireless triggers, the wireless device can send an interrupt to
+the host resuming the active state. WoWLAN can only be used for a single station role on the CC33xx.</p>
+<p>There are three kinds of triggers which can all be configured using the ‘iw’ networking tool:</p>
+<ul class="simple">
+<li>Any event</li>
+<li>Up to 8 user-defined patterns</li>
+<li>Magic Packet</li>
+</ul>
+<p>In case of special packets (eapoll, disconnect, etc.) the CC33xx will also wake the host in order to re-establish the connection.</p>
+<p><strong>Enable WoWLAN Mode</strong></p>
+<p>The following steps show the procedure for enabling WoWLAN:</p>
+<ol class="arabic simple">
+<li>Connect CC33xx’s station role to an AP</li>
+<li>Use ‘iw’ to enable WoWLAN in the linux system:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ iw phy0 wowlan <span class="nb">enable</span> any
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Put linux host into suspend mode.</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> mem &gt; /sys/power/state
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Send ping to the device. This ping will cause the linux host to wake from suspend.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In AM335x Processor SDK 9.1, the host suspend/resume feature is not functional. Thus,
+it is recommended to experiment with the AM62x SDK 9.1 or later.</p>
+</div>
+<p><strong>Pattern Configuration</strong></p>
+<p>Once enabled, WoWLAN patterns are searched by the chip firmware in every incoming data packet. Once a
+pattern is detected the chip wakes up the host. The patterns begin with an 802.3 (Ethernet) header with the
+correct source/destination MACs (it is NOT the actual 802.11 header which is transmitted in the air).</p>
+<table border="1" class="docutils align-center" id="table-1">
+<caption><span class="caption-text">802.3 MAC Header Pattern</span><a class="headerlink" href="#table-1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Parameter</td>
+<td>Number of Bytes</td>
+</tr>
+<tr class="row-even"><td>Destination MAC Address</td>
+<td>6</td>
+</tr>
+<tr class="row-odd"><td>Source MAC Address</td>
+<td>6</td>
+</tr>
+<tr class="row-even"><td>Ethernet Protocol Type</td>
+<td>2</td>
+</tr>
+<tr class="row-odd"><td>Payload</td>
+<td>46-1500</td>
+</tr>
+<tr class="row-even"><td>CRC</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Payload could be any upper layer protocol. For filtering purposes only IP header will be shown. This is because
+when filtering other protocols there is no need to parse the MAC payload. When configuring a filter for
+ARP or EAPOL there is no need to configure pattern in the ARP/EAPOL header as all should be passed.
+The following is the pattern/template for IP Filter enabling packet.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>AA:AA:AA:AA:AA:AA:BB:BB:BB:BB:BB:BB:CC:CC:DD:-:-:-:-:-:-:-:-:EE:-:-:FF:FF:FF:FF:GG:GG:GG:GG:HH:HH:II:II
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>A</strong> Ethernet destination address</li>
+<li><strong>B</strong> Ethernet source address</li>
+<li><strong>C</strong> Ethernet protocol type</li>
+<li><strong>D</strong> IP header VER+Hlen, use: 0x45 ( 4 is for ver 4, 5 is for len 20)</li>
+<li><strong>E</strong> IP protocol</li>
+<li><strong>F</strong> IP source address (eg. 192.168.0.4: C0:A8:00:04 )</li>
+<li><strong>G</strong> IP destination address (eg. 192.168.0.4: C0:A8:00:04 )</li>
+<li><strong>H</strong> Source port (1024: 04:00)</li>
+<li><strong>I</strong> Destination port (1024: 04:00)</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>8 patterns can be active at a time with each pattern divided into 7 fields</li>
+<li>Max size is 81 bytes</li>
+</ul>
+</div>
+<p><strong>Pattern Examples</strong></p>
+<p>Table below shows a few use case scenarios and how to set the corresponding packet filter:</p>
+<table border="1" class="docutils align-center">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Use Case</td>
+<td>iw Command</td>
+</tr>
+<tr class="row-even"><td>Wakeup on any packet send to MAC 00:44:44:44:44:44</td>
+<td>iw phy0 wowlan enable patterns 00:44:44:44:44:44</td>
+</tr>
+<tr class="row-odd"><td>Wake up on any TCP packet sent to MAC 00:44:44:44:44:44 IP 192.168.1.4 from TCP port 5001</td>
+<td>iw phy0 wowlan enable patterns 00:44:44:44:44:44:-:-:-:-:-:-:08:00:45:-:-:-:-:-:-:-:-:06:-:-:-:-:-:-:c0:a8:01:04:13:89</td>
+</tr>
+<tr class="row-even"><td>Wake up on any EAPOL traffic directed at MAC 00:44:44:44:44:44</td>
+<td>iw phy0 wowlan enable patterns 00:44:44:44:44:44:-:-:-:-:-:-:88:8e</td>
+</tr>
+<tr class="row-odd"><td>Wakeup on any unicast, broadcast and multicast</td>
+<td>iw phy0 wowlan enable patterns 00:44:44:44:44:44 ff:ff:ff:ff:ff:ff 01:00:5e</td>
+</tr>
+<tr class="row-even"><td>To set up multiple patterns</td>
+<td>iw phy0 wowlan enable patterns PATTERN1 PATTERN2 PATTERN3</td>
+</tr>
+<tr class="row-odd"><td>To view the configured patterns</td>
+<td>iw phy0 wowlan show</td>
+</tr>
+</tbody>
+</table>
+<p>iw documentation can be found at <a class="reference external" href="https://wireless.wiki.kernel.org/en/users/documentation/iw">https://wireless.wiki.kernel.org/en/users/documentation/iw</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="simple">
+<li>The “:-:” indicates a wild card byte which isn’t matched.</li>
+<li>phy0 identifies the physical device. Best practice would be to verify what phy value is being used by issuing the following:</li>
+</ul>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>iw list <span class="p">|</span> grep wiphy
+</pre></div>
+</div>
+</div>
+<p><strong>Magic Packet</strong></p>
+<p>The magic packet is a broadcast frame containing anywhere within its payload 6 bytes of 0xFF
+followed by 16 repetitions of the target computer’s 6 byte MAC address for a total of 102 bytes.</p>
+<p>Since the magic packet is only scanned for the string above, and not actually parsed by a full protocol stack, it
+may be sent as any network and transport-layer protocol, although it is typically sent as a UDP datagram to port
+7 or 9, or directly over Ethernet as EtherType 0x0842.</p>
+<p>The CC33xx firmware does not support scanning of the entire Ethernet frame for the magic packet. Besides, as
+mentioned before, the max size of a pattern is 81 bytes.</p>
+<p>However, it is possible to define patterns that can dissect an actual implementation of the magic packet by
+comparing a subset of the actual magic packet. An example is shown below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Wakeup on magic packet with EtherType = 0x0842 or UDP port no: 9</span>
+iw phy0 wowlan <span class="nb">enable</span> patterns
+<span class="m">01</span>:02:03:04:05:06:-:-:-:-:-:-:08:00:45:-:-:-:-:-:-:-:-:11:-:-:-:-:-:-:C0:A8:01:04:-:-:00:09:-:-:-:-:ff:ff:ff:ff:ff:ff:01:02:03:04:05:06:01:02:03:04:05:06
+<span class="m">01</span>:02:03:04:05:06:-:-:-:-:-:-:08:42:ff:ff:ff:ff:ff:ff:01:02:03:04:05:06:01:02:03:04:05:06
+</pre></div>
+</div>
+<p>Where “01:02:03:04:05:06” is the destination MAC address and “C0:A8:01:04” is the IP address corresponding to 192.168.1.4.</p>
+</div>
+<div class="section" id="target-wake-time-setup">
+<h2><strong>Target Wake Time Setup</strong><a class="headerlink" href="#target-wake-time-setup" title="Permalink to this headline">¶</a></h2>
+<p>Target Wake Time (TWT) is a new energy saving mechanism that allows the CC33xx device
+to be in a low power state until the Access Point (AP) sends a command to wake up the CC33xx after some time duration.</p>
+<p>Overall, TWT consists of 3 stages:</p>
+<ul class="simple">
+<li>TWT Setup: A negotiation between STA and AP on TWT parameters, resulting in a TWT agreement</li>
+<li>Service Period: Time period in which a STA is allowed to wake and communicate data</li>
+<li>TWT Teardown: Termination of the existing TWT agreement</li>
+</ul>
+<p>A script is provided in the <cite>/usr/share/cc33xx</cite> directory to manage the TWT negotiation between the CC33xx and the AP.
+TWT is a feature only supported in IEEE 802.11ax, so it is assumed that the CC33xx is a station and already connected to an
+AP that supports this 11ax feature. The script arguments are as follows:</p>
+<ul class="simple">
+<li>Request to join a TWT agreement with no specified parameters:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./cc33xx_twt.sh <span class="m">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Request to join a TWT agreement with specific parameters:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./cc33xx_twt.sh <span class="m">1</span> min_wake_duration_usec min_wake_interval_mantissa min_wake_interval_exponent <span class="o">[</span>max_wake_interval_mantissa max_wake_interval_exponent<span class="o">]</span>
+
+min_wake_duration_usec
+        The minimum wake duration <span class="k">for</span> the station to be awake <span class="k">in</span> order to <span class="nb">complete</span> the frame exchanges <span class="k">for</span> the TWT wake interval period.
+min_wake_interval_mantissa
+        The minimum TWT wake interval mantissa.
+min_wake_interval_exponent
+        The minimum TWT Wake interval exponent.
+max_wake_interval_mantissa
+        Optional parameter
+        The maximum wake interval mantissa.
+max_wake_interval_exponent
+        Optional parameter
+        The maximum wake interval exponent.
+</pre></div>
+</div>
+<ul class="simple">
+<li>Suspend the existing TWT agreement:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./cc33xx_twt.sh <span class="m">2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Resume the suspend TWT agreement:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./cc33xx_twt.sh <span class="m">3</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Delete the existing TWT agreement:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./cc33xx_twt.sh <span class="m">4</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="throughput-testing-guide">
+<h2><strong>Throughput Testing Guide</strong><a class="headerlink" href="#throughput-testing-guide" title="Permalink to this headline">¶</a></h2>
+<p><strong>Throughput Overview</strong></p>
+<p>Throughput in WiFi refers to the amount of data transmitted from a source to destination within a specified
+period of time, usually measured in megabits per second (Mb/s). There are numerous factors that can affect
+throughput including the number of devices on the network, the protocol used (UDP vs TCP), and the host being
+used with the CC33xx. For example, using a Beaglebone Black (AM335) as a host will result in a lower throughput
+when compared to the AM62 being used as a host due. This discrepancy in rates is due to the difference in how
+much data each device is capable of receiving. In order to get an accurate idea of the CC33xx throughput it is
+recommended that the test is conducted in a clean environment at first without interference, at least initially
+for an accurate estimate of the device’s throughput capabilities with the desired host.</p>
+<p>The main tool recommended to test the throughput of the CC33xx is known as iPerf and is an open source command
+line tool designed for testing network throughput. In order to use iPerf, at least one device must act as a server
+and another as a client. These devices should both be connected to the same AP and data will be transmitted between
+them with the AP acting as a bridge.</p>
+<p><strong>iPerf Overview</strong></p>
+<p>In order for devices to be connected via iPerf, one needs to be configured as a server that is listening on the same
+port that the client will be configured to transmit to. The commands listed below can be used for various adjustments to
+this configuration. For example, to open a basic server configured for TCP broadcasts on the default port (5900) the
+following command would be used:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iperf -s
+</pre></div>
+</div>
+</div></blockquote>
+<p>To open a basic client to transmit on the same port, also using TCP, the following command can be used:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iperf -c &lt;IP Address of Server&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>To adjust the port, change the protocol to UDP, or other configurations the commands below can be used. This is not the
+full list, which can be displayed using iperf -h or iperf –help, but these are the commands most relevant to the throughput
+testing covered in this guide.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Client/Server:
+-i, --interval          <span class="c1">#       seconds between periodic bandwidth reports</span>
+-p, --port                      <span class="c1">#       server port to listen on/connect to</span>
+-u, --udp                       <span class="c1">#       use UDP rather than TCP</span>
+-w, --window            <span class="c1">#       [KM]    TCP window size (socket buffer size)</span>
+
+Server specific:
+-s, --server            <span class="c1">#       run in server mode</span>
+-U, --single_udp        <span class="c1">#       run in single threaded UDP mode</span>
+
+Client specific:
+-b, --bandwidth         <span class="c1">#       [KM] for UDP, bandwidth to send at in bits/sec (default 1 Mbit/sec, implies -u)</span>
+-c, --client            <span class="c1">#       &lt;host&gt;   run in client mode, connecting to &lt;host&gt;</span>
+-n, --num               <span class="c1">#       [KM] number of bytes to transmit (instead of -t)</span>
+-t, --time              <span class="c1">#       time in seconds to transmit for (default 10 secs)</span>
+
+Miscellaneous:
+-h, --help                      <span class="c1">#       print this message and quit</span>
+
+<span class="o">[</span>KM<span class="o">]</span> Indicates options that support a K or M suffix <span class="k">for</span> kilo- or mega-
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>iPerf Throughput Example</strong></p>
+<p>Configuring the CC33xx as a client and the computer as a server.</p>
+<div class="figure align-center" id="figure-2">
+<span id="figure-1"></span><a class="reference internal image-reference" href="../../_images/throughputExample.PNG"><img alt="../../_images/throughputExample.PNG" src="../../_images/throughputExample.PNG" style="width: 513.6px; height: 95.39999999999999px;" /></a>
+<p class="caption"><span class="caption-text">CC33xx acting as client interacting with Computer acting as server, both connected to the same AP.</span></p>
+</div>
+<p>The above configuration allows for the testing of the CC33xx’s throughput as a station transmitting data. In this configuration,
+the CC33xx is in station mode and connected to the AP via WiFi. Additionally, the computer behind the AP is connected through ethernet.
+A connection over ethernet, rather than WiFi, is recommended so that the computer behind the AP does not take up bandwidth and compete
+with the CC33xx over the air. The CC33xx is then configured using iPerf to be a client, while the computer is configured as a server. The
+data from the CC33xx is being transmitted from the CC33xx to the AP then to the computer. The steps to start this setup are as follows:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Refer to section STA Mode in WiFi Fundamentals to setup the CC33xx as a station and connect it to the desired AP.</p>
+</li>
+<li><p class="first">Connect a computer or laptop (from here on out referred to as Computer 1) to the same AP via ethernet.</p>
+<p>Run either ipconfig (Windows) or ifconfig (Linux) to find out the IP Address of the assigned to the computer. This is the
+IP address that the CC33xx will connect to with iPerf when configured as a client.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator&gt;ipconfig
+
+Windows IP Configuration
+
+Ethernet adapter AP:
+
+        Connection-specific DNS Suffix  . : dhcp.ti.com
+        Link-local IPv6 Address . . . . . : fe80::686b:36c3:ae90:e8de%29
+        IPv4 Address. . . . . . . . . . . : <span class="m">192</span>.168.50.119
+        Subnet Mask . . . . . . . . . . . : <span class="m">255</span>.255.255.0
+        Default Gateway . . . . . . . . . : <span class="m">192</span>.168.50.1
+</pre></div>
+</div>
+<p>The IPv4 Address is the IP address assigned to the laptop by the AP while the ‘Default Gateway’ is the IP Address of the AP
+itself.</p>
+</li>
+</ol>
+<p>3. To ensure that both Computer 1 and the CC33xx are properly connected it’s a good idea to ping Computer 1 from the CC33xx using
+the command below and it should produce a result similar to what is shown below if they are connected.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@am335x-evm:/usr/share/cc33xx# ping <span class="m">192</span>.168.50.119
+PING <span class="m">192</span>.168.50.119 <span class="o">(</span><span class="m">192</span>.168.50.119<span class="o">)</span>: <span class="m">56</span> data bytes
+<span class="m">64</span> bytes from <span class="m">192</span>.168.50.119: <span class="nv">seq</span><span class="o">=</span><span class="m">0</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">128</span> <span class="nv">time</span><span class="o">=</span><span class="m">901</span>.689 ms
+<span class="m">64</span> bytes from <span class="m">192</span>.168.50.119: <span class="nv">seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">128</span> <span class="nv">time</span><span class="o">=</span><span class="m">105</span>.525 ms
+<span class="m">64</span> bytes from <span class="m">192</span>.168.50.119: <span class="nv">seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">128</span> <span class="nv">time</span><span class="o">=</span><span class="m">436</span>.115 ms
+<span class="m">64</span> bytes from <span class="m">192</span>.168.50.119: <span class="nv">seq</span><span class="o">=</span><span class="m">3</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">128</span> <span class="nv">time</span><span class="o">=</span><span class="m">561</span>.868 ms
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic" start="4">
+<li><p class="first">Open a server on Computer 1 with the following command:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iperf -s -p <span class="m">5901</span> -i1
+</pre></div>
+</div>
+<ul class="simple">
+<li>-s specifies that a server is being started</li>
+<li>-p 5901 opens the server on port 5901</li>
+<li>-i1 ensures that the data that is received by the server will be broadcasted on the screen</li>
+<li><dl class="first docutils">
+<dt>For more information, such as using UDP or adjusting the TCP window, reference the</dt>
+<dd>full list with the command iperf -h</dd>
+</dl>
+</li>
+</ul>
+<p>Expected output on Computer 1:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator&gt;iperf -s -p <span class="m">5901</span> -i1
+------------------------------------------------------------
+Server listening on TCP port <span class="m">5901</span>
+TCP window size: <span class="m">64</span>.0 KByte <span class="o">(</span>default<span class="o">)</span>
+------------------------------------------------------------
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Connect to the server and transmit data from the CC33xx host using the following command:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iperf -c <span class="m">192</span>.168.50.119 -p <span class="m">5901</span> -i1 -t5
+</pre></div>
+</div>
+<ul class="simple">
+<li>-c specifies that a client is being started and will connect to the following IP address</li>
+<li>-p specifies the same port that was opened on the server side</li>
+<li>-i1 broadcasts the data which can be seen below on both the server and client sides</li>
+<li>-t5 configures the device to transmit data for 5 sec</li>
+</ul>
+<p>Expected output on CC33xx host:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@am335x-evm:/usr/share/cc33xx# iperf -c <span class="m">192</span>.168.50.119 -p <span class="m">5901</span> -i1 -t5
+------------------------------------------------------------
+Client connecting to <span class="m">192</span>.168.50.119, TCP port <span class="m">5901</span>
+TCP window size: <span class="m">83</span>.8 KByte <span class="o">(</span>default<span class="o">)</span>
+------------------------------------------------------------
+<span class="o">[</span>  <span class="m">3</span><span class="o">]</span> <span class="nb">local</span> <span class="m">192</span>.168.50.143 port <span class="m">35430</span> connected with <span class="m">192</span>.168.50.119 port <span class="m">5901</span>
+<span class="o">[</span> ID<span class="o">]</span> Interval       Transfer      Bandwidth
+<span class="o">[</span>  <span class="m">3</span><span class="o">]</span>  <span class="m">0</span>.0- <span class="m">1</span>.0 sec   XXX KBytes   Y.YY Mbits/sec
+<span class="o">[</span>  <span class="m">3</span><span class="o">]</span>  <span class="m">1</span>.0- <span class="m">2</span>.0 sec   XXX KBytes   Y.YY Mbits/sec
+<span class="o">[</span>  <span class="m">3</span><span class="o">]</span>  <span class="m">2</span>.0- <span class="m">3</span>.0 sec   XXX KBytes   Y.YY Mbits/sec
+<span class="o">[</span>  <span class="m">3</span><span class="o">]</span>  <span class="m">3</span>.0- <span class="m">4</span>.0 sec   XXX KBytes   Y.YY Mbits/sec
+<span class="o">[</span>  <span class="m">3</span><span class="o">]</span>  <span class="m">4</span>.0- <span class="m">5</span>.0 sec   XXX KBytes   Y.YY Mbits/sec
+</pre></div>
+</div>
+<p>Expected output on Computer 1:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator&gt;iperf -s -p <span class="m">5901</span>
+------------------------------------------------------------
+Server listening on TCP port <span class="m">5901</span>
+TCP window size: <span class="m">64</span>.0 KByte <span class="o">(</span>default<span class="o">)</span>
+------------------------------------------------------------
+<span class="o">[</span><span class="m">428</span><span class="o">]</span> <span class="nb">local</span> <span class="m">192</span>.168.50.119 port <span class="m">5901</span> connected with <span class="m">192</span>.168.50.119 port <span class="m">5901</span>
+<span class="o">[</span> ID<span class="o">]</span> Interval        Transfer      Bandwidth
+<span class="o">[</span><span class="m">428</span><span class="o">]</span>  <span class="m">0</span>.0- <span class="m">1</span>.0 sec   X.XX MBytes   Y.YY Mbits/sec
+<span class="o">[</span><span class="m">428</span><span class="o">]</span>  <span class="m">1</span>.0- <span class="m">2</span>.0 sec   X.XX MBytes   Y.YY Mbits/sec
+<span class="o">[</span><span class="m">428</span><span class="o">]</span>  <span class="m">2</span>.0- <span class="m">3</span>.0 sec   X.XX MBytes   Y.YY Mbits/sec
+<span class="o">[</span><span class="m">428</span><span class="o">]</span>  <span class="m">3</span>.0- <span class="m">4</span>.0 sec   X.XX MBytes   Y.YY Mbits/sec
+<span class="o">[</span><span class="m">428</span><span class="o">]</span>  <span class="m">4</span>.0- <span class="m">5</span>.0 sec   X.XX MBytes   Y.YY Mbits/sec
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The above example can be adjusted based on the desired test in a number of ways. The configuration could be switched
+where the CC33xx host acted as the server and Computer 1 was the client by simply switching the same commands on the respective devices.</p>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        <a href="https://www.ti.com/corp/docs/legal/copyright.shtml">2023, Texas Instruments</a>, Texas Instruments Incorporated. All rights reserved. <br>
+        <a href="https://www.ti.com/corp/docs/legal/trademark/trademrk.htm">Trademarks</a> | <a href="https://www.ti.com/corp/docs/legal/privacy.shtml">Privacy policy</a> | <a href="https://www.ti.com/corp/docs/legal/termsofuse.shtml">Terms of use</a> | <a href="https://www.ti.com/lsds/ti/legal/termsofsale.page">Terms of sale</a>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

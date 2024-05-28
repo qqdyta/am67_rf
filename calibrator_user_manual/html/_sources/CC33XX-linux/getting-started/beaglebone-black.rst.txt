@@ -1,0 +1,237 @@
+##############################
+Beaglebone Black and BP-CC3301
+##############################
+
+.. _CC33xx_Hardware :
+
+CC33xx Evaluation Hardware
+==========================
+
+The CC3301 BoosterPack (BP-CC3301) can be used to evaluate TI's Wi-Fi 6 and Bluetooth Low Energy transceiver in embedded linux context. This guide describes how to bring up and begin evaluating the CC3301 with a Beaglebone Black.
+
+Prerequisites
+-------------
+
+* **Host Platform:** BeagleBone Black (see :numref:`figure_2`)
+*	CC3301 BoosterPack  
+*	`BP-CC33xx to BBB Adapter board <https://www.ti.com/lit/spau022>`_
+*	5V 3A power supply for BeagleBone Black
+*	Micro-SD card (16GB or larger)
+*	FTDI TTL-232R-3V3USB to Serial Converter Cable for BeagleBone Black console logs
+*	Ethernet cable
+
+.. _BeagleBone Black:
+
+BeagleBone Black Setup
+-------------------------
+
+To evaluate the CC33xx, the user will need a host platform capable of running Linux OS. The BeagleBone Black (BBB) is a low-cost, community-supported development
+platform: https://www.ti.com/tool/BEAGL-BONE-BLACK
+
+.. _figure_2:
+
+.. figure:: ../resources/2_BeagleBoneBlack.jpg
+    :align: center
+    :scale: 60
+
+    BeagleBone Black Board.
+
+In order to interface with the BP-CC3301 with the BeagleBone Black the `BP-CC33xx to BBB Adapter board <https://www.ti.com/lit/spau022>`_ is required.
+
+.. _Top view of BP-CC3301 + BBB with adapter board:
+
+.. figure:: ../resources/BP+BBB_top.png
+    :align: center
+    :scale: 60
+
+    Top view of BP-CC3301 + BBB with adapter board
+
+.. _Side view of BP-CC3301 and BBB with adapter board inbetween:
+
+.. figure:: ../resources/BP+BBB_side.png
+    :align: center
+    :scale: 60
+
+    Side view of BP-CC3301 and BBB with adapter board inbetween
+
+.. _Adapter Board for the BBB:
+
+.. figure:: ../resources/BBB+adapt.png
+    :align: center
+    :scale: 60
+
+    Adapter Board for the BBB
+
+To make sure the BeagleBone Black boots up from the SD card it is recommended to add a 100k Ohm resistor for R93 on the top of the BBB, and remove the R68 resistor seen on the bottom of the BBB. Alternatively, the S2 button must be pressed on the BeagleBone board during power up if the hardware modifications were not made. (see figures below)
+Lastly it is optional to add a right angle header on the bottom of the BBB to easily connect the FTDI cable. When the adapter board is attached to the BBB the FTDI cable may get pinched between the BBB and adapter board, which could cause communication problems. (see figure below)
+
+.. _figure4:
+
+.. figure:: ../resources/BBB_top_ECO.png
+	:align: center
+	:scale: 50
+	:alt: TopView of modified BBB
+
+	TopView of modified BBB
+
+.. _figure5:
+
+.. figure:: ../resources/BBB_bottom_ECO.png
+	:align: center
+	:scale: 50 %
+	:alt: BottomView of modified BeagleBone Black
+
+	BottomView of modified BBB
+
+.. _CC33xx_SW :
+
+CC33xx Software Download and Installation
+=========================================
+
+There are 2 options to evaluate the CC33xx Linux software:
+
+1. Flash pre-built CC33xx image
+2. Build and Download CC33xx binaries
+
+
+**Option 1: Flash Pre-Built CC33xx Image**
+---------------------------------------------
+
+This is the easiest way to evaluate the CC33xx Linux driver and test its Wi-Fi functionality.
+TI provides pre-built image for the :ref:`CC33xx_Hardware`, which can simply be flashed to a micro SD card and used
+to run the software.
+
+The steps to flash and run the pre-built CC33xx image on the evaluation hardware are as follows: 
+
+#. Download and run the CC33xx Linux Installer:
+
+	.. code-block:: bash
+		
+		$ ./cc33xx-R<version>-linux-x64-installer.run
+
+#. Download the CC33xx prebuilt image for AM335x from the `CC33xx software page <https://www.ti.com/tool/CC33XX-software>`_: 
+
+#. Download and install the `balenaEtcher`_ tool. Then, flash the uncompressed 
+   image ``tisdk-default-image-cc33xx-am335x-evm.wic.xz`` onto the SD card. 
+
+	.. figure:: ../resources/14_balenaEtcherFlashing.png
+		:align: center
+		:scale: 40 %
+
+		Balena Etcher Flashing Process.
+
+#. Plug SD card into the BeagleBone Black and power on the BeagleBone Black. A ``wlan0`` interface should be created. 
+
+	.. code-block:: bash
+
+		root@am335x-evm:~# ifconfig wlan0
+		wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500  metric 1
+				ether a4:34:f1:b1:52:de  txqueuelen 1000  (Ethernet)
+				RX packets 0  bytes 0 (0.0 B)
+				RX errors 0  dropped 0  overruns 0  frame 0
+				TX packets 0  bytes 0 (0.0 B)
+				TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+**Option 2: Build and Install CC33xx Binaries**
+-----------------------------------------------
+
+TI provides a Linux Installer allowing a user to build and install the CC33xx Linux drivers, firmware
+and related binaries. This installer is used in conjunction with TI AM335 Processor SDK.
+ 
+The steps to build and install the CC33xx Linux driver are as follows: 
+
+
+#.	Install the ``ti-processor-sdk-linux-am335x-evm-08.02.00.24-Linux-x86-Install.bin`` from the `AM335x Downloads page <https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-AM335X/08.02.00.24>`_.
+
+#.	Flash the SD card with :literal:`tisdk-default-image-am335x-evm.wic.xz`. Instructions to flash the SD card can be found in the `AM335x Getting Started Guide <https://software-dl.ti.com/processor-sdk-linux/esd/AM335X/08_02_00_24/exports/docs/linux/Overview/Processor_SDK_Linux_create_SD_card.html>`_. 
+
+#.	Download and run the CC33xx Linux Installer from the `CC33xx software page <https://www.ti.com/tool/CC33XX-software>`_: 
+
+	.. code-block:: bash
+
+		$ chmod +x cc33xx-linux-package-0.4.2.0-linux-x64-installer.run
+		$ ./cc33xx-linux-package-0.4.2.0-linux-x64-installer.run
+
+#.	Install the contents at the processor SDK root folder (i.e. where the Processor SDK is installed):
+
+	``<PATH>/ti-processor-sdk-linux-am335x-evm-<version>``
+
+#. 	Change directory to the cc33xx folder in the am335x SDK:
+
+	.. code-block:: bash
+
+		$ cd <PATH>/ti-processor-sdk-linux-am335x-evm-<version>/cc33xx
+
+#. 	The cc33xx package includes a script to assist in applying patches and building the kernel:
+
+	.. code-block:: bash
+
+		$ ./build_cc33xx.sh --help
+	
+	.. figure:: ../resources/6_help.png
+		:align: center
+		:scale: 50 %
+	
+#.	Apply the kernel patches:
+
+	.. code-block:: bash
+
+		$ ./build_cc33xx.sh  patch_kernel
+
+	.. figure:: ../resources/7_patch.png
+		:align: center
+		:scale: 50 %
+
+#. Build the kernel: 
+
+	.. code-block:: bash
+
+		$ ./build_cc33xx.sh  build_kernel
+
+
+	.. figure:: ../resources/8_build.png
+		:align: center
+		:scale: 50 %
+
+
+#. Install the binaries by running following commands: 
+
+	.. code-block:: bash
+
+		$ ./build_cc33xx.sh  install_kernel
+
+
+	.. figure:: ../resources/9_install.png
+		:align: center
+		:scale: 50 %
+
+#. Mount ``rootfs/`` partition of the SD card, then copy ``cc33xx/cc33xx_rootfs`` binaries and paste into ``rootfs/``
+   partition. The copy should be done from shell via the following commands:
+
+	.. code-block:: bash
+
+		$ sudo cp -r cc33xx_rootfs/* /media/<SD mount point>/
+		$ sync
+
+	.. note::
+		This should be done very carefully to preserve the file ownership of root. Just copying files via the file
+		browser will throw an error and fail.
+
+#. Un-plug the SD card from host machine, and plug it into the BeagleBone Black. After powering on the board, the CC33xx drivers should load and a ``wlan0`` interface is created. 
+
+	.. code-block:: bash
+
+		root@am335x-evm:~# ifconfig wlan0
+		wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500  metric 1
+				ether a4:34:f1:b1:52:de  txqueuelen 1000  (Ethernet)
+				RX packets 0  bytes 0 (0.0 B)
+				RX errors 0  dropped 0  overruns 0  frame 0
+				TX packets 0  bytes 0 (0.0 B)
+				TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+		
+		root@am335x-evm:~# lsmod | grep cc33
+		cc33xx                253952  0
+		mac80211              622592  1 cc33xx
+		cfg80211              335872  2 mac80211,cc33xx
+		cc33xx_sdio            16384  0

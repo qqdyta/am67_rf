@@ -1,0 +1,8 @@
+Software Examples
+*****************
+
+.. _linux-sw-examples:
+
+.. include:: wifi-fundamentals.rst
+.. include:: ble-fundamentals.rst
+.. include:: demos.rst

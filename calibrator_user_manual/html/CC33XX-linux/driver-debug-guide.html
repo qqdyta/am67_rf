@@ -1,0 +1,416 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Driver Debug Guide &mdash; CC33XX™ Linux User&#39;s Guide 01.00.00.03 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CC33xx Coexistence" href="../CC33XX/Coexistence.html" />
+    <link rel="prev" title="Calibrator Tool Guide" href="calibrator-tool.html" />
+    <script language="JavaScript">
+        var tiPageName;
+        tiPageName = "sug CC33XX-linux driver-debug-guide";
+
+        if (location.protocol == "file:"){
+            var ci_analytics_poc_load = true;
+        }
+    </script>
+
+    <script src="http://www.ti.com/assets/js/headerfooter/analytics.js" type="text/javascript" charset="utf-8"></script>
+
+
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for TI beyond RTD Sphinx Theme --->
+<div class="DocSite-globalNav tiNav">
+    <ul>
+    </ul>
+</div>
+
+<a class="DocSite-nav" href="https://www.ti.com" style="padding-bottom: 85px;">
+  <img class="DocSiteNav-logo"
+    src="../_static/img/ti_logo.png"
+    alt="TI Logo">
+  <div class="DocSiteNav-title"></div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index-linux.html" class="icon icon-home" alt="Documentation Home"> CC33XX™ Linux User's Guide
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                01.00.00.03
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro-linux.html">Introduction to the CC33xx Linux Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html#beaglebone-black-and-bp-cc3301">Beaglebone Black and BP-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html#sk-am62b-p1-and-m2-cc3301">SK-AM62B-P1 and M2-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html#i-mx-8m-plus-evaluation-kit-and-m2-cc3301">i.MX 8M Plus Evaluation Kit and M2-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sw-examples/software-examples.html">Software Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration-guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CC33conf-tool.html">CC33Conf Tool Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calibrator-tool.html">Calibrator Tool Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Driver Debug Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#enable-driver-kernel-messages">Enable Driver Kernel Messages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#debug-parameter-options">Debug Parameter Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activation-of-debug-printout">Activation of Debug Printout</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CC33XX/Coexistence.html">CC33xx Coexistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CC33XX/BP-CC3301_HW_UserGuide.html">CC3301 BoosterPack Hardware User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+            
+          
+          <!-- extra nav elements for TI beyond RTD Sphinx Theme --->
+<div id="sideBanner">
+    <br/>
+    <br/><br/><br/>
+</div>
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-linux.html">CC33XX™ Linux User's Guide</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index-linux.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Driver Debug Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="driver-debug-guide">
+<h1>Driver Debug Guide<a class="headerlink" href="#driver-debug-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="enable-driver-kernel-messages">
+<h2>Enable Driver Kernel Messages<a class="headerlink" href="#enable-driver-kernel-messages" title="Permalink to this headline">¶</a></h2>
+<p>CC33xx Linux module provides options to enable additional debugging from the default prints that are available as part
+of the status to a specific Wi-Fi operation (staring a STA, AP and so forth or disabling the same). It may however
+be needed to have additional debug logs while debugging certain operation of the driver. These logs can be
+dynamically enabled while running the driver. The following section specifies the available dynamic debug
+groups and the method to enable them. The example section shows how a collection of these dynamic debugs
+can be enabled using a single command.</p>
+<div class="section" id="debug-parameter-options">
+<h3>Debug Parameter Options<a class="headerlink" href="#debug-parameter-options" title="Permalink to this headline">¶</a></h3>
+<p>The cc33xx driver supports configurable and very detailed debug information. The log system of WL18xx driver
+only prints that log output that has an appropriate debug mode. All other debug logs are not printed. In this way,
+it is possible to control only necessary debug information. All available debug modes are defined in the
+<code class="docutils literal notranslate"><span class="pre">drivers/net/wireless/ti/cc33xx/debug.h</span></code> file. The options are listed below for reference. It is recommended to
+refer to the above mentioned header file for accurate debug groups available for a specific version of the driver
+used in the build.</p>
+<table border="1" class="docutils align-center" id="table-1">
+<caption><span class="caption-number">Table 11 </span><span class="caption-text">Debug Parameters</span><a class="headerlink" href="#table-1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>DEBUG_NONE</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_IRQ</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>DEBUG_SPI</td>
+<td>2</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_BOOT</td>
+<td>4</td>
+</tr>
+<tr class="row-even"><td>DEBUG_CORE_STATUS</td>
+<td>8</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_TESTMODE</td>
+<td>16</td>
+</tr>
+<tr class="row-even"><td>DEBUG_EVENT</td>
+<td>32</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_TX</td>
+<td>64</td>
+</tr>
+<tr class="row-even"><td>DEBUG_RX</td>
+<td>128</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_SCAN</td>
+<td>256</td>
+</tr>
+<tr class="row-even"><td>DEBUG_CRYPT</td>
+<td>512</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_SPM</td>
+<td>1024</td>
+</tr>
+<tr class="row-even"><td>DEBUG_MAC80211</td>
+<td>2048</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_CMD</td>
+<td>4096</td>
+</tr>
+<tr class="row-even"><td>DEBUG_ACX</td>
+<td>8192</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_SDIO</td>
+<td>16384</td>
+</tr>
+<tr class="row-even"><td>DEBUG_FILTERS</td>
+<td>32768</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_ADHOC</td>
+<td>65536</td>
+</tr>
+<tr class="row-even"><td>DEBUG_AP</td>
+<td>131072</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_PROBE</td>
+<td>262144</td>
+</tr>
+<tr class="row-even"><td>DEBUG_IO</td>
+<td>524288</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_MASTER</td>
+<td>65536 | 131072</td>
+</tr>
+<tr class="row-even"><td>DEBUG_CC33xx</td>
+<td>393216</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_ALL</td>
+<td>~0</td>
+</tr>
+<tr class="row-even"><td>DEBUG_NO_DATAPATH</td>
+<td>~0 &amp; ~1 &amp; ~8 &amp; ~64 &amp; ~128</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="activation-of-debug-printout">
+<h3>Activation of Debug Printout<a class="headerlink" href="#activation-of-debug-printout" title="Permalink to this headline">¶</a></h3>
+<p>The following sections detail the method to enable dynamic debug message groups within the driver. The
+following command is used for instructing the kernel to send log messages to the console:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="m">8</span> &gt; /proc/sys/kernel/printk
+</pre></div>
+</div>
+<p>To configure debug mode of the driver, write one of the above debug category number
+to <code class="docutils literal notranslate"><span class="pre">/sys/module/cc33xx/parameters/debug_level</span></code> file.
+For example, following command will configures driver to print debug messages
+related to scanning operation - DEBUG_SCAN.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="m">256</span> &gt; /sys/module/cc33xx/parameters/debug_level
+</pre></div>
+</div>
+<p>Alternatively, you may enter hex number instead of decimal.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> 0x100 &gt; /sys/module/cc33xx/parameters/debug_level
+</pre></div>
+</div>
+<p>Below is the output when the scan command is executed after starting the STA:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ iw wlan0 scan
+<span class="o">[</span><span class="m">73380</span>.957283<span class="o">]</span> wlcore: <span class="nv">n_pactive_ch</span> <span class="o">=</span> <span class="m">1</span>
+<span class="o">[</span><span class="m">73380</span>.961154<span class="o">]</span> wlcore: freq <span class="m">2467</span>, ch. <span class="m">12</span>, flags 0x80112, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50, NO-IR
+<span class="o">[</span><span class="m">73380</span>.970996<span class="o">]</span> wlcore: <span class="nv">n_pactive_ch</span> <span class="o">=</span> <span class="m">2</span>
+<span class="o">[</span><span class="m">73380</span>.974739<span class="o">]</span> wlcore: freq <span class="m">2472</span>, ch. <span class="m">13</span>, flags 0x80112, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50, NO-IR
+<span class="o">[</span><span class="m">73380</span>.984727<span class="o">]</span> wlcore: <span class="nv">n_pactive_ch</span> <span class="o">=</span> <span class="m">3</span>
+<span class="o">[</span><span class="m">73380</span>.988433<span class="o">]</span> wlcore: freq <span class="m">2484</span>, ch. <span class="m">14</span>, flags 0x801f2, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50, NO-IR
+<span class="o">[</span><span class="m">73380</span>.998049<span class="o">]</span> wlcore: freq <span class="m">2412</span>, ch. <span class="m">1</span>, flags 0x801a0, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.007185<span class="o">]</span> wlcore: freq <span class="m">2417</span>, ch. <span class="m">2</span>, flags 0x801a0, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.015771<span class="o">]</span> wlcore: freq <span class="m">2422</span>, ch. <span class="m">3</span>, flags 0x801a0, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.024178<span class="o">]</span> wlcore: freq <span class="m">2427</span>, ch. <span class="m">4</span>, flags 0x801a0, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.032425<span class="o">]</span> wlcore: freq <span class="m">2432</span>, ch. <span class="m">5</span>, flags 0x80180, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.040626<span class="o">]</span> wlcore: freq <span class="m">2437</span>, ch. <span class="m">6</span>, flags 0x80180, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.048324<span class="o">]</span> wlcore: freq <span class="m">2442</span>, ch. <span class="m">7</span>, flags 0x80180, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.056868<span class="o">]</span> wlcore: freq <span class="m">2447</span>, ch. <span class="m">8</span>, flags 0x80180, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.065176<span class="o">]</span> wlcore: freq <span class="m">2452</span>, ch. <span class="m">9</span>, flags 0x80180, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.073211<span class="o">]</span> wlcore: freq <span class="m">2457</span>, ch. <span class="m">10</span>, flags 0x80190, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.081256<span class="o">]</span> wlcore: freq <span class="m">2462</span>, ch. <span class="m">11</span>, flags 0x80190, power <span class="m">20</span>, min/max_dwell <span class="m">25</span>/50
+<span class="o">[</span><span class="m">73381</span>.089283<span class="o">]</span> wlcore:     <span class="m">2</span>.4GHz: active <span class="m">11</span> passive <span class="m">3</span>
+<span class="o">[</span><span class="m">73381</span>.094190<span class="o">]</span> wlcore:     5GHz: active <span class="m">0</span> passive <span class="m">0</span>
+<span class="o">[</span><span class="m">73381</span>.099353<span class="o">]</span> wlcore:     DFS: <span class="m">0</span>
+<span class="o">[</span><span class="m">73381</span>.102434<span class="o">]</span> wlcore: build probe request scan_type <span class="m">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../CC33XX/Coexistence.html" class="btn btn-neutral float-right" title="CC33xx Coexistence" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="calibrator-tool.html" class="btn btn-neutral float-left" title="Calibrator Tool Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        <a href="https://www.ti.com/corp/docs/legal/copyright.shtml">2023, Texas Instruments</a>, Texas Instruments Incorporated. All rights reserved. <br>
+        <a href="https://www.ti.com/corp/docs/legal/trademark/trademrk.htm">Trademarks</a> | <a href="https://www.ti.com/corp/docs/legal/privacy.shtml">Privacy policy</a> | <a href="https://www.ti.com/corp/docs/legal/termsofuse.shtml">Terms of use</a> | <a href="https://www.ti.com/lsds/ti/legal/termsofsale.page">Terms of sale</a>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

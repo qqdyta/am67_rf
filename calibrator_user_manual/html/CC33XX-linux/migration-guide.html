@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Migration Guide &mdash; CC33XX™ Linux User&#39;s Guide 01.00.00.03 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CC33Conf Tool Guide" href="CC33conf-tool.html" />
+    <link rel="prev" title="Software Examples" href="sw-examples/software-examples.html" />
+    <script language="JavaScript">
+        var tiPageName;
+        tiPageName = "sug CC33XX-linux migration-guide";
+
+        if (location.protocol == "file:"){
+            var ci_analytics_poc_load = true;
+        }
+    </script>
+
+    <script src="http://www.ti.com/assets/js/headerfooter/analytics.js" type="text/javascript" charset="utf-8"></script>
+
+
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for TI beyond RTD Sphinx Theme --->
+<div class="DocSite-globalNav tiNav">
+    <ul>
+    </ul>
+</div>
+
+<a class="DocSite-nav" href="https://www.ti.com" style="padding-bottom: 85px;">
+  <img class="DocSiteNav-logo"
+    src="../_static/img/ti_logo.png"
+    alt="TI Logo">
+  <div class="DocSiteNav-title"></div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index-linux.html" class="icon icon-home" alt="Documentation Home"> CC33XX™ Linux User's Guide
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                01.00.00.03
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro-linux.html">Introduction to the CC33xx Linux Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html#beaglebone-black-and-bp-cc3301">Beaglebone Black and BP-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html#sk-am62b-p1-and-m2-cc3301">SK-AM62B-P1 and M2-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started-linux.html#i-mx-8m-plus-evaluation-kit-and-m2-cc3301">i.MX 8M Plus Evaluation Kit and M2-CC3301</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sw-examples/software-examples.html">Software Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Migration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#kernel-integration">Kernel Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#patch-kernel-with-cc33xx-driver">Patch Kernel with CC33xx Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-configuration">Kernel Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#device-tree-configuration">Device Tree Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mmc-sdio">MMC/SDIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uart">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hostapd-and-supplicant-integration">Hostapd and Supplicant Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#important-notes">Important notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#install-firmware">Install Firmware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wlan-bring-up">WLAN Bring-up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-configurations">Optional Configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sdio-in-band-interrupt">SDIO In-band Interrupt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ble-over-sdio">BLE over SDIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spi">SPI</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CC33conf-tool.html">CC33Conf Tool Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calibrator-tool.html">Calibrator Tool Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver-debug-guide.html">Driver Debug Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CC33XX/Coexistence.html">CC33xx Coexistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CC33XX/BP-CC3301_HW_UserGuide.html">CC3301 BoosterPack Hardware User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+            
+          
+          <!-- extra nav elements for TI beyond RTD Sphinx Theme --->
+<div id="sideBanner">
+    <br/>
+    <br/><br/><br/>
+</div>
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-linux.html">CC33XX™ Linux User's Guide</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index-linux.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Migration Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="migration-guide">
+<h1>Migration Guide<a class="headerlink" href="#migration-guide" title="Permalink to this headline">¶</a></h1>
+<p>Developers will need to be able to port the CC33xx linux driver to their custom
+hardware. This guide demonstrates how to patch the linux kernel with the CC33xx
+driver and configure the device tree for any linux host.</p>
+<div class="section" id="kernel-integration">
+<h2>Kernel Integration<a class="headerlink" href="#kernel-integration" title="Permalink to this headline">¶</a></h2>
+<p>The CC33xx driver supports linux kernel 6.1.xxx so it is assumed that the
+target hardware is capable of running the same version. The process to integrate
+the CC33xx driver is generic and can be applied to any embedded linux host.</p>
+<div class="section" id="patch-kernel-with-cc33xx-driver">
+<h3>Patch Kernel with CC33xx Driver<a class="headerlink" href="#patch-kernel-with-cc33xx-driver" title="Permalink to this headline">¶</a></h3>
+<p>The source code for the CC33xx driver are provided as patches, so the user will
+need to patch the kernel with the CC33xx driver. This can be done with the following commands:</p>
+<ol class="arabic simple">
+<li>Change directory to be in the top directory of the linux kernel source:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;path_to_kernel_source&gt;
+$ ls <span class="c1"># Kernel version must be 6.1</span>
+arch     crypto         init      kernel       mm       scripts   virt
+block    Documentation  io_uring  lib          net      security
+certs    drivers        ipc       LICENSES     README   sound
+COPYING  fs             Kbuild    MAINTAINERS  rust     tools
+CREDITS  include        Kconfig   Makefile     samples  usr
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Execute the patch command:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ patch -p0 &lt; &lt;path_to_cc33xx_installation&gt;/cc33xx/patches/cc33xx_kernel.patch
+</pre></div>
+</div>
+</div>
+<div class="section" id="kernel-configuration">
+<h3>Kernel Configuration<a class="headerlink" href="#kernel-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Edit the target’s defconfig to disable WLCORE and enable CC33XX.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">-CONFIG_WL18XX=m</span>
+<span class="gd">-CONFIG_WLCORE=m</span>
+<span class="gd">-CONFIG_WLCORE_SDIO=m</span>
+<span class="gi">+CONFIG_WL18XX=n</span>
+<span class="gi">+CONFIG_WLCORE=n</span>
+<span class="gi">+CONFIG_WLCORE_SDIO=n</span>
+<span class="gi">+CONFIG_CC33XX=m</span>
+<span class="gi">+CONFIG_CC33XX_SDIO=m</span>
+<span class="gi">+CONFIG_CC33XX_SPI=m</span>
+<span class="gi">+CONFIG_BT_TI=m</span>
+<span class="gi">+CONFIG_BT_TI_UART=m</span>
+<span class="gi">+CONFIG_BT_TI_SDIO=m</span>
+<span class="gi">+CONFIG_CFG80211=m</span>
+<span class="gi">+CONFIG_MAC80211=m</span>
+</pre></div>
+</div>
+<p>The kernel is now patched and can be built. Building will depending on the vendor and host,
+so as a reference see these <a class="reference external" href="https://software-dl.ti.com/processor-sdk-linux/esd/AM335X/08_02_00_24/exports/docs/linux/Foundational_Components_Kernel_Users_Guide.html#preparing-to-build">instructions for the AM335x</a>.</p>
+</div>
+</div>
+<div class="section" id="device-tree-configuration">
+<h2>Device Tree Configuration<a class="headerlink" href="#device-tree-configuration" title="Permalink to this headline">¶</a></h2>
+<p>After patching the linux kernel with the CC33xx SDK, a full example device tree
+can be found at arch/arm/boot/dts/am335x-boneblack-cc33xx-boosterpack.dts.</p>
+<div class="section" id="mmc-sdio">
+<h3>MMC/SDIO<a class="headerlink" href="#mmc-sdio" title="Permalink to this headline">¶</a></h3>
+<p>A snippet device tree for the CC33XX SDIO driver on AM335x is as follows.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&amp;mmc2 {
+    status = &quot;okay&quot;;
+    vmmc-supply = &lt;&amp;wlan_en_reg&gt;;
+    bus-width = &lt;4&gt;;
+    pinctrl-names = &quot;default&quot;;
+    pinctrl-0 = &lt;&amp;mmc2_pins &amp;wlan_pins_default&gt;;
+    non-removable;
+    cap-power-off-card;
+    keep-power-in-suspend;
+
+    #address-cells = &lt;1&gt;;
+    #size-cells = &lt;0&gt;;
+    wlcore: wlcore@0 {
+        compatible = &quot;ti,cc33xx&quot;;
+        reg = &lt;2&gt;;
+        interrupt-parent = &lt;&amp;gpio0&gt;;
+        interrupts = &lt;7 IRQ_TYPE_LEVEL_HIGH&gt;;
+        irq-gpio = &lt;&amp;gpio0 7 GPIO_ACTIVE_HIGH&gt;;
+    };
+};
+
+&amp;am33xx_pinmux {
+    wlan_pins_default: pinmux_wlan_pins_default {
+        pinctrl-single,pins = &lt;
+            AM33XX_PADCONF(AM335X_PIN_SPI0_SCLK,         PIN_OUTPUT_PULLUP, MUX_MODE7)  /* gpio0_2 WL_EN*/
+            AM33XX_PADCONF(AM335X_PIN_ECAP0_IN_PWM0_OUT, PIN_INPUT_PULLDOWN, MUX_MODE7) /* gpio0_7 WL_IRQ*/
+        &gt;;
+    };
+
+    mmc2_pins: pinmux_mmc2_pins {
+        pinctrl-single,pins = &lt;
+            AM33XX_PADCONF(AM335X_PIN_GPMC_CSN1, PIN_INPUT_PULLUP, MUX_MODE2) /* gpmc_csn1.mmc1_clk */
+            AM33XX_PADCONF(AM335X_PIN_GPMC_CSN2, PIN_INPUT_PULLUP, MUX_MODE2) /* gpmc_csn2.mmc1_cmd */
+            AM33XX_PADCONF(AM335X_PIN_GPMC_AD0,  PIN_INPUT_PULLUP, MUX_MODE1) /* gpmc_ad0.mmc1_dat0 */
+            AM33XX_PADCONF(AM335X_PIN_GPMC_AD1,  PIN_INPUT_PULLUP, MUX_MODE1) /* gpmc_ad1.mmc1_dat1 */
+            AM33XX_PADCONF(AM335X_PIN_GPMC_AD2,  PIN_INPUT_PULLUP, MUX_MODE1) /* gpmc_ad2.mmc1_dat2 */
+            AM33XX_PADCONF(AM335X_PIN_GPMC_AD3,  PIN_INPUT_PULLUP, MUX_MODE1) /* gpmc_ad3.mmc1_dat3 */
+        &gt;;
+    };
+};
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Developers must be careful to not add an internal pullup to the WL_IRQ pin. The
+WL_IRQ is a Sense-on-Power (SOP) pin and adding a internal pullup will change
+the SOP mode of the CC33XX causing erratic behavior. It is advised to not add
+any pull up or down directly on the WL_IRQ pin.</p>
+</div>
+<p>In this example, the devicetree sets the interrupt pin to GPIO0_7. When viewing
+the kernel logs, the following line will be printed verifying IRQ over GPIO:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Using GPIO as IRQ
+</pre></div>
+</div>
+<p>A vmmc supply is used to assert and deassert CC33xx’s RESET pin. This pin must be
+configured as active high in the fixedregulator driver since the RESET pin is
+active low.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wlan_en_reg: fixedregulator@1 {
+    compatible = &quot;regulator-fixed&quot;;
+    regulator-name = &quot;wlan-en-regulator&quot;;
+    regulator-min-microvolt = &lt;1800000&gt;;
+    regulator-max-microvolt = &lt;1800000&gt;;
+    gpio = &lt;&amp;gpio0 2 GPIO_ACTIVE_HIGH&gt;;
+    enable-active-high;
+};
+</pre></div>
+</div>
+</div>
+<div class="section" id="uart">
+<h3>UART<a class="headerlink" href="#uart" title="Permalink to this headline">¶</a></h3>
+<p>CC33xx uses UART specifically for BLE 5.3 communication. To configure BLE over UART,
+the bluetooth driver must be added to the UART driver in the devicetree.
+See the snippet below.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&amp;uart1 {
+    // BLE host UART
+    pinctrl-names = &quot;default&quot;;
+    pinctrl-0 = &lt;&amp;uart1_pins&gt;;
+
+    status = &quot;okay&quot;;
+
+    bluetooth {
+        compatible = &quot;ti,cc33xx-bt&quot;;
+        cc33xx-supply = &lt;&amp;cc33xx_en_reg&gt;;
+        max-speed = &lt;115200&gt;;
+    };
+};
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="hostapd-and-supplicant-integration">
+<h2>Hostapd and Supplicant Integration<a class="headerlink" href="#hostapd-and-supplicant-integration" title="Permalink to this headline">¶</a></h2>
+<p>Developers will need to be able to add the wpa_supplicant and hostapd to their custom
+solution. This guide demonstrates how to locate, configure and install this software to
+the linux built.</p>
+<div class="section" id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<p><em>Wpa_supplicant</em> and <em>hostapd</em> are cross platform utilities that implements IEEE 802.11 Wi-Fi upper layers,
+including authentication, management, roaming and more. These utilities run in user space (e.g. for Linux),
+and designed to run as a “daemon” program in the background and acts as the backend component controlling the wireless connection.
+<em>Wpa_supplicant</em> for example supports separate frontend programs such as a text-based frontend (<em>wpa_cli</em>) and a GUI-based frontend (<em>wpa_gui</em>).</p>
+<p>There are stable and official releases as well as intermediate release for developers that are usually marked as &lt;version&gt;-devel, e.g. <em>2.10-devel</em>.
+All releases can be found under <a class="reference external" href="https://w1.fi/releases.html">Hostapd releases</a>. The latest stable release is v2.10.
+The official repository can be found under <a class="reference external" href="https://w1.fi/cgit/hostap/">Hostapd repository</a>.</p>
+<p>There are two main dependencies for <em>Wpa_supplicant</em> and <em>hostapd</em>, OpenSSL and libnl.</p>
+<ul class="simple">
+<li>The <em>libnl</em> suite is a collection of libraries providing APIs to netlink based Linux kernel interfaces.
+Netlink is a socket-based IPC mechanism primarily between the kernel and user space processes.</li>
+<li><em>OpenSSL</em> is a cryptography toolkit implementing the Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS v1)
+network protocols and related cryptography standards required by them. The OpenSSL program is a command line tool for using
+the various cryptography functions of OpenSSL’s crypto library from the shell.</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<p>The steps to compile and install the <em>hostapd</em> includes:</p>
+<ol class="arabic simple">
+<li>Get the sources from the repository</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://w1.fi/hostap.git
+$ git checkout hostap_2_10
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p class="first">Copy the <em>android.config</em> (or the <em>defconfig</em>) to <em>.config</em></p>
+</li>
+<li><p class="first">Edit the <em>.config</em> with the appropriate settings:</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gi">+       CONFIG_DRIVER_NL80211=y</span>
+<span class="gi">+       # set according to the libnl library used (CONFIG_LIBNL20 or CONFIG_LIBNL32)</span>
+<span class="gi">+       CONFIG_LIBNL32=y</span>
+<span class="gi">+       CONFIG_OCV=y</span>
+<span class="gi">+       CONFIG_MBO=y</span>
+<span class="gi">+       CONFIG_IEEE80211R=y</span>
+<span class="gi">+       CONFIG_RADIUS_SERVER=y</span>
+<span class="gi">+       CONFIG_DRIVER_RADIUS_ACL=y</span>
+<span class="gi">+       CONFIG_EAP=y</span>
+<span class="gi">+       CONFIG_EAP_TLS=y</span>
+<span class="gi">+       CONFIG_EAP_PEAP=y</span>
+<span class="gi">+       CONFIG_EAP_TTLS=y</span>
+<span class="gi">+       CONFIG_SAE=y</span>
+<span class="gi">+       CONFIG_SUITEB=y</span>
+<span class="gi">+       CONFIG_SUITEB192=y</span>
+<span class="gi">+       NEED_HMAC_SHA384_KDF=y</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Cross-compile the sources and install the binaries to destination folder</p>
+</li>
+<li><p class="first">Copy the compiled binaries to <em>/usr/sbin</em> directory on the DUT</p>
+<ul class="simple">
+<li><em>hostapd</em></li>
+<li><em>hostapd_cli</em></li>
+</ul>
+</li>
+<li><p class="first">Copy the configuration file hostapd.conf to the rootfs on the DUT, e.g. to <em>/usr/share/cc33xx</em></p>
+</li>
+<li><p class="first">When running the hostapd, make sure to point to the hostapd.conf file on the rootfs</p>
+</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./usr/sbin/hostapd /usr/share/cc33xx/hostapd.conf <span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>The steps to compile and install the <em>wpa_supplicant</em> includes:</p>
+<ol class="arabic simple">
+<li>Get the sources from the repository</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://w1.fi/hostap.git
+$ git checkout hostap_2_10
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p class="first">Copy the <em>android.config</em> (or the <em>defconfig</em>) to <em>.config</em></p>
+</li>
+<li><p class="first">Edit the <em>.config</em> with the appropriate settings:</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gi">+       CONFIG_DRIVER_NL80211=y</span>
+<span class="gi">+       # set according to the libnl library used (CONFIG_LIBNL20 or CONFIG_LIBNL32)</span>
+<span class="gi">+       CONFIG_LIBNL32=y</span>
+<span class="gi">+       CONFIG_SAE=y</span>
+<span class="gi">+       CONFIG_SUITEB=y</span>
+<span class="gi">+       CONFIG_SUITEB192=y</span>
+<span class="gi">+       NEED_HMAC_SHA384_KDF=y</span>
+<span class="gi">+       CONFIG_IEEE80211R=y</span>
+<span class="gi">+       CONFIG_MESH=y</span>
+<span class="gi">+       CONFIG_HT_OVERRIDES=y</span>
+<span class="gi">+       CONFIG_HE_OVERRIDES=y</span>
+<span class="gi">+       CONFIG_MBO=y</span>
+<span class="gi">+       NEED_BGSCAN=y</span>
+<span class="gi">+       CONFIG_BGSCAN_LEARN=y</span>
+<span class="gi">+       CONFIG_BGSCAN_SIMPLE=y</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Cross-compile the sources and install the binaries to destination folder</p>
+</li>
+<li><p class="first">Copy the compiled binaries to <em>/usr/sbin</em> directory on the DUT</p>
+<ul class="simple">
+<li><em>wpa_supplicant</em></li>
+<li><em>wpa_cli</em></li>
+<li><em>wpa_passphrase</em></li>
+</ul>
+</li>
+<li><p class="first">Copy the configuration file wpa_supplicant.conf to the rootfs on the DUT, e.g. to <em>/usr/share/cc33xx</em></p>
+</li>
+<li><p class="first">When running the wpa_supplicant, make sure to point to the wpa_supplicant.conf file on the rootfs</p>
+</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./usr/sbin/wpa_supplicant -e/usr/share/cc33xx/entropy.bin -iwlan0 -Dnl80211 -c/usr/share/cc33xx/wpa_supplicant.conf <span class="p">&amp;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="important-notes">
+<h3>Important notes<a class="headerlink" href="#important-notes" title="Permalink to this headline">¶</a></h3>
+<p>Special case needs to be taken to the fact that the kernel needs to aligned with the <em>hostapd</em>/<em>wpa_supplicant</em>.
+The file on each side that reflects this alignment is related to nl80211 layer.</p>
+<ul class="simple">
+<li><strong>hostapd</strong>/<strong>wpa_supplicant</strong>: <em>nl80211_copy.h</em> header file, under ./src/drivers/</li>
+<li><strong>kernel</strong>: <em>nl80211.h</em> header file, under ./include/uapi/linux/</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is important to check that the <em>nl80211_attrs</em> and <em>nl80211_commands</em> are aligned between the two nl80211 header files. Misalignment may cause unexpected behavior.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is usually OK to use an older <em>hostapd</em>/<em>wpa_supplicant</em> with new kernel where only a subset of the commands and attributes
+are used but vice versa may impose issues. If new <em>hostapd</em>/<em>wpa_supplicant</em> is used with older kernel, some features that are supported in
+<em>hostapd</em>/<em>wpa_supplicant</em> may not be supported by the kernel, hence manual addition of these kernel features may be required.</p>
+</div>
+</div>
+</div>
+<div class="section" id="install-firmware">
+<h2>Install Firmware<a class="headerlink" href="#install-firmware" title="Permalink to this headline">¶</a></h2>
+<p>It is necessary to ensure that the firmware files are also included in the linux
+filesystem. The files cc33xx_fw.bin, cc33xx_2nd_loader.bin, and cc33xx-conf.bin
+must be added to the target’s directory: /lib/firmware/ti-connectivity/. These
+binaries can be found in <code class="docutils literal notranslate"><span class="pre">&lt;SDK_INSTALL_PATH&gt;/cc33xx/cc33xx_rootfs/lib/firmware/ti-connectivity/</span></code>.</p>
+</div>
+<div class="section" id="wlan-bring-up">
+<h2>WLAN Bring-up<a class="headerlink" href="#wlan-bring-up" title="Permalink to this headline">¶</a></h2>
+<p>If everything has been configured correctly, then on power up the following
+kernel logs will be printed.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   <span class="m">14</span>.201530<span class="o">]</span> cc33xx_sdio mmc1:0001:2: Using GPIO as IRQ
+<span class="o">[</span>   <span class="m">21</span>.744167<span class="o">]</span> wlcore: cc33xx_probe :: Start
+<span class="o">[</span>   <span class="m">21</span>.753254<span class="o">]</span> wlcore: Wireless Driver Version <span class="m">1</span>.6.0.5
+<span class="o">[</span>   <span class="m">22</span>.204103<span class="o">]</span> wlcore: Downloading ti-connectivity/cc33xx_2nd_loader.bin to device
+<span class="o">[</span>   <span class="m">22</span>.403136<span class="o">]</span> wlcore: ti-connectivity/cc33xx_2nd_loader.bin loaded successfully
+<span class="o">[</span>   <span class="m">22</span>.403175<span class="o">]</span> wlcore: Downloading ti-connectivity/cc33xx_fw.bin to device
+<span class="o">[</span>   <span class="m">24</span>.056708<span class="o">]</span> wlcore: ti-connectivity/cc33xx_fw.bin loaded successfully
+<span class="o">[</span>   <span class="m">24</span>.060293<span class="o">]</span> wlcore: loaded
+<span class="o">[</span>   <span class="m">24</span>.123559<span class="o">]</span> wlcore: Wireless Firmware Version <span class="m">1</span>.6.0.12
+<span class="o">[</span>   <span class="m">24</span>.123559<span class="o">]</span> wlcore: Wireless Phy Version <span class="m">1</span>.2.26.5.24.64
+</pre></div>
+</div>
+</div>
+<div class="section" id="optional-configurations">
+<h2>Optional Configurations<a class="headerlink" href="#optional-configurations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sdio-in-band-interrupt">
+<h3>SDIO In-band Interrupt<a class="headerlink" href="#sdio-in-band-interrupt" title="Permalink to this headline">¶</a></h3>
+<p>The device tree can be modified to enable interrupts over the SDIO bus rather
+than using a separate GPIO pin reducing the total number of pins used by the host.
+To enable SDIO in-band interrupts, simply remove the interrupts from the wlcore block.
+Here is an example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wlcore: wlcore@2 {
+        compatible = &quot;ti,cc33xx&quot;;
+        reg = &lt;2&gt;;
+};
+</pre></div>
+</div>
+<p>If configured correctly, the kernel will print out the following log:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Using SDIO inband IRQ
+</pre></div>
+</div>
+</div>
+<div class="section" id="ble-over-sdio">
+<h3>BLE over SDIO<a class="headerlink" href="#ble-over-sdio" title="Permalink to this headline">¶</a></h3>
+<p>Enabling BLE over SDIO, also known as Shared SDIO, is a matter of concatenating the
+CC33xx BLE driver. However, a pre-requirement is that in-band IRQ must also be used.
+Here is an example of an entire MMC instance with BLE over SDIO enabled:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&amp;mmc {
+    status = &quot;okay&quot;;
+    vmmc-supply = &lt;&amp;wlan_en_reg&gt;;
+    bus-width = &lt;4&gt;;
+    pinctrl-names = &quot;default&quot;, &quot;sleep&quot;;
+    pinctrl-0 = &lt;&amp;mmc2_pins&gt;;
+    pinctrl-1 = &lt;&amp;mmc2_pins_sleep&gt;;
+    non-removable;
+    cap-power-off-card;
+    keep-power-in-suspend;
+
+    #address-cells = &lt;1&gt;;
+    #size-cells = &lt;0&gt;;
+    wlcore: wlcore@0 {
+        compatible = &quot;ti,cc33xx&quot;;
+        reg = &lt;2&gt;;
+    };
+
+    // TI-BLE-SDIO interface
+    btti: btti@1 {
+        compatible = &quot;ti,cc33xxbt&quot;;
+        reg = &lt;1&gt;;
+    };
+};
+</pre></div>
+</div>
+</div>
+<div class="section" id="spi">
+<h3>SPI<a class="headerlink" href="#spi" title="Permalink to this headline">¶</a></h3>
+<p>There is support for the CC33xx Linux driver to be used over SPI instead of SDIO.
+The following is an sample DTS snippet for using the CC33XX SPI driver on AM335x:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&amp;spi0 {
+    status = &quot;okay&quot;;
+    pinctrl-names = &quot;default&quot;;
+    pinctrl-0 = &lt;&amp;spi0_pins &amp;wlan_pins_default&gt;;
+    ti,pindir-d0-out-d1-in = &lt;1&gt;;
+
+    wlcore: wlcore@0 {
+        compatible = &quot;ti,cc33xx&quot;;
+        reg = &lt;0&gt;;
+        spi-max-frequency = &lt;5000000&gt;;
+        interrupt-parent = &lt;&amp;gpio0&gt;;
+        interrupts = &lt;7 IRQ_TYPE_LEVEL_HIGH&gt;;
+        vwlan-supply = &lt;&amp;cc33xx_en_reg&gt;;
+    };
+};
+
+&amp;am33xx_pinmux {
+    spi0_pins: pinmux_spi0_pins {
+        pinctrl-single,pins = &lt;
+            AM33XX_PADCONF(AM335X_PIN_SPI0_SCLK, PIN_INPUT,         MUX_MODE0)
+            AM33XX_PADCONF(AM335X_PIN_SPI0_D0,   PIN_OUTPUT,        MUX_MODE0)
+            AM33XX_PADCONF(AM335X_PIN_SPI0_D1,   PIN_INPUT_PULLUP,  MUX_MODE0)
+            AM33XX_PADCONF(AM335X_PIN_SPI0_CS0,  PIN_OUTPUT,        MUX_MODE0)
+        &gt;;
+    };
+
+    wlan_pins_default: pinmux_wlan_pins_default {
+        pinctrl-single,pins = &lt;
+            AM33XX_PADCONF(AM335X_PIN_LCD_DATA15,        PIN_OUTPUT_PULLUP, MUX_MODE7)  /* gpio0_11 WL_EN*/
+            AM33XX_PADCONF(AM335X_PIN_ECAP0_IN_PWM0_OUT, PIN_INPUT_PULLDOWN, MUX_MODE7) /* gpio0_7 WL_IRQ*/
+        &gt;;
+    };
+};
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="CC33conf-tool.html" class="btn btn-neutral float-right" title="CC33Conf Tool Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sw-examples/software-examples.html" class="btn btn-neutral float-left" title="Software Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        <a href="https://www.ti.com/corp/docs/legal/copyright.shtml">2023, Texas Instruments</a>, Texas Instruments Incorporated. All rights reserved. <br>
+        <a href="https://www.ti.com/corp/docs/legal/trademark/trademrk.htm">Trademarks</a> | <a href="https://www.ti.com/corp/docs/legal/privacy.shtml">Privacy policy</a> | <a href="https://www.ti.com/corp/docs/legal/termsofuse.shtml">Terms of use</a> | <a href="https://www.ti.com/lsds/ti/legal/termsofsale.page">Terms of sale</a>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

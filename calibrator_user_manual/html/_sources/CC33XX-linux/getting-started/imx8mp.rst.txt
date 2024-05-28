@@ -1,0 +1,114 @@
+#########################################
+i.MX 8M Plus Evaluation Kit and M2-CC3301
+#########################################
+
+.. _imx8mp_Hardware : 
+
+Evaluation Hardware
+===================
+
+Prerequisites
+-------------
+
+* `IMX8MPLUSLPD4-EVK <https://www.nxp.com/design/development-boards/i-mx-evaluation-and-development-boards/evaluation-kit-for-the-i-mx-8m-plus-applications-processor:8MPLUSLPD4-EVK>`_
+* `M2-CC3301 <https://www.ti.com/tool/M2-CC3301>`_
+* USB-C Power Supply (included in i.MX8 Evaluation Kit)
+* microUSB Cable (included in i.MX8 Evaluation Kit)
+* 32GB microSD Card
+
+i.MX 8M Plus Setup
+------------------
+
+A slight hardware modification is necessary for the M2-CC3301 to operate correctly 
+with the i.MX 8MP EVK. R33 on the i.MX EVK needs to be removed and R36 must be inserted. 
+This change allows the 3.3V power supply on the M.2 connector to always be on. 
+These two resistors are found on the back of the board next to the M.2 Key-E connector. 
+See the schematic below. 
+
+.. figure:: ../resources/9_imx8mp-sch-resistor.PNG
+    :align: center
+    :scale: 60
+    :name: imx8schem
+
+    i.MX8 MP Schematic Snippet 
+
+After this modification, plug in the M2-CC3301 into the M.2 Key E 
+connector on the back of the board. 
+
+Evaluation Software
+===================
+
+The following steps describe how to prepare a micro SD card with the CC33XX driver. 
+
+#.  Flash the microSD card with the prebuilt imx8mp WIC image from NXP: https://www.nxp.com/webapp/Download?colCode=L6.1.36_2.1.0_MX8MP&appType=license
+    
+    *  For more information on NXP's prebuilt images, follow this guide: https://www.nxp.com/document/guide/getting-started-with-the-i-mx-8m-plus-evk:GS-iMX-8M-Plus-EVK?section=embedded-linux 
+
+#.  On a Linux-based host PC, clone the i.MX Linux Kernel repository and checkout the ``lf-6.1.y`` branch:
+
+    .. code-block:: bash
+
+        $ git clone -b lf-6.1.y https://github.com/nxp-imx/linux-imx.git
+        $ cd linux-imx/
+
+#.  Patch the i.MX linux kernel with the CC33XX driver and DTS patches:
+
+    .. code-block:: bash
+
+        $ patch -p0 < <path_to_cc33xx_folder>/patches/cc33xx_kernel.patch
+        $ patch -p0 < <path_to_cc33xx_folder>/patches/cc33xx_imx8mp_dts.patch
+
+#.  Build the kernel, modules, and devicetree:
+
+    .. code-block:: bash
+
+        $ make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- imx_v8_defconfig
+        $ make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- Image modules dtbs -j8
+
+#.  Plug the SD card into the Ubuntu machine and install the kernel, modules, and DTBs on to the SD card:
+
+    .. code-block:: bash
+
+        $ sudo cp arch/arm64/boot/Image /media/<user>/root/boot/ 
+        $ sudo cp arch/arm64/boot/Image /media/<user>/boot/ 
+        $ sudo cp arch/arm64/boot/dts/freescale/imx8mp-evk-usdhc1-m2.dtb /media/<user>/root/boot/
+        $ sudo cp arch/arm64/boot/dts/freescale/imx8mp-evk-usdhc1-m2.dtb /media/<user>/boot/
+        # Be sure to paste the Image and DTB into both locations, for safety
+        $ sudo make ARCH=arm64 modules_install INSTALL_MOD_PATH=/media/<user>/root
+
+#.  Install the CC33XX firmware and example scripts by copying the contents under 
+    "cc33xx_rootfs" into the SD card's root directory. 
+
+#.  Eject the SD card from the host PC and plug it into the i.MX8MP EVK. Apply the 
+    USB-C power supply and open a serial terminal with baudrate 115200. 
+
+#.  Enter the U-Boot command line by pressing any button on device bringup. The command line
+    will then look at the following:
+
+    .. code-block:: bash
+
+        Hit any key to stop autoboot:  0
+        u-boot=> 
+
+#.  Enter the following U-Boot commands. The output of these commands is also shown:
+
+    .. code-block:: bash
+
+        u-boot=> setenv fdtfile imx8mp-evk-usdhc1-m2.dtb
+        u-boot=> saveenv
+        Saving Environment to MMC... Writing to MMC(0)... OK
+        u-boot=> reset
+        resetting ...
+
+#.  After the linux kernel boots, the CC33XX driver should now be loaded and the ``wlan0`` interface should 
+    be shown in the output of ``ifconfig``. For example scripts, refer to :ref:`linux-sw-examples`.
+
+    .. code-block:: bash
+
+        $ ifconfig wlan0
+        wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+                ether a4:34:f1:b1:62:92  txqueuelen 1000  (Ethernet)
+                RX packets 0  bytes 0 (0.0 B)
+                RX errors 0  dropped 0  overruns 0  frame 0
+                TX packets 0  bytes 0 (0.0 B)
+                TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0

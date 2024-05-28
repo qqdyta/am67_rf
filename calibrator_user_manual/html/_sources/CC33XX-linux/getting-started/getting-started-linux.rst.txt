@@ -1,0 +1,9 @@
+.. _linux-getting-started :
+
+#####################
+Getting Started Guide
+#####################
+
+.. include:: beaglebone-black.rst
+.. include:: sk-am62b-p1.rst
+.. include:: imx8mp.rst
