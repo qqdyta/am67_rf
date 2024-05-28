@@ -1,2 +1,2 @@
 #!/bin/bash
-wifi5g_tune/wifi_5g_tune - 副本 (2).sh
+calibrator wlan0 cc33xx_plt tx_tone_stop
