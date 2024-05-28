@@ -8,8 +8,8 @@ sleep 1
 calibrator wlan0 plt power_mode on
 sleep 1
 
-# 调整到2.4 GHz频段的信道6（2437 MHz）
-calibrator wlan0 cc33xx_plt tune_channel 1 0 0
+# 调整到5 GHz频段的信道36（5180 MHz）
+calibrator wlan0 cc33xx_plt tune_channel 36 1 0
 sleep 1
 
 # 设置默认TX参数

@@ -2,12 +2,10 @@ ifconfig wlan0 down
 sleep 1
 calibrator wlan0 plt power_mode on
 sleep 1
-calibrator wlan0 cc33xx_plt set_antenna_mode_24G 2 2 0 1 0 1
-sleep 1
 calibrator wlan0 cc33xx_plt tune_channel 6 0 0
 sleep 1
-calibrator wlan0 cc33xx_plt set_tx_power 20000 0 0 1 0 0 0 0 0 0 0 0
+calibrator wlan0 cc33xx_plt set_tx -default 0
 sleep 1
-calibrator wlan0 cc33xx_plt start_tx 200 3 1000 0 0 0 0 0 00:00:DE:DE:BE:BE 12:34:56:78:90:AB 0
-
-
+calibrator wlan0 cc33xx_plt set_tx -preamble_type 0 -phy_rate 1 -pkt_mode 0 -tx_power 10 -src_addr 04:05:05:05:05:04 -dst_addr 06:07:07:07:07:06
+sleep 1
+calibrator wlan0 cc33xx_plt start_tx
