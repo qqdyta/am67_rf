@@ -4,6 +4,12 @@ INTERFACE="wlan0"
 SOURCE_MAC="04:05:05:05:05:04"
 CHANNEL="$1"
 
+# 检查是否提供了频道参数
+if [ -z "$CHANNEL" ]; then
+  echo "Usage: $0 <CHANNEL>"
+  exit 1
+fi
+
 # 检查网络接口是否存在
 if ! ip link show "$INTERFACE" > /dev/null 2>&1; then
   echo "Interface $INTERFACE does not exist."
